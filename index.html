@@ -591,6 +591,12 @@ section {
   transition: all 0.2s;
 }
 
+a.portfolio-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .portfolio-card:hover {
   border-color: var(--pixel-purple);
   transform: translateY(-4px);
@@ -841,7 +847,7 @@ footer {
   </h2>
   
   <div class="games-grid">
-    <a href="#" class="game-card fade-in">
+    <a href="games/food-spinner/index.html" class="game-card fade-in">
       <div class="game-card-preview g1">🎰</div>
       <div class="game-card-info">
         <h3>今天吃什么</h3>
@@ -1076,10 +1082,10 @@ footer {
       </div>
     </div>
     
-    <div class="portfolio-card fade-in">
+    <a href="games/food-spinner/index.html" class="portfolio-card fade-in">
       <div class="portfolio-preview" style="background: linear-gradient(135deg, #0f1a2e, #1b3a69);">
         <span class="emoji-bg">🎰</span>
-        <span class="status wip">进行中</span>
+        <span class="status done">已完成</span>
       </div>
       <div class="portfolio-card-info">
         <h3>今天吃什么 转盘</h3>
@@ -1090,7 +1096,7 @@ footer {
           <span class="tech-tag">JS</span>
         </div>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 

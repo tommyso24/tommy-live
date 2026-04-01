@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>今天吃什么 — Tommy.live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #0f0e17;
+  --bg-card: #1a1925;
+  --pixel-green: #2de2a6;
+  --pixel-pink: #ff6b9d;
+  --pixel-blue: #4cc9f0;
+  --pixel-yellow: #f7d754;
+  --pixel-orange: #ff9e64;
+  --pixel-purple: #c77dff;
+  --text-main: #e8e4f0;
+  --text-dim: #8b8598;
+  --border-color: #2e2b3a;
+  --pixel-size: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'VT323', monospace;
+  font-size: clamp(18px, 4vw, 22px);
+  line-height: 1.6;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect x='4' y='0' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='0' y='4' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='4' y='4' width='4' height='4' fill='%23fff'/%3E%3Crect x='8' y='4' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='4' y='8' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='8' y='8' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='8' y='12' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='12' y='12' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='12' y='16' width='4' height='4' fill='%232de2a6'/%3E%3C/svg%3E") 4 4, auto;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: var(--pixel-size);
+  height: var(--pixel-size);
+  background: #fff;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.1; }
+  100% { opacity: 0.8; }
+}
+
+nav {
+  position: relative;
+  z-index: 10;
+  border-bottom: 3px solid var(--border-color);
+  background: rgba(15,14,23,0.95);
+  padding: 12px 16px;
+}
+
+.nav-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nav-inner a {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(8px, 2.2vw, 10px);
+  color: var(--pixel-green);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-inner a:hover { color: var(--pixel-yellow); }
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(11px, 3vw, 14px);
+  color: var(--pixel-pink);
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 28px;
+  font-size: clamp(17px, 4vw, 22px);
+}
+
+.panel {
+  background: var(--bg-card);
+  border: 3px solid var(--border-color);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.panel label {
+  display: block;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  color: var(--pixel-blue);
+  margin-bottom: 10px;
+}
+
+#itemsInput {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  background: var(--bg-dark);
+  color: var(--text-main);
+  border: 2px solid var(--border-color);
+  resize: vertical;
+  line-height: 1.5;
+}
+
+#itemsInput:focus {
+  outline: none;
+  border-color: var(--pixel-green);
+  box-shadow: 0 0 0 2px rgba(45,226,166,0.2);
+}
+
+.hint {
+  margin-top: 8px;
+  font-size: 17px;
+  color: var(--text-dim);
+}
+
+.wheel-wrap {
+  position: relative;
+  width: min(92vw, 360px);
+  aspect-ratio: 1;
+  margin: 0 auto 28px;
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 28px solid var(--pixel-yellow);
+  filter: drop-shadow(0 2px 0 var(--bg-dark));
+}
+
+.wheel-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 6px solid var(--border-color);
+  box-shadow:
+    0 0 0 3px var(--pixel-green),
+    inset 0 0 0 4px var(--bg-dark),
+    0 8px 0 rgba(0,0,0,0.35);
+  pointer-events: none;
+  z-index: 2;
+}
+
+#wheelCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-spin {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(10px, 2.8vw, 12px);
+  padding: 16px 32px;
+  background: var(--pixel-green);
+  color: var(--bg-dark);
+  border: none;
+  border-bottom: 5px solid #1a9d6e;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.15s;
+  min-width: 200px;
+}
+
+.btn-spin:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.btn-spin:active:not(:disabled) {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.btn-spin:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.result {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(9px, 2.5vw, 11px);
+  text-align: center;
+  min-height: 3em;
+  color: var(--pixel-yellow);
+  line-height: 1.7;
+}
+
+.result.empty { color: var(--text-dim); }
+
+.error-msg {
+  color: var(--pixel-pink);
+  font-size: 18px;
+  text-align: center;
+  margin-top: 8px;
+}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html">← 返回大厅</a>
+    <a href="../../index.html#games">游戏</a>
+  </div>
+</nav>
+
+<main>
+  <h1>今天吃什么</h1>
+  <p class="subtitle">输入餐厅或菜名，一转定乾坤</p>
+
+  <div class="panel">
+    <label for="itemsInput">候选列表（每行一个，或用逗号分隔）</label>
+    <textarea id="itemsInput" placeholder="麻辣烫&#10;寿司&#10;汉堡&#10;沙拉..." spellcheck="false"></textarea>
+    <p class="hint">至少填 2 个选项才能开转</p>
+  </div>
+
+  <div class="wheel-wrap" aria-hidden="true">
+    <div class="wheel-pointer"></div>
+    <div class="wheel-ring"></div>
+    <canvas id="wheelCanvas" width="720" height="720"></canvas>
+  </div>
+
+  <div class="actions">
+    <button type="button" class="btn-spin" id="spinBtn">开始旋转</button>
+    <p class="result empty" id="result">准备好了吗？</p>
+    <p class="error-msg" id="errorMsg" hidden></p>
+  </div>
+</main>
+
+<script>
+(function () {
+  const COLORS = [
+    '#2de2a6', '#ff6b9d', '#4cc9f0', '#f7d754', '#ff9e64', '#c77dff',
+    '#5ce1a8', '#ff8fb3', '#6dd4ff', '#ffe066', '#ffb380', '#d4a5ff'
+  ];
+
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 45; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    starsEl.appendChild(s);
+  }
+
+  const canvas = document.getElementById('wheelCanvas');
+  const ctx = canvas.getContext('2d');
+  const spinBtn = document.getElementById('spinBtn');
+  const itemsInput = document.getElementById('itemsInput');
+  const resultEl = document.getElementById('result');
+  const errorEl = document.getElementById('errorMsg');
+
+  const SIZE = 720;
+  const cx = SIZE / 2;
+  const cy = SIZE / 2;
+  const radius = SIZE / 2 - 24;
+
+  let labels = [];
+  let rotation = 0;
+  let spinning = false;
+
+  function parseItems() {
+    const raw = itemsInput.value;
+    const parts = raw.split(/[\n,，;；、]+/).map(s => s.trim()).filter(Boolean);
+    return [...new Set(parts)];
+  }
+
+  function normalizeAngle(a) {
+    const t = a % (Math.PI * 2);
+    return t < 0 ? t + Math.PI * 2 : t;
+  }
+
+  function drawWheel() {
+    const n = labels.length;
+    ctx.clearRect(0, 0, SIZE, SIZE);
+    if (n < 2) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.fillStyle = '#1a1925';
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#2e2b3a';
+      ctx.lineWidth = 6;
+      ctx.stroke();
+      ctx.fillStyle = '#8b8598';
+      ctx.font = '28px "VT323", monospace';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('添加至少 2 个选项', 0, 0);
+      ctx.restore();
+      return;
+    }
+
+    const slice = (Math.PI * 2) / n;
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(rotation);
+
+    for (let i = 0; i < n; i++) {
+      const start = -Math.PI / 2 + i * slice;
+      const end = start + slice;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.arc(0, 0, radius, start, end);
+      ctx.closePath();
+      ctx.fillStyle = COLORS[i % COLORS.length];
+      ctx.fill();
+      ctx.strokeStyle = '#0f0e17';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+
+      ctx.save();
+      const mid = start + slice / 2;
+      ctx.rotate(mid);
+      ctx.fillStyle = '#0f0e17';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const text = labels[i].length > 10 ? labels[i].slice(0, 9) + '…' : labels[i];
+      const fontPx = n > 10 ? 18 : n > 6 ? 22 : 28;
+      ctx.font = 'bold ' + fontPx + 'px "VT323", monospace';
+      ctx.fillText(text, radius * 0.62, 0);
+      ctx.restore();
+    }
+
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.fillStyle = '#1a1925';
+    ctx.beginPath();
+    ctx.arc(0, 0, 36, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#2de2a6';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    ctx.fillStyle = '#2de2a6';
+    ctx.font = '20px "Press Start 2P", cursive';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('GO', 0, 2);
+    ctx.restore();
+  }
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function spin() {
+    const items = parseItems();
+    errorEl.hidden = true;
+    if (items.length < 2) {
+      errorEl.textContent = '请至少输入 2 个不同的选项';
+      errorEl.hidden = false;
+      return;
+    }
+
+    labels = items;
+    spinning = true;
+    spinBtn.disabled = true;
+    itemsInput.readOnly = true;
+    resultEl.textContent = '旋转中…';
+    resultEl.classList.remove('empty');
+
+    const n = labels.length;
+    const slice = (Math.PI * 2) / n;
+    const winner = Math.floor(Math.random() * n);
+    const segmentMid = -Math.PI / 2 + (winner + 0.5) * slice;
+    const targetMod = normalizeAngle(-Math.PI / 2 - segmentMid);
+    const currentMod = normalizeAngle(rotation);
+    let delta = targetMod - currentMod;
+    if (delta < 0) delta += Math.PI * 2;
+    const fullSpins = 5 + Math.floor(Math.random() * 4);
+    const targetRotation = rotation + fullSpins * Math.PI * 2 + delta;
+
+    const startRot = rotation;
+    const duration = 4500 + Math.random() * 800;
+    const startTime = performance.now();
+
+    function frame(now) {
+      const t = Math.min(1, (now - startTime) / duration);
+      const e = easeOutCubic(t);
+      rotation = startRot + (targetRotation - startRot) * e;
+      drawWheel();
+      if (t < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        rotation = targetRotation;
+        drawWheel();
+        spinning = false;
+        spinBtn.disabled = false;
+        itemsInput.readOnly = false;
+        resultEl.textContent = '就是它了：「' + labels[winner] + '」';
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  itemsInput.addEventListener('input', () => {
+    if (spinning) return;
+    labels = parseItems();
+    drawWheel();
+  });
+
+  spinBtn.addEventListener('click', spin);
+
+  labels = parseItems();
+  drawWheel();
+})();
+</script>
+</body>
+</html>
