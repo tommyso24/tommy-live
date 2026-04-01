@@ -8,13 +8,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../blog-common.css">
+<link rel="stylesheet" href="../../assets/site-chrome.css">
 </head>
-<body>
+<body class="has-site-chrome">
 <div class="stars" id="stars"></div>
+<div class="xp-bar"><div class="xp-bar-fill" id="xpBar"></div></div>
 <nav>
   <div class="nav-inner">
-    <a href="../../index.html">← 返回大厅</a>
-    <a href="../index.html">全部日志</a>
+    <a href="../../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../index.html" data-nav="blog">博客</a></li>
+      <li><a href="../../changelog/index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
   </div>
 </nav>
 <main>
@@ -42,5 +50,6 @@
   }
 })();
 </script>
+<script src="../../assets/site-chrome.js"></script>
 </body>
 </html>

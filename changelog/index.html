@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../blog/blog-common.css">
+<link rel="stylesheet" href="../assets/site-chrome.css">
 <style>
 .changelog-list {
   display: flex;
@@ -22,13 +23,13 @@
 }
 .cl-date {
   font-family: 'Press Start 2P', cursive;
-  font-size: 9px;
+  font-size: 11px;
   color: var(--pixel-blue);
   margin-bottom: 12px;
 }
 .cl-entry h2 {
   font-family: 'Press Start 2P', cursive;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--pixel-yellow);
   margin-bottom: 14px;
   line-height: 1.7;
@@ -55,12 +56,19 @@
 }
 </style>
 </head>
-<body>
+<body class="has-site-chrome">
 <div class="stars" id="stars"></div>
+<div class="xp-bar"><div class="xp-bar-fill" id="xpBar"></div></div>
 <nav>
   <div class="nav-inner">
-    <a href="../index.html">← 返回大厅</a>
-    <a href="../blog/index.html">博客</a>
+    <a href="../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../blog/index.html" data-nav="blog">博客</a></li>
+      <li><a href="index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
   </div>
 </nav>
 <main>
@@ -68,6 +76,24 @@
   <p class="page-sub">站点改了啥，一目了然</p>
 
   <div class="changelog-list">
+    <article class="cl-entry">
+      <p class="cl-date">2026-04-01</p>
+      <h2>阅读体验与顶栏</h2>
+      <ul>
+        <li>全站调大一类像素小字（导航、游戏卡标题、博客标签与日期、页脚等），长时间阅读更轻松。</li>
+        <li>各页统一<strong>固定顶栏</strong>与顶部<strong>滚动进度条</strong>；向下滚动时导航高度与字号会<strong>平滑缩小</strong>，节省纵向空间。</li>
+      </ul>
+    </article>
+
+    <article class="cl-entry">
+      <p class="cl-date">2026-04-01</p>
+      <h2>关于页与首页精简</h2>
+      <ul>
+        <li>「关于我」迁至独立页 <span class="path">about/index.html</span>，导航「关于」跳转该页。</li>
+        <li>首页已移除「作品集」整块内容；导航中的「作品」入口已删除。</li>
+      </ul>
+    </article>
+
     <article class="cl-entry">
       <p class="cl-date">2026-04-01</p>
       <h2>导航与博客入口</h2>
@@ -92,7 +118,7 @@
       <h2>今天吃什么 · 转盘</h2>
       <ul>
         <li>新页面 <span class="path">games/food-spinner/index.html</span>：可输入多个餐厅/菜名，转盘随机抽取，带缓动动画，风格与主页像素风一致，支持手机。</li>
-        <li>游戏大厅与作品集「今天吃什么 转盘」卡片已链到该页，状态为<strong>已完成</strong>。</li>
+        <li>游戏大厅「今天吃什么 转盘」卡片已链到该页，状态为<strong>已完成</strong>。</li>
       </ul>
     </article>
   </div>
@@ -111,5 +137,6 @@
   }
 })();
 </script>
+<script src="../assets/site-chrome.js"></script>
 </body>
 </html>

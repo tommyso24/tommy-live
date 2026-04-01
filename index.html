@@ -6,6 +6,7 @@
 <title>Tommy.live — Player One Ready</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site-chrome.css">
 <style>
 /* ═══════════════════════════════════════════
    PIXEL WORLD — tommy.live
@@ -91,96 +92,6 @@ body::after {
   image-rendering: pixelated;
 }
 
-/* ═══════════════ NAV ═══════════════ */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  background: rgba(15,14,23,0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 3px solid var(--border-color);
-  padding: 0 24px;
-}
-
-.nav-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 60px;
-}
-
-.nav-logo {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 14px;
-  color: var(--pixel-green);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: color 0.2s;
-}
-
-.nav-logo:hover { color: var(--pixel-yellow); }
-
-.nav-logo .heart {
-  display: inline-block;
-  animation: heartbeat 1s ease-in-out infinite;
-}
-
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-}
-
-.nav-links {
-  display: flex;
-  gap: 8px;
-  list-style: none;
-}
-
-.nav-links a {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 10px;
-  color: var(--text-dim);
-  text-decoration: none;
-  padding: 8px 14px;
-  border: 2px solid transparent;
-  transition: all 0.15s;
-  position: relative;
-}
-
-.nav-links a:hover {
-  color: var(--pixel-green);
-  border-color: var(--pixel-green);
-  background: rgba(45,226,166,0.08);
-}
-
-.nav-links a::before {
-  content: '>';
-  position: absolute;
-  left: 4px;
-  opacity: 0;
-  transition: opacity 0.15s;
-  color: var(--pixel-green);
-}
-
-.nav-links a:hover::before { opacity: 1; }
-.nav-links a:hover { padding-left: 20px; }
-
-/* Mobile menu */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: 2px solid var(--border-color);
-  color: var(--pixel-green);
-  font-family: 'Press Start 2P', cursive;
-  font-size: 16px;
-  padding: 6px 10px;
-  cursor: pointer;
-}
-
 /* ═══════════════ HERO ═══════════════ */
 .hero {
   position: relative;
@@ -191,7 +102,7 @@ nav {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 120px 24px 80px;
+  padding: 140px 24px 80px;
 }
 
 .hero-avatar {
@@ -296,7 +207,7 @@ nav {
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Press Start 2P', cursive;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-dim);
   animation: bounce 2s ease-in-out infinite;
 }
@@ -388,7 +299,7 @@ section {
   top: 12px;
   right: 12px;
   font-family: 'Press Start 2P', cursive;
-  font-size: 8px;
+  font-size: 10px;
   background: var(--pixel-orange);
   color: var(--bg-dark);
   padding: 4px 8px;
@@ -400,7 +311,7 @@ section {
 
 .game-card-info h3 {
   font-family: 'Press Start 2P', cursive;
-  font-size: 12px;
+  font-size: 15px;
   margin-bottom: 8px;
   line-height: 1.6;
 }
@@ -432,90 +343,13 @@ section {
   bottom: 20px;
   right: 20px;
   font-family: 'Press Start 2P', cursive;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--pixel-green);
   opacity: 0;
   transition: opacity 0.2s;
 }
 
 .game-card:hover .play-btn { opacity: 1; }
-
-/* ═══════════════ ABOUT ═══════════════ */
-.about-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: start;
-}
-
-.about-text {
-  font-size: 22px;
-  line-height: 1.8;
-}
-
-.about-text p { margin-bottom: 16px; }
-
-.about-text .highlight {
-  color: var(--pixel-green);
-  font-weight: bold;
-}
-
-.skill-tree {
-  background: var(--bg-card);
-  border: 3px solid var(--border-color);
-  padding: 28px;
-}
-
-.skill-tree h3 {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 12px;
-  color: var(--pixel-purple);
-  margin-bottom: 24px;
-}
-
-.skill-item {
-  margin-bottom: 16px;
-}
-
-.skill-item .skill-name {
-  font-size: 18px;
-  color: var(--text-dim);
-  margin-bottom: 4px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.skill-bar {
-  height: 16px;
-  background: var(--bg-dark);
-  border: 2px solid var(--border-color);
-  position: relative;
-  overflow: hidden;
-}
-
-.skill-bar-fill {
-  height: 100%;
-  transition: width 1.5s ease-out;
-  position: relative;
-}
-
-.skill-bar-fill::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0,
-    transparent 6px,
-    rgba(0,0,0,0.2) 6px,
-    rgba(0,0,0,0.2) 8px
-  );
-}
-
-.skill-bar-fill.html { width: 40%; background: var(--pixel-orange); }
-.skill-bar-fill.css { width: 30%; background: var(--pixel-blue); }
-.skill-bar-fill.js { width: 20%; background: var(--pixel-yellow); }
-.skill-bar-fill.enthusiasm { width: 100%; background: var(--pixel-green); }
 
 /* ═══════════════ BLOG ═══════════════ */
 .blog-list {
@@ -544,7 +378,7 @@ section {
 
 .blog-date {
   font-family: 'Press Start 2P', cursive;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--pixel-blue);
   min-width: 100px;
   text-align: center;
@@ -553,7 +387,7 @@ section {
 
 .blog-content h3 {
   font-family: 'Press Start 2P', cursive;
-  font-size: 13px;
+  font-size: 15px;
   margin-bottom: 8px;
   line-height: 1.6;
 }
@@ -565,7 +399,7 @@ section {
 
 .blog-tag {
   font-family: 'Press Start 2P', cursive;
-  font-size: 8px;
+  font-size: 10px;
   padding: 3px 8px;
   border: 1px solid;
   display: inline-block;
@@ -584,7 +418,7 @@ section {
 
 .blog-all-link a {
   font-family: 'Press Start 2P', cursive;
-  font-size: 9px;
+  font-size: 11px;
   color: var(--pixel-blue);
   text-decoration: none;
   transition: color 0.2s;
@@ -607,97 +441,6 @@ section {
   color: var(--pixel-green);
 }
 
-/* ═══════════════ PORTFOLIO ═══════════════ */
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
-}
-
-.portfolio-card {
-  background: var(--bg-card);
-  border: 3px solid var(--border-color);
-  overflow: hidden;
-  transition: all 0.2s;
-}
-
-a.portfolio-card {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-.portfolio-card:hover {
-  border-color: var(--pixel-purple);
-  transform: translateY(-4px);
-  box-shadow: 0 4px 0 var(--pixel-purple);
-}
-
-.portfolio-preview {
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.portfolio-preview .emoji-bg {
-  font-size: 80px;
-  filter: saturate(0.8);
-}
-
-.portfolio-preview .status {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  font-family: 'Press Start 2P', cursive;
-  font-size: 8px;
-  padding: 4px 8px;
-}
-
-.portfolio-preview .status.done {
-  background: var(--pixel-green);
-  color: var(--bg-dark);
-}
-
-.portfolio-preview .status.wip {
-  background: var(--pixel-yellow);
-  color: var(--bg-dark);
-}
-
-.portfolio-card-info {
-  padding: 20px;
-}
-
-.portfolio-card-info h3 {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 12px;
-  margin-bottom: 8px;
-  line-height: 1.6;
-}
-
-.portfolio-card-info p {
-  color: var(--text-dim);
-  font-size: 18px;
-  margin-bottom: 12px;
-}
-
-.tech-tags {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.tech-tag {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 8px;
-  padding: 3px 8px;
-  background: rgba(255,255,255,0.05);
-  color: var(--text-dim);
-  border: 1px solid var(--border-color);
-}
-
 /* ═══════════════ FOOTER ═══════════════ */
 footer {
   position: relative;
@@ -709,7 +452,7 @@ footer {
 
 .footer-art {
   font-family: 'Press Start 2P', cursive;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-dim);
   line-height: 2;
   margin-bottom: 16px;
@@ -736,30 +479,12 @@ footer {
 
 .footer-copy {
   font-family: 'Press Start 2P', cursive;
-  font-size: 8px;
+  font-size: 10px;
   color: var(--text-dim);
 }
 
 /* ═══════════════ RESPONSIVE ═══════════════ */
 @media (max-width: 768px) {
-  .menu-toggle { display: block; }
-  
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 60px; left: 0; right: 0;
-    background: rgba(15,14,23,0.98);
-    flex-direction: column;
-    padding: 16px;
-    border-bottom: 3px solid var(--border-color);
-  }
-  
-  .nav-links.open { display: flex; }
-  
-  .about-container {
-    grid-template-columns: 1fr;
-  }
-  
   .blog-item {
     flex-direction: column;
     align-items: flex-start;
@@ -788,23 +513,6 @@ footer {
   transform: translateY(0);
 }
 
-/* XP bar at top */
-.xp-bar {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--bg-dark);
-  z-index: 999;
-}
-
-.xp-bar-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--pixel-green), var(--pixel-blue), var(--pixel-pink));
-  transition: width 0.3s;
-}
 </style>
 </head>
 <body>
@@ -823,11 +531,10 @@ footer {
     </a>
     <button class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#games">游戏</a></li>
-      <li><a href="#about">关于</a></li>
-      <li><a href="blog/index.html">博客</a></li>
-      <li><a href="changelog/index.html">更新日志</a></li>
-      <li><a href="#portfolio">作品</a></li>
+      <li><a href="#games" data-nav="games">游戏</a></li>
+      <li><a href="about/index.html" data-nav="about">关于</a></li>
+      <li><a href="blog/index.html" data-nav="blog">博客</a></li>
+      <li><a href="changelog/index.html" data-nav="changelog">更新日志</a></li>
     </ul>
   </div>
 </nav>
@@ -988,77 +695,6 @@ footer {
   </div>
 </section>
 
-<!-- About Section -->
-<section id="about">
-  <h2 class="section-header fade-in">
-    <span class="icon">👾</span> 关于我
-  </h2>
-  
-  <div class="about-container">
-    <div class="about-text fade-in">
-      <p>
-        你好！我是 <span class="highlight">Tommy</span>，一个正在学习编程的冒险者。
-      </p>
-      <p>
-        我相信学编程最好的方式就是<span class="highlight">做出好玩的东西</span>。
-        所以我决定用 Claude Code 辅助开发，一边做小工具和游戏，一边提升自己的代码能力。
-      </p>
-      <p>
-        这个网站记录了我从零开始的编程冒险旅程。
-        每完成一个项目，我的等级就会提升一级。
-        目标是做出让朋友们都爱玩的东西！
-      </p>
-      <p>
-        📍 新加坡 &nbsp;|&nbsp; 🎯 目标：全栈开发者
-      </p>
-    </div>
-    
-    <div class="skill-tree fade-in">
-      <h3>⚔️ 技能树</h3>
-      
-      <div class="skill-item">
-        <div class="skill-name">
-          <span>HTML</span>
-          <span style="color:var(--pixel-orange)">学徒</span>
-        </div>
-        <div class="skill-bar">
-          <div class="skill-bar-fill html"></div>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <div class="skill-name">
-          <span>CSS</span>
-          <span style="color:var(--pixel-blue)">见习</span>
-        </div>
-        <div class="skill-bar">
-          <div class="skill-bar-fill css"></div>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <div class="skill-name">
-          <span>JavaScript</span>
-          <span style="color:var(--pixel-yellow)">入门</span>
-        </div>
-        <div class="skill-bar">
-          <div class="skill-bar-fill js"></div>
-        </div>
-      </div>
-      
-      <div class="skill-item">
-        <div class="skill-name">
-          <span>学习热情</span>
-          <span style="color:var(--pixel-green)">MAX!!</span>
-        </div>
-        <div class="skill-bar">
-          <div class="skill-bar-fill enthusiasm"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- Blog Section -->
 <section id="blog">
   <h2 class="section-header fade-in">
@@ -1067,47 +703,6 @@ footer {
   
   <div class="blog-list" id="blogFeed" aria-live="polite"></div>
   <p class="blog-all-link fade-in"><a href="blog/index.html">查看全部日志 →</a></p>
-</section>
-
-<!-- Portfolio Section -->
-<section id="portfolio">
-  <h2 class="section-header fade-in">
-    <span class="icon">🏆</span> 作品集
-  </h2>
-  
-  <div class="portfolio-grid">
-    <div class="portfolio-card fade-in">
-      <div class="portfolio-preview" style="background: linear-gradient(135deg, #1a0f2e, #2d1b69);">
-        <span class="emoji-bg">🌐</span>
-        <span class="status done">已完成</span>
-      </div>
-      <div class="portfolio-card-info">
-        <h3>个人主页</h3>
-        <p>你正在看的这个网站！像素风格，纯手写 HTML/CSS/JS</p>
-        <div class="tech-tags">
-          <span class="tech-tag">HTML</span>
-          <span class="tech-tag">CSS</span>
-          <span class="tech-tag">JS</span>
-        </div>
-      </div>
-    </div>
-    
-    <a href="games/food-spinner/index.html" class="portfolio-card fade-in">
-      <div class="portfolio-preview" style="background: linear-gradient(135deg, #0f1a2e, #1b3a69);">
-        <span class="emoji-bg">🎰</span>
-        <span class="status done">已完成</span>
-      </div>
-      <div class="portfolio-card-info">
-        <h3>今天吃什么 转盘</h3>
-        <p>第一个小项目！随机帮你选餐厅</p>
-        <div class="tech-tags">
-          <span class="tech-tag">HTML</span>
-          <span class="tech-tag">CSS动画</span>
-          <span class="tech-tag">JS</span>
-        </div>
-      </div>
-    </a>
-  </div>
 </section>
 
 <!-- Footer -->
@@ -1257,16 +852,6 @@ footer {
 })();
 
 // ══════════════════════════════════
-// XP BAR (scroll progress)
-// ══════════════════════════════════
-window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
-  const total = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = Math.min((scrolled / total) * 100, 100);
-  document.getElementById('xpBar').style.width = pct + '%';
-});
-
-// ══════════════════════════════════
 // SCROLL REVEAL
 // ══════════════════════════════════
 const observer = new IntersectionObserver((entries) => {
@@ -1305,6 +890,7 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     .then((posts) => {
       if (!Array.isArray(posts) || posts.length === 0) {
         showError('暂无文章。');
+        window.dispatchEvent(new Event('scroll'));
         return;
       }
       posts.sort((a, b) => new Date(b.updated) - new Date(a.updated));
@@ -1340,6 +926,7 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         listEl.appendChild(a);
         observer.observe(a);
       });
+      window.dispatchEvent(new Event('scroll'));
     })
     .catch(() => {
       listEl.innerHTML = '';
@@ -1352,22 +939,9 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
       a.textContent = '前往全部日志';
       p.appendChild(a);
       listEl.appendChild(p);
+      window.dispatchEvent(new Event('scroll'));
     });
 })();
-
-// ══════════════════════════════════
-// MOBILE MENU
-// ══════════════════════════════════
-document.getElementById('menuToggle').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
-});
-
-// Close menu on link click
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    document.getElementById('navLinks').classList.remove('open');
-  });
-});
 
 // ══════════════════════════════════
 // COUNTER ANIMATION
@@ -1392,5 +966,6 @@ const daysDiff = Math.max(1, Math.floor((today - startDate) / (1000 * 60 * 60 * 
 
 document.getElementById('dayCounter').textContent = 'DAY ' + daysDiff;
 </script>
+<script src="assets/site-chrome.js"></script>
 </body>
 </html>

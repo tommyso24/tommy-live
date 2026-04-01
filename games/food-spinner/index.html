@@ -72,34 +72,6 @@ body::after {
   100% { opacity: 0.8; }
 }
 
-nav {
-  position: relative;
-  z-index: 10;
-  border-bottom: 3px solid var(--border-color);
-  background: rgba(15,14,23,0.95);
-  padding: 12px 16px;
-}
-
-.nav-inner {
-  max-width: 640px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.nav-inner a {
-  font-family: 'Press Start 2P', cursive;
-  font-size: clamp(8px, 2.2vw, 10px);
-  color: var(--pixel-green);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.nav-inner a:hover { color: var(--pixel-yellow); }
-
 main {
   position: relative;
   z-index: 1;
@@ -110,7 +82,7 @@ main {
 
 h1 {
   font-family: 'Press Start 2P', cursive;
-  font-size: clamp(11px, 3vw, 14px);
+  font-size: clamp(13px, 3.2vw, 17px);
   color: var(--pixel-pink);
   text-align: center;
   margin-bottom: 8px;
@@ -134,7 +106,7 @@ h1 {
 .panel label {
   display: block;
   font-family: 'Press Start 2P', cursive;
-  font-size: 8px;
+  font-size: 10px;
   color: var(--pixel-blue);
   margin-bottom: 10px;
 }
@@ -216,7 +188,7 @@ h1 {
 
 .btn-spin {
   font-family: 'Press Start 2P', cursive;
-  font-size: clamp(10px, 2.8vw, 12px);
+  font-size: clamp(12px, 3vw, 14px);
   padding: 16px 32px;
   background: var(--pixel-green);
   color: var(--bg-dark);
@@ -245,7 +217,7 @@ h1 {
 
 .result {
   font-family: 'Press Start 2P', cursive;
-  font-size: clamp(9px, 2.5vw, 11px);
+  font-size: clamp(11px, 2.8vw, 13px);
   text-align: center;
   min-height: 3em;
   color: var(--pixel-yellow);
@@ -261,14 +233,21 @@ h1 {
   margin-top: 8px;
 }
 </style>
+<link rel="stylesheet" href="../../assets/site-chrome.css">
 </head>
-<body>
+<body class="has-site-chrome">
 <div class="stars" id="stars"></div>
-
+<div class="xp-bar"><div class="xp-bar-fill" id="xpBar"></div></div>
 <nav>
   <div class="nav-inner">
-    <a href="../../index.html">← 返回大厅</a>
-    <a href="../../index.html#games">游戏</a>
+    <a href="../../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../../blog/index.html" data-nav="blog">博客</a></li>
+      <li><a href="../../changelog/index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
   </div>
 </nav>
 
@@ -478,5 +457,6 @@ h1 {
   drawWheel();
 })();
 </script>
+<script src="../../assets/site-chrome.js"></script>
 </body>
 </html>
