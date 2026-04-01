@@ -191,10 +191,212 @@ main {
   color: var(--pixel-green);
 }
 
+/* ── Tutorial article extras ── */
+
+.article-body h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(12px, 2.8vw, 14px);
+  color: var(--pixel-green);
+  margin: 36px 0 16px;
+  padding: 10px 0 10px 14px;
+  border-left: 4px solid var(--pixel-green);
+  line-height: 1.8;
+}
+
+.article-body h3 {
+  font-family: 'VT323', monospace;
+  font-size: clamp(20px, 4vw, 24px);
+  color: var(--pixel-yellow);
+  margin: 24px 0 12px;
+  line-height: 1.6;
+}
+
+.step-num {
+  display: inline-block;
+  background: var(--pixel-green);
+  color: var(--bg-dark);
+  width: 28px;
+  height: 28px;
+  text-align: center;
+  line-height: 28px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 8px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 11px;
+}
+
+.article-body img {
+  max-width: 100%;
+  border: 3px solid var(--border-color);
+  margin: 16px 0 4px;
+  display: block;
+  image-rendering: auto;
+}
+
+.img-caption {
+  text-align: center;
+  font-size: 16px;
+  color: var(--text-dim);
+  margin: 4px 0 20px;
+}
+
+.article-body code {
+  background: rgba(45, 226, 166, 0.12);
+  color: var(--pixel-green);
+  padding: 2px 7px;
+  font-family: 'VT323', monospace;
+  font-size: 1em;
+}
+
+.article-body pre {
+  background: #12111d;
+  border: 3px solid var(--border-color);
+  padding: 16px 20px;
+  overflow-x: auto;
+  margin: 16px 0;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.article-body pre code {
+  background: none;
+  padding: 0;
+  color: var(--text-main);
+}
+
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 18px;
+}
+
+.article-body th,
+.article-body td {
+  border: 3px solid var(--border-color);
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.article-body th {
+  background: rgba(45, 226, 166, 0.08);
+  color: var(--pixel-green);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.article-body td {
+  color: var(--text-main);
+}
+
+.article-body ol,
+.article-body ul {
+  margin: 12px 0;
+  padding-left: 24px;
+  color: var(--text-main);
+}
+
+.article-body li {
+  margin-bottom: 6px;
+}
+
+.article-body strong {
+  color: var(--pixel-pink);
+}
+
+.article-body a {
+  color: var(--pixel-blue);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.article-body a:hover {
+  border-bottom-color: var(--pixel-blue);
+}
+
+.callout {
+  background: rgba(45, 226, 166, 0.06);
+  border-left: 4px solid var(--pixel-green);
+  padding: 14px 18px;
+  margin: 20px 0;
+  color: var(--text-main);
+}
+
+.callout.warning {
+  background: rgba(247, 215, 84, 0.06);
+  border-left-color: var(--pixel-yellow);
+}
+
+.callout.danger {
+  background: rgba(255, 107, 157, 0.06);
+  border-left-color: var(--pixel-pink);
+}
+
+.callout strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.flow-diagram {
+  background: #12111d;
+  border: 3px solid var(--border-color);
+  color: var(--text-main);
+  padding: 20px 24px;
+  text-align: center;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 2;
+  margin: 20px 0;
+}
+
+.flow-diagram .arrow {
+  color: var(--pixel-green);
+}
+
+.intro-box {
+  background: var(--bg-card);
+  border: 3px solid var(--border-color);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  color: var(--text-dim);
+  font-size: 20px;
+}
+
+.intro-box p {
+  margin-bottom: 12px;
+}
+
+.intro-box p:last-child {
+  margin-bottom: 0;
+}
+
+.article-body hr {
+  border: none;
+  border-top: 3px solid var(--border-color);
+  margin: 36px 0;
+}
+
+.article-footer {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 18px;
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 3px solid var(--border-color);
+}
+
 @media (max-width: 768px) {
   .blog-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+  }
+
+  .article-card {
+    padding: 16px 14px;
   }
 }

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="代码小白踩坑实录：从零部署个人网站到 Cloudflare Pages + GitHub 自动发布的保姆级教程">
+<title>从零部署网站到 Cloudflare Pages — Tommy.live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog-common.css">
+<link rel="stylesheet" href="../../assets/site-chrome.css">
+</head>
+<body class="has-site-chrome">
+<div class="stars" id="stars"></div>
+<div class="xp-bar"><div class="xp-bar-fill" id="xpBar"></div></div>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../index.html" data-nav="blog">博客</a></li>
+      <li><a href="../../changelog/index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+  <article class="article-card">
+    <h1>代码小白踩坑实录：从零部署个人网站到 Cloudflare Pages + GitHub 自动发布</h1>
+    <p class="article-meta">发布于 2026-04-01 · <span class="blog-tag tutorial">教程</span></p>
+
+    <div class="intro-box">
+      <p>我是一个代码小白，今天决定给自己做一个像素风个人网站，部署到我的域名 <code>tommy.live</code> 上。听起来很简单对吧？但实际操作起来，我在 Cloudflare 的后台迷路了整整一个小时。</p>
+      <p>第一次上传 <code>index.html</code>，一不小心进了 <strong>"Create a Worker"</strong> 页面——这是后端用的，不是我要的。好不容易找到 Pages 入口，结果直接拖 HTML 文件进去被拒绝了，因为 Cloudflare Pages 只接受文件夹或 zip 包。改成拖文件夹后终于成功了，但那只是手动上传，每次改代码都要重新打包上传，太麻烦了。</p>
+      <p>于是我决定搞自动部署：连接 GitHub，每次 <code>git push</code> 就自动更新网站。然而连接 GitHub 的过程又是一顿迷路——授权完回到 Cloudflare，又不小心走进了 Worker 流程；GitHub 设置页面的 Save 按钮灰的按不了，以为哪里出了问题……来来回回折腾了好几个来回，最终才搞定。</p>
+      <p>所以我写了这篇保姆级教程，<strong>把我踩过的每一个坑都标出来</strong>，让你直接走正确路线，10 分钟搞定。</p>
+    </div>
+
+    <div class="article-body">
+
+      <h2>最终效果：改代码 → 网站自动更新</h2>
+
+      <div class="flow-diagram">
+        在 Cursor 里用 Claude Code 写代码<br>
+        <span class="arrow">↓</span><br>
+        git push 推送到 GitHub<br>
+        <span class="arrow">↓</span><br>
+        Cloudflare Pages 自动检测到更新<br>
+        <span class="arrow">↓</span><br>
+        tommy.live 自动更新上线！
+      </div>
+
+      <p>搞定后，以后你做了新游戏、改了文案、更新了样式，只需要在终端敲三行命令，网站就自动更新了。下面一步步来。</p>
+
+      <hr>
+
+      <h2>第一步：注册 GitHub 账号</h2>
+
+      <h3><span class="step-num">1</span> 打开 GitHub 官网注册</h3>
+
+      <p>浏览器打开 <code>https://github.com</code>，点击右上角 <strong>Sign up</strong>。填写邮箱、密码、用户名，完成人机验证，去邮箱点击验证链接。选择 <strong>Free</strong> 免费计划就够用了。</p>
+
+      <h3><span class="step-num">2</span> 创建一个新仓库</h3>
+
+      <p>登录后，点击右上角的 <strong>+</strong> 号 → <strong>New repository</strong>，然后：</p>
+
+      <table>
+        <tr><th>选项</th><th>填什么</th></tr>
+        <tr><td>Repository name</td><td><code>tommy-live</code>（或你喜欢的名字）</td></tr>
+        <tr><td>Description</td><td>选填，比如"我的个人网站"</td></tr>
+        <tr><td>Visibility</td><td>选 <strong>Public</strong>（公开）</td></tr>
+        <tr><td>Add a README file</td><td><strong>不要勾选</strong></td></tr>
+        <tr><td>.gitignore / license</td><td><strong>都不选</strong></td></tr>
+      </table>
+
+      <div class="callout warning">
+        <strong>⚠️ 重要：三个可选项都不要勾！</strong>
+        如果勾了 README，后面推送代码会产生冲突，新手很难解决。保持仓库完全为空。
+      </div>
+
+      <p>点击 <strong>Create repository</strong>。创建完成后会显示一些命令提示，先别动，记住你的仓库地址：<code>https://github.com/你的用户名/tommy-live.git</code></p>
+
+      <hr>
+
+      <h2>第二步：在电脑上准备项目</h2>
+
+      <h3><span class="step-num">3</span> 创建项目文件夹</h3>
+
+      <p>在电脑上新建一个文件夹叫 <code>tommy-live</code>，把你的 <code>index.html</code>（网站首页文件）放进去。文件结构如下：</p>
+
+      <pre><code>tommy-live/
+  └── index.html</code></pre>
+
+      <h3><span class="step-num">4</span> 安装 Git</h3>
+
+      <p>打开终端（Mac 按 <code>Command + 空格</code> 搜索 Terminal；Windows 按 <code>Win + R</code> 输入 <code>cmd</code>），输入：</p>
+
+      <pre><code>git --version</code></pre>
+
+      <p>如果显示版本号说明已安装，跳到下一步。如果没有：</p>
+
+      <p><strong>Mac：</strong>终端输入 <code>git --version</code>，系统会自动提示安装 Xcode 命令行工具，点安装。</p>
+      <p><strong>Windows：</strong>去 <code>https://git-scm.com/download/win</code> 下载安装，一路 Next 默认即可。</p>
+
+      <p>安装完成后，配置你的身份信息（用你注册 GitHub 的邮箱）：</p>
+
+      <pre><code>git config --global user.name "你的名字"
+git config --global user.email "你的邮箱@example.com"</code></pre>
+
+      <hr>
+
+      <h2>第三步：用 Cursor 推送代码到 GitHub</h2>
+
+      <h3><span class="step-num">5</span> 用 Cursor 打开项目</h3>
+
+      <p>打开 Cursor → <strong>File</strong> → <strong>Open Folder</strong> → 选择 <code>tommy-live</code> 文件夹。你会在左侧看到 <code>index.html</code>。</p>
+
+      <h3><span class="step-num">6</span> 打开终端</h3>
+
+      <p>快捷键 <code>Ctrl + `</code>（Mac 是 <code>Control + `</code>，反引号在键盘左上角 ESC 下面），底部会弹出终端窗口。</p>
+
+      <h3><span class="step-num">7</span> 初始化并推送</h3>
+
+      <p>在终端里<strong>逐行</strong>输入以下命令（每行按回车执行）：</p>
+
+      <pre><code>git init
+git add .
+git commit -m "第一次提交：个人主页上线"
+git branch -M main
+git remote add origin https://github.com/你的用户名/tommy-live.git
+git push -u origin main</code></pre>
+
+      <div class="callout warning">
+        <strong>⚠️ 第 5 行的 URL 要换成你自己的！</strong>
+        把"你的用户名"替换成你的 GitHub 用户名。
+      </div>
+
+      <h3><span class="step-num">8</span> 处理 GitHub 登录验证</h3>
+
+      <p>执行 <code>git push</code> 时会要求登录。如果弹出浏览器窗口，点 Authorize 授权即可。</p>
+
+      <p>如果终端要求输入用户名和密码：</p>
+
+      <div class="callout danger">
+        <strong>🚨 密码不能用 GitHub 登录密码！</strong>
+        需要用 <strong>Personal Access Token</strong>（个人访问令牌）：
+      </div>
+
+      <ol>
+        <li>打开 <code>https://github.com/settings/tokens</code></li>
+        <li>点 <strong>Generate new token (classic)</strong></li>
+        <li>Note 随便写，如 "cursor"</li>
+        <li>Expiration 选 <strong>90 days</strong></li>
+        <li>勾选 <strong>repo</strong>（第一个选项）</li>
+        <li>点 <strong>Generate token</strong></li>
+        <li>⚠️ <strong>立刻复制 token！</strong>它只显示一次</li>
+        <li>把 token 粘贴到终端当密码用</li>
+      </ol>
+
+      <p>完成后，打开 <code>https://github.com/你的用户名/tommy-live</code>，如果能看到 <code>index.html</code>，说明推送成功了！</p>
+
+      <hr>
+
+      <h2>第四步：在 Cloudflare Pages 连接 GitHub（重点！坑最多的地方）</h2>
+
+      <p>这一步是我踩坑最多的地方，Cloudflare 后台的 Worker 和 Pages 入口混在一起，非常容易走错。跟着下面的路线走就不会迷路。</p>
+
+      <h3><span class="step-num">9</span> 进入 Cloudflare 面板</h3>
+
+      <p>登录 <code>https://dash.cloudflare.com</code>，点左侧菜单的 <strong>Workers &amp; Pages</strong>，然后点右上角 <strong>"Create application"</strong>。</p>
+
+      <img src="images/img-05-no-projects.png" alt="Workers & Pages 页面">
+      <p class="img-caption">Workers & Pages 主页面，点右上角 "Create application"</p>
+
+      <h3><span class="step-num">10</span> 🚨 最关键的一步：不要选错入口！</h3>
+
+      <p>点完 Create application 后，你会看到这个页面：</p>
+
+      <img src="images/img-06-ship-new.png" alt="Ship something new 页面">
+      <p class="img-caption">"Ship something new" 选择页面</p>
+
+      <div class="callout danger">
+        <strong>🚨 千万不要直接点 "Continue with GitHub"！</strong>
+        那是 Worker 的流程，不是 Pages！你要点的是页面最下方那行小字：<strong>"Looking to deploy Pages? Get started"</strong>
+      </div>
+
+      <p>我第一次就是在这里直接点了 "Continue with GitHub"，结果走进了 Worker 流程，配置页面完全不一样，部署出来也不对。</p>
+
+      <h3><span class="step-num">11</span> 进入正确的 Pages 流程</h3>
+
+      <p>点击底部的 "Get started" 后，你会看到这个页面：</p>
+
+      <img src="images/img-07-pages-again.png" alt="Pages Get started 页面">
+      <p class="img-caption">这才是 Pages 的正确入口</p>
+
+      <p>选择第一个：<strong>"Import an existing Git repository"</strong> → 点 <strong>"Get started"</strong>。</p>
+
+      <h3><span class="step-num">12</span> 连接 GitHub 账号</h3>
+
+      <p>如果你之前还没授权过，页面会显示 "Connect GitHub" 按钮：</p>
+
+      <img src="images/img-04-connect-github.png" alt="Connect GitHub 页面">
+      <p class="img-caption">点击 "Connect GitHub" 授权</p>
+
+      <p>点击后会弹出 GitHub 授权窗口：</p>
+
+      <ol>
+        <li>选择 <strong>"Only select repositories"</strong></li>
+        <li>在下拉菜单里找到并勾选 <code>tommy-live</code></li>
+        <li>点击 <strong>"Install &amp; Authorize"</strong></li>
+      </ol>
+
+      <div class="callout warning">
+        <strong>⚠️ 授权完可能会跳到 GitHub 设置页面</strong>
+        你会看到一个显示 Permissions 和 Repository access 的页面，Save 按钮是灰色的——<strong>这是正常的！</strong>不用管它，授权已经完成了，直接切回 Cloudflare 的浏览器标签页就行。
+      </div>
+
+      <h3><span class="step-num">13</span> 选择仓库</h3>
+
+      <p>回到 Cloudflare 页面（可能需要刷新），你会看到 <code>tommy-live</code> 出现在仓库列表里：</p>
+
+      <img src="images/img-08-select-repo.png" alt="选择仓库">
+      <p class="img-caption">点击 "tommy-live" 选中，然后点 "Next →"</p>
+
+      <p>选中 <code>tommy-live</code>，点 <strong>"Next →"</strong>。</p>
+
+      <div class="callout warning">
+        <strong>⚠️ 注意：这个页面下方有个 "Git repository URL" 输入框</strong>
+        不用管它！直接在上面的列表里选仓库就行。
+      </div>
+
+      <h3><span class="step-num">14</span> 配置构建设置</h3>
+
+      <p>进入构建配置页面：</p>
+
+      <img src="images/img-09-build-settings-top.png" alt="构建设置上半部分">
+      <img src="images/img-10-build-settings-bottom.png" alt="构建设置下半部分">
+      <p class="img-caption">构建设置页面——几乎不用改任何东西</p>
+
+      <table>
+        <tr><th>选项</th><th>设置</th></tr>
+        <tr><td>Project name</td><td><code>tommy-live</code>（保持默认）</td></tr>
+        <tr><td>Production branch</td><td><code>main</code>（保持默认）</td></tr>
+        <tr><td>Framework preset</td><td><code>None</code>（保持默认）</td></tr>
+        <tr><td>Build command</td><td><strong>留空</strong></td></tr>
+        <tr><td>Build output directory</td><td><code>/</code>（保持默认）</td></tr>
+      </table>
+
+      <p>所有设置都保持默认，直接点右下角 <strong>"Save and Deploy"</strong>！</p>
+
+      <div class="callout danger">
+        <strong>🚨 如果你看到的配置页面标题是 "Create a Worker" 而不是 "Set up builds and deployments"</strong>
+        <p>说明你走错了！点 Back 返回，重新从 "Looking to deploy Pages? Get started" 进入。Worker 的配置页面长这样——看到就知道走错了：</p>
+      </div>
+
+      <img src="images/img-11-worker-config.png" alt="Worker 配置页面（错误的）">
+      <p class="img-caption">❌ 这是 Worker 的配置页面，看到 "Create a Worker" 字样就说明走错了</p>
+
+      <h3><span class="step-num">15</span> 等待部署完成</h3>
+
+      <p>点完 "Save and Deploy" 后，Cloudflare 会自动拉取 GitHub 仓库的代码并部署。等几十秒，看到 <strong>"Success"</strong> 就成功了！你会得到一个 <code>tommy-live.pages.dev</code> 的临时网址。</p>
+
+      <hr>
+
+      <h2>第五步：绑定自定义域名</h2>
+
+      <h3><span class="step-num">16</span> 添加自定义域名</h3>
+
+      <p>在你的 Pages 项目里，点 <strong>Custom domains</strong> → <strong>Set up a custom domain</strong> → 输入 <code>tommy.live</code>（换成你自己的域名），按提示完成 DNS 配置。</p>
+
+      <p>如果你的域名服务器已经指向了 Cloudflare（像我之前做的那样），域名绑定会很快生效。</p>
+
+      <hr>
+
+      <h2>第六步：验证自动部署（激动人心！）</h2>
+
+      <h3><span class="step-num">17</span> 改点代码试试</h3>
+
+      <p>在 Cursor 里打开 <code>index.html</code>，随便改一行内容，比如把标题改一下，然后保存。</p>
+
+      <h3><span class="step-num">18</span> 三行命令，自动更新</h3>
+
+      <pre><code>git add .
+git commit -m "更新：测试自动部署"
+git push</code></pre>
+
+      <p>然后打开 Cloudflare Pages 面板，你会看到一个新的部署正在进行。等几十秒完成后，刷新你的网站——改动已经自动生效了！</p>
+
+      <div class="callout">
+        <strong>🎉 从此以后的工作流</strong>
+        <p>不管是修改主页、做新游戏、写博客文章，你只需要：</p>
+        <ol>
+          <li>在 Cursor 里用 Claude Code 写代码（或自己写）</li>
+          <li>终端执行 <code>git add .</code> → <code>git commit -m "说明"</code> → <code>git push</code></li>
+          <li>等 30 秒，网站自动更新</li>
+        </ol>
+      </div>
+
+      <hr>
+
+      <h2>踩坑总结</h2>
+
+      <p>把我踩过的坑汇总一下，希望你能避开：</p>
+
+      <table>
+        <tr><th>坑</th><th>正确做法</th></tr>
+        <tr>
+          <td>Cloudflare 上传 index.html 被拒绝</td>
+          <td>Pages 只接受<strong>文件夹</strong>或 <strong>zip 包</strong>，不能上传单个文件</td>
+        </tr>
+        <tr>
+          <td>点了 "Continue with GitHub" 进入 Worker 流程</td>
+          <td>要点最下方 <strong>"Looking to deploy Pages? Get started"</strong></td>
+        </tr>
+        <tr>
+          <td>GitHub 授权后 Save 按钮灰色按不了</td>
+          <td>这是正常的，授权已经完成，<strong>直接切回 Cloudflare 页面</strong></td>
+        </tr>
+        <tr>
+          <td>配置页面标题是 "Create a Worker"</td>
+          <td>走错了！返回重新从 Pages 入口进</td>
+        </tr>
+        <tr>
+          <td>git push 要求输入密码</td>
+          <td>不能用 GitHub 密码，要用 <strong>Personal Access Token</strong></td>
+        </tr>
+        <tr>
+          <td>创建仓库时勾了 README</td>
+          <td><strong>不要勾任何选项</strong>，保持仓库完全为空</td>
+        </tr>
+      </table>
+
+      <hr>
+
+      <h2>快速参考</h2>
+
+      <h3>日常三步曲</h3>
+
+      <pre><code>git add .                     # 添加所有改动
+git commit -m "改了什么"       # 创建存档点
+git push                      # 推送到 GitHub，自动部署</code></pre>
+
+      <h3>常见问题</h3>
+
+      <table>
+        <tr><th>问题</th><th>解决</th></tr>
+        <tr><td><code>git push</code> 被拒绝</td><td>先执行 <code>git pull</code>，再 <code>git push</code></td></tr>
+        <tr><td>不确定改了什么</td><td>执行 <code>git status</code> 查看</td></tr>
+        <tr><td>想撤销所有修改</td><td>执行 <code>git checkout .</code></td></tr>
+        <tr><td>部署后网站没更新</td><td>等 1-2 分钟，清浏览器缓存再刷新</td></tr>
+      </table>
+
+      <div class="article-footer">
+        — 写于 2026.04.01 · Tommy 的编程冒险 Day 1 —<br>
+        用 Claude AI 辅助写代码 · Cursor + Claude Code 开发 · Cloudflare Pages 部署
+      </div>
+
+    </div>
+  </article>
+</main>
+<script>
+(function () {
+  var c = document.getElementById('stars');
+  for (var i = 0; i < 40; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    c.appendChild(s);
+  }
+})();
+</script>
+<script src="../../assets/site-chrome.js"></script>
+</body>
+</html>

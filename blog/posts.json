@@ -1,5 +1,13 @@
 [
   {
+    "slug": "cloudflare-pages-tutorial",
+    "title": "从零部署网站到 Cloudflare Pages",
+    "excerpt": "代码小白踩坑实录：Cloudflare Pages + GitHub 自动发布的保姆级教程，把踩过的每一个坑都标出来。",
+    "date": "2026-04-01",
+    "updated": "2026-04-01T20:00:00",
+    "tag": "tutorial"
+  },
+  {
     "slug": "why-coding",
     "title": "我为什么要学编程",
     "excerpt": "从代码小白到做出朋友们爱玩的游戏，这是我的目标和计划。",
