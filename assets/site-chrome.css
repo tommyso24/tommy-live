@@ -96,7 +96,7 @@ html.site-nav-compact .nav-logo {
 .nav-links a {
   font-family: 'Press Start 2P', cursive;
   font-size: 16px;
-  color: var(--text-dim);
+  color: var(--text-dim, #8b8598);
   text-decoration: none;
   padding: 10px 18px;
   border: 3px solid transparent;
@@ -113,8 +113,8 @@ html.site-nav-compact .nav-links a {
 
 .nav-links a:hover,
 .nav-links a.is-active {
-  color: var(--pixel-green);
-  border-color: var(--pixel-green);
+  color: var(--pixel-green, #2de2a6);
+  border-color: var(--pixel-green, #2de2a6);
   background: rgba(45, 226, 166, 0.1);
 }
 
@@ -179,9 +179,11 @@ body.has-site-chrome main {
     left: 0;
     right: 0;
     background: rgba(15, 14, 23, 0.98);
+    backdrop-filter: blur(12px);
     flex-direction: column;
     padding: 18px;
-    border-bottom: 3px solid var(--border-color);
+    border-bottom: 3px solid var(--pixel-green, #2de2a6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     align-items: stretch;
     justify-content: flex-start;
     gap: 6px;
@@ -192,8 +194,12 @@ body.has-site-chrome main {
   }
 
   .nav-links a {
+    font-family: 'Press Start 2P', cursive;
     font-size: 15px;
+    color: var(--text-dim, #8b8598);
+    text-decoration: none;
     padding: 12px 18px;
+    border: 3px solid transparent;
   }
 
   html.site-nav-compact .nav-links a {
