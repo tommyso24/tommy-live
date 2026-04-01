@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tommy.live — Player One Ready</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   PIXEL WORLD — tommy.live
+   ═══════════════════════════════════════════ */
+
+:root {
+  --bg-dark: #0f0e17;
+  --bg-card: #1a1925;
+  --bg-card-hover: #232136;
+  --pixel-green: #2de2a6;
+  --pixel-pink: #ff6b9d;
+  --pixel-blue: #4cc9f0;
+  --pixel-yellow: #f7d754;
+  --pixel-orange: #ff9e64;
+  --pixel-purple: #c77dff;
+  --text-main: #e8e4f0;
+  --text-dim: #8b8598;
+  --border-color: #2e2b3a;
+  --pixel-size: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect x='4' y='0' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='0' y='4' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='4' y='4' width='4' height='4' fill='%23fff'/%3E%3Crect x='8' y='4' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='4' y='8' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='8' y='8' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='8' y='12' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='12' y='12' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='12' y='16' width='4' height='4' fill='%232de2a6'/%3E%3C/svg%3E") 4 4, auto;
+}
+
+/* ── Scanline overlay ── */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── Stars background ── */
+.stars {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: var(--pixel-size);
+  height: var(--pixel-size);
+  background: #fff;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.1; }
+  100% { opacity: 0.8; }
+}
+
+/* ── Pixel border utility ── */
+.pixel-border {
+  border: var(--pixel-size) solid;
+  border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect x='4' y='0' width='4' height='4' fill='%232e2b3a'/%3E%3Crect x='8' y='0' width='4' height='4' fill='%232e2b3a'/%3E%3Crect x='0' y='4' width='4' height='4' fill='%232e2b3a'/%3E%3Crect x='4' y='4' width='4' height='4' fill='%232e2b3a'/%3E%3Crect x='8' y='4' width='4' height='4' fill='%232e2b3a'/%3E%3Crect x='0' y='8' width='4' height='4' fill='%232e2b3a'/%3E%3Crect x='4' y='8' width='4' height='4' fill='%232e2b3a'/%3E%3C/svg%3E") 4 fill;
+  /* fallback */
+  border: 3px solid var(--border-color);
+  image-rendering: pixelated;
+}
+
+/* ═══════════════ NAV ═══════════════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(15,14,23,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 3px solid var(--border-color);
+  padding: 0 24px;
+}
+
+.nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.nav-logo {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  color: var(--pixel-green);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+
+.nav-logo:hover { color: var(--pixel-yellow); }
+
+.nav-logo .heart {
+  display: inline-block;
+  animation: heartbeat 1s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 8px 14px;
+  border: 2px solid transparent;
+  transition: all 0.15s;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: var(--pixel-green);
+  border-color: var(--pixel-green);
+  background: rgba(45,226,166,0.08);
+}
+
+.nav-links a::before {
+  content: '>';
+  position: absolute;
+  left: 4px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  color: var(--pixel-green);
+}
+
+.nav-links a:hover::before { opacity: 1; }
+.nav-links a:hover { padding-left: 20px; }
+
+/* Mobile menu */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 2px solid var(--border-color);
+  color: var(--pixel-green);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+/* ═══════════════ HERO ═══════════════ */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+}
+
+.hero-avatar {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 32px;
+  image-rendering: pixelated;
+  animation: float 3s ease-in-out infinite;
+  position: relative;
+}
+
+/* Pixel art avatar built with CSS */
+.pixel-avatar {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  image-rendering: pixelated;
+}
+
+.pixel-avatar canvas {
+  width: 120px;
+  height: 120px;
+  image-rendering: pixelated;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.hero h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(28px, 5vw, 48px);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.hero h1 .green { color: var(--pixel-green); }
+.hero h1 .pink { color: var(--pixel-pink); }
+
+.hero-subtitle {
+  font-size: 26px;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.hero-typing {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 13px;
+  color: var(--pixel-yellow);
+  height: 24px;
+  margin-bottom: 40px;
+}
+
+.hero-typing .cursor {
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.stat-box {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  padding: 16px 24px;
+  text-align: center;
+  min-width: 130px;
+  transition: all 0.2s;
+}
+
+.stat-box:hover {
+  border-color: var(--pixel-green);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 0 var(--pixel-green);
+}
+
+.stat-box .stat-value {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+  color: var(--pixel-green);
+  display: block;
+}
+
+.stat-box .stat-label {
+  font-size: 16px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--text-dim);
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ═══════════════ SECTIONS ═══════════════ */
+section {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.section-header {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(16px, 3vw, 22px);
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-header .icon {
+  font-size: 28px;
+}
+
+.section-header::after {
+  content: '';
+  flex: 1;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--border-color) 0,
+    var(--border-color) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+/* ═══════════════ GAMES GRID ═══════════════ */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.game-card {
+  background: var(--bg-card);
+  border: 3px solid var(--border-color);
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.2s;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.game-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 0 var(--pixel-green);
+  border-color: var(--pixel-green);
+}
+
+.game-card-preview {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-card-preview.g1 { background: linear-gradient(135deg, #1a1145, #2d1b69); }
+.game-card-preview.g2 { background: linear-gradient(135deg, #0d1b2a, #1b2a4a); }
+.game-card-preview.g3 { background: linear-gradient(135deg, #1a0f0f, #3a1515); }
+.game-card-preview.g4 { background: linear-gradient(135deg, #0f1a12, #153a1f); }
+.game-card-preview.g5 { background: linear-gradient(135deg, #1a1a0f, #3a3415); }
+.game-card-preview.g6 { background: linear-gradient(135deg, #0f141a, #15253a); }
+
+.game-card-preview .coming {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  background: var(--pixel-orange);
+  color: var(--bg-dark);
+  padding: 4px 8px;
+}
+
+.game-card-info {
+  padding: 20px;
+}
+
+.game-card-info h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.game-card-info p {
+  color: var(--text-dim);
+  font-size: 18px;
+}
+
+.game-card-info .difficulty {
+  margin-top: 12px;
+  display: flex;
+  gap: 4px;
+}
+
+.game-card-info .difficulty span {
+  width: 16px;
+  height: 16px;
+  background: var(--border-color);
+  display: inline-block;
+}
+
+.game-card-info .difficulty span.filled {
+  background: var(--pixel-yellow);
+}
+
+.game-card .play-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--pixel-green);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.game-card:hover .play-btn { opacity: 1; }
+
+/* ═══════════════ ABOUT ═══════════════ */
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.about-text {
+  font-size: 22px;
+  line-height: 1.8;
+}
+
+.about-text p { margin-bottom: 16px; }
+
+.about-text .highlight {
+  color: var(--pixel-green);
+  font-weight: bold;
+}
+
+.skill-tree {
+  background: var(--bg-card);
+  border: 3px solid var(--border-color);
+  padding: 28px;
+}
+
+.skill-tree h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  color: var(--pixel-purple);
+  margin-bottom: 24px;
+}
+
+.skill-item {
+  margin-bottom: 16px;
+}
+
+.skill-item .skill-name {
+  font-size: 18px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.skill-bar {
+  height: 16px;
+  background: var(--bg-dark);
+  border: 2px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  transition: width 1.5s ease-out;
+  position: relative;
+}
+
+.skill-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 6px,
+    rgba(0,0,0,0.2) 6px,
+    rgba(0,0,0,0.2) 8px
+  );
+}
+
+.skill-bar-fill.html { width: 40%; background: var(--pixel-orange); }
+.skill-bar-fill.css { width: 30%; background: var(--pixel-blue); }
+.skill-bar-fill.js { width: 20%; background: var(--pixel-yellow); }
+.skill-bar-fill.enthusiasm { width: 100%; background: var(--pixel-green); }
+
+/* ═══════════════ BLOG ═══════════════ */
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.blog-item {
+  background: var(--bg-card);
+  border: 3px solid var(--border-color);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.blog-item:hover {
+  border-color: var(--pixel-pink);
+  transform: translateX(8px);
+  box-shadow: -6px 0 0 var(--pixel-pink);
+}
+
+.blog-date {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--pixel-blue);
+  min-width: 100px;
+  text-align: center;
+  line-height: 1.8;
+}
+
+.blog-content h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 13px;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.blog-content p {
+  color: var(--text-dim);
+  font-size: 18px;
+}
+
+.blog-tag {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  padding: 3px 8px;
+  border: 1px solid;
+  display: inline-block;
+  margin-top: 8px;
+  margin-right: 6px;
+}
+
+.blog-tag.learning { color: var(--pixel-green); border-color: var(--pixel-green); }
+.blog-tag.thoughts { color: var(--pixel-purple); border-color: var(--pixel-purple); }
+.blog-tag.tutorial { color: var(--pixel-yellow); border-color: var(--pixel-yellow); }
+
+/* ═══════════════ PORTFOLIO ═══════════════ */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.portfolio-card {
+  background: var(--bg-card);
+  border: 3px solid var(--border-color);
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.portfolio-card:hover {
+  border-color: var(--pixel-purple);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 0 var(--pixel-purple);
+}
+
+.portfolio-preview {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-preview .emoji-bg {
+  font-size: 80px;
+  filter: saturate(0.8);
+}
+
+.portfolio-preview .status {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  padding: 4px 8px;
+}
+
+.portfolio-preview .status.done {
+  background: var(--pixel-green);
+  color: var(--bg-dark);
+}
+
+.portfolio-preview .status.wip {
+  background: var(--pixel-yellow);
+  color: var(--bg-dark);
+}
+
+.portfolio-card-info {
+  padding: 20px;
+}
+
+.portfolio-card-info h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.portfolio-card-info p {
+  color: var(--text-dim);
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.tech-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tech-tag {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  padding: 3px 8px;
+  background: rgba(255,255,255,0.05);
+  color: var(--text-dim);
+  border: 1px solid var(--border-color);
+}
+
+/* ═══════════════ FOOTER ═══════════════ */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 3px solid var(--border-color);
+}
+
+.footer-art {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--text-dim);
+  line-height: 2;
+  margin-bottom: 16px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 24px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-links a:hover { color: var(--pixel-green); transform: scale(1.2); }
+
+.footer-copy {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  color: var(--text-dim);
+}
+
+/* ═══════════════ RESPONSIVE ═══════════════ */
+@media (max-width: 768px) {
+  .menu-toggle { display: block; }
+  
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px; left: 0; right: 0;
+    background: rgba(15,14,23,0.98);
+    flex-direction: column;
+    padding: 16px;
+    border-bottom: 3px solid var(--border-color);
+  }
+  
+  .nav-links.open { display: flex; }
+  
+  .about-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .blog-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .hero-stats {
+    gap: 16px;
+  }
+  
+  .stat-box {
+    min-width: 100px;
+    padding: 12px 16px;
+  }
+}
+
+/* ═══════════════ ANIMATIONS ═══════════════ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* XP bar at top */
+.xp-bar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--bg-dark);
+  z-index: 999;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--pixel-green), var(--pixel-blue), var(--pixel-pink));
+  transition: width 0.3s;
+}
+</style>
+</head>
+<body>
+
+<!-- Stars Background -->
+<div class="stars" id="stars"></div>
+
+<!-- XP Progress Bar -->
+<div class="xp-bar"><div class="xp-bar-fill" id="xpBar"></div></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="heart">♥</span> TOMMY.LIVE
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#games">游戏</a></li>
+      <li><a href="#about">关于</a></li>
+      <li><a href="#blog">博客</a></li>
+      <li><a href="#portfolio">作品</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-avatar">
+    <canvas id="avatarCanvas" width="16" height="16"></canvas>
+  </div>
+  
+  <h1>
+    <span class="green">TOMMY</span><br>
+    <span class="pink">.LIVE</span>
+  </h1>
+  
+  <p class="hero-subtitle">代码小白的冒险日志</p>
+  
+  <div class="hero-typing">
+    <span id="typingText"></span><span class="cursor">_</span>
+  </div>
+  
+  <div class="hero-stats">
+    <div class="stat-box">
+      <span class="stat-value" id="levelCounter">LV.1</span>
+      <span class="stat-label">等级</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-value" id="projectCounter">0</span>
+      <span class="stat-label">项目</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-value" id="dayCounter">DAY 1</span>
+      <span class="stat-label">学习天数</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-value">∞</span>
+      <span class="stat-label">热情</span>
+    </div>
+  </div>
+  
+  <div class="scroll-hint">▼ SCROLL DOWN ▼</div>
+</section>
+
+<!-- Games Section -->
+<section id="games">
+  <h2 class="section-header fade-in">
+    <span class="icon">🎮</span> 游戏大厅
+  </h2>
+  
+  <div class="games-grid">
+    <a href="#" class="game-card fade-in">
+      <div class="game-card-preview g1">🎰</div>
+      <div class="game-card-info">
+        <h3>今天吃什么</h3>
+        <p>选择困难症终结者！输入餐厅名字，转盘帮你选</p>
+        <div class="difficulty">
+          <span class="filled"></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <span class="play-btn">PLAY →</span>
+    </a>
+    
+    <a href="#" class="game-card fade-in">
+      <div class="game-card-preview g2">⚡</div>
+      <div class="game-card-info">
+        <h3>反应力对决</h3>
+        <p>屏幕变色后比谁先点击！挑战你的反应极限</p>
+        <div class="difficulty">
+          <span class="filled"></span>
+          <span class="filled"></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <span class="play-btn">PLAY →</span>
+    </a>
+    
+    <a href="#" class="game-card fade-in">
+      <div class="game-card-preview g3">
+        🎬
+        <span class="coming">COMING SOON</span>
+      </div>
+      <div class="game-card-info">
+        <h3>Emoji 猜猜猜</h3>
+        <p>用 Emoji 组合描述电影/歌曲，考验你的脑洞</p>
+        <div class="difficulty">
+          <span class="filled"></span>
+          <span class="filled"></span>
+          <span class="filled"></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <span class="play-btn">SOON ⏳</span>
+    </a>
+    
+    <a href="#" class="game-card fade-in">
+      <div class="game-card-preview g4">
+        ⌨️
+        <span class="coming">COMING SOON</span>
+      </div>
+      <div class="game-card-info">
+        <h3>打字大挑战</h3>
+        <p>测试你的打字速度和准确率，晒出你的成绩</p>
+        <div class="difficulty">
+          <span class="filled"></span>
+          <span class="filled"></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <span class="play-btn">SOON ⏳</span>
+    </a>
+
+    <a href="#" class="game-card fade-in">
+      <div class="game-card-preview g5">
+        💰
+        <span class="coming">COMING SOON</span>
+      </div>
+      <div class="game-card-info">
+        <h3>AA 记账神器</h3>
+        <p>朋友聚餐后自动算清谁欠谁多少，再也不尴尬</p>
+        <div class="difficulty">
+          <span class="filled"></span>
+          <span class="filled"></span>
+          <span class="filled"></span>
+          <span class="filled"></span>
+          <span></span>
+        </div>
+      </div>
+      <span class="play-btn">SOON ⏳</span>
+    </a>
+
+    <a href="#" class="game-card fade-in">
+      <div class="game-card-preview g6">
+        🕵️
+        <span class="coming">COMING SOON</span>
+      </div>
+      <div class="game-card-info">
+        <h3>谁是卧底</h3>
+        <p>经典桌游线上版，多人实时对战，找出卧底</p>
+        <div class="difficulty">
+          <span class="filled"></span>
+          <span class="filled"></span>
+          <span class="filled"></span>
+          <span class="filled"></span>
+          <span class="filled"></span>
+          </div>
+      </div>
+      <span class="play-btn">SOON ⏳</span>
+    </a>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about">
+  <h2 class="section-header fade-in">
+    <span class="icon">👾</span> 关于我
+  </h2>
+  
+  <div class="about-container">
+    <div class="about-text fade-in">
+      <p>
+        你好！我是 <span class="highlight">Tommy</span>，一个正在学习编程的冒险者。
+      </p>
+      <p>
+        我相信学编程最好的方式就是<span class="highlight">做出好玩的东西</span>。
+        所以我决定用 Claude Code 辅助开发，一边做小工具和游戏，一边提升自己的代码能力。
+      </p>
+      <p>
+        这个网站记录了我从零开始的编程冒险旅程。
+        每完成一个项目，我的等级就会提升一级。
+        目标是做出让朋友们都爱玩的东西！
+      </p>
+      <p>
+        📍 新加坡 &nbsp;|&nbsp; 🎯 目标：全栈开发者
+      </p>
+    </div>
+    
+    <div class="skill-tree fade-in">
+      <h3>⚔️ 技能树</h3>
+      
+      <div class="skill-item">
+        <div class="skill-name">
+          <span>HTML</span>
+          <span style="color:var(--pixel-orange)">学徒</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-fill html"></div>
+        </div>
+      </div>
+      
+      <div class="skill-item">
+        <div class="skill-name">
+          <span>CSS</span>
+          <span style="color:var(--pixel-blue)">见习</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-fill css"></div>
+        </div>
+      </div>
+      
+      <div class="skill-item">
+        <div class="skill-name">
+          <span>JavaScript</span>
+          <span style="color:var(--pixel-yellow)">入门</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-fill js"></div>
+        </div>
+      </div>
+      
+      <div class="skill-item">
+        <div class="skill-name">
+          <span>学习热情</span>
+          <span style="color:var(--pixel-green)">MAX!!</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-bar-fill enthusiasm"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Section -->
+<section id="blog">
+  <h2 class="section-header fade-in">
+    <span class="icon">📝</span> 冒险日志
+  </h2>
+  
+  <div class="blog-list">
+    <a href="#" class="blog-item fade-in">
+      <div class="blog-date">
+        2026<br>04.01
+      </div>
+      <div class="blog-content">
+        <h3>Day 1：冒险开始！</h3>
+        <p>搭建了个人网站，部署到了 tommy.live。第一次拥有自己的网站，激动！</p>
+        <span class="blog-tag learning">学习记录</span>
+      </div>
+    </a>
+    
+    <a href="#" class="blog-item fade-in">
+      <div class="blog-date">
+        2026<br>04.01
+      </div>
+      <div class="blog-content">
+        <h3>我为什么要学编程</h3>
+        <p>从代码小白到做出朋友们爱玩的游戏，这是我的目标和计划。</p>
+        <span class="blog-tag thoughts">碎碎念</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Portfolio Section -->
+<section id="portfolio">
+  <h2 class="section-header fade-in">
+    <span class="icon">🏆</span> 作品集
+  </h2>
+  
+  <div class="portfolio-grid">
+    <div class="portfolio-card fade-in">
+      <div class="portfolio-preview" style="background: linear-gradient(135deg, #1a0f2e, #2d1b69);">
+        <span class="emoji-bg">🌐</span>
+        <span class="status done">已完成</span>
+      </div>
+      <div class="portfolio-card-info">
+        <h3>个人主页</h3>
+        <p>你正在看的这个网站！像素风格，纯手写 HTML/CSS/JS</p>
+        <div class="tech-tags">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">JS</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="portfolio-card fade-in">
+      <div class="portfolio-preview" style="background: linear-gradient(135deg, #0f1a2e, #1b3a69);">
+        <span class="emoji-bg">🎰</span>
+        <span class="status wip">进行中</span>
+      </div>
+      <div class="portfolio-card-info">
+        <h3>今天吃什么 转盘</h3>
+        <p>第一个小项目！随机帮你选餐厅</p>
+        <div class="tech-tags">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS动画</span>
+          <span class="tech-tag">JS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-art">
+    ♥ MADE WITH LOVE & CLAUDE CODE ♥
+  </div>
+  <div class="footer-links">
+    <a href="#" title="GitHub">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+    </a>
+    <a href="#" title="Twitter / X">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a href="#" title="Email">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+    </a>
+  </div>
+  <div class="footer-copy">
+    © 2026 TOMMY.LIVE — PLAYER ONE
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════
+// STARS
+// ══════════════════════════════════
+(function initStars() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (1.5 + Math.random() * 3) + 's');
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.width = (Math.random() > 0.7 ? 6 : 4) + 'px';
+    star.style.height = star.style.width;
+    container.appendChild(star);
+  }
+})();
+
+// ══════════════════════════════════
+// PIXEL AVATAR (drawn on canvas)
+// ══════════════════════════════════
+(function drawAvatar() {
+  const canvas = document.getElementById('avatarCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.style.width = '120px';
+  canvas.style.height = '120px';
+  canvas.style.imageRendering = 'pixelated';
+  
+  const colors = {
+    skin: '#ffcc99',
+    hair: '#4a3728',
+    shirt: '#2de2a6',
+    eyes: '#1a1925',
+    mouth: '#ff6b9d',
+    bg: 'transparent'
+  };
+  
+  // 16x16 pixel art character
+  const sprite = [
+    '..HHHHHH........',
+    '.HHHHHHHH.......',
+    '.HHSSSSSHH......',
+    '.HSSSSSSSH......',
+    '.HSESSSESH......',
+    '.HSSSSSSSH......',
+    '.HSSMMMssh......',
+    '..SSSSSSSH......',
+    '...TTTTTT.......',
+    '..TTTTTTTT......',
+    '..TTTTTTTT......',
+    '..T..TT..T......',
+    '..T..TT..T......',
+    '.....TT.........',
+    '....PPPP........',
+    '...PP..PP.......',
+  ];
+  
+  const colorMap = {
+    'H': colors.hair,
+    'S': colors.skin,
+    'E': colors.eyes,
+    'M': colors.mouth,
+    'T': colors.shirt,
+    'P': '#3d3654',
+    's': '#e6b880',
+    '.': null
+  };
+  
+  for (let y = 0; y < 16; y++) {
+    for (let x = 0; x < 16; x++) {
+      const char = sprite[y]?.[x];
+      const color = colorMap[char];
+      if (color) {
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, 1, 1);
+      }
+    }
+  }
+})();
+
+// ══════════════════════════════════
+// TYPING EFFECT
+// ══════════════════════════════════
+(function typeWriter() {
+  const lines = [
+    '> 正在加载冒险地图...',
+    '> Hello World! 我的第一行代码',
+    '> 今天又学会了一个新技能!',
+    '> Bug 已消灭 ✓ 经验值 +100',
+    '> 新成就解锁：网站上线！',
+    '> console.log("不放弃!");',
+  ];
+  
+  const el = document.getElementById('typingText');
+  let lineIdx = 0, charIdx = 0, deleting = false;
+  
+  function tick() {
+    const line = lines[lineIdx];
+    
+    if (!deleting) {
+      el.textContent = line.slice(0, charIdx + 1);
+      charIdx++;
+      if (charIdx >= line.length) {
+        setTimeout(() => { deleting = true; tick(); }, 2000);
+        return;
+      }
+      setTimeout(tick, 60 + Math.random() * 40);
+    } else {
+      el.textContent = line.slice(0, charIdx);
+      charIdx--;
+      if (charIdx < 0) {
+        deleting = false;
+        lineIdx = (lineIdx + 1) % lines.length;
+        charIdx = 0;
+        setTimeout(tick, 500);
+        return;
+      }
+      setTimeout(tick, 30);
+    }
+  }
+  
+  tick();
+})();
+
+// ══════════════════════════════════
+// XP BAR (scroll progress)
+// ══════════════════════════════════
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = Math.min((scrolled / total) * 100, 100);
+  document.getElementById('xpBar').style.width = pct + '%';
+});
+
+// ══════════════════════════════════
+// SCROLL REVEAL
+// ══════════════════════════════════
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 100);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ══════════════════════════════════
+// MOBILE MENU
+// ══════════════════════════════════
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// Close menu on link click
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// ══════════════════════════════════
+// COUNTER ANIMATION
+// ══════════════════════════════════
+function animateCounter(el, target, prefix = '', suffix = '') {
+  let current = 0;
+  const step = Math.max(1, Math.floor(target / 30));
+  const interval = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      current = target;
+      clearInterval(interval);
+    }
+    el.textContent = prefix + current + suffix;
+  }, 50);
+}
+
+// Calculate days since start (April 1, 2026)
+const startDate = new Date('2026-04-01');
+const today = new Date();
+const daysDiff = Math.max(1, Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1);
+
+document.getElementById('dayCounter').textContent = 'DAY ' + daysDiff;
+</script>
+</body>
+</html>
