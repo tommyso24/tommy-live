@@ -1,0 +1,18 @@
+[
+  {
+    "slug": "why-coding",
+    "title": "我为什么要学编程",
+    "excerpt": "从代码小白到做出朋友们爱玩的游戏，这是我的目标和计划。",
+    "date": "2026-04-01",
+    "updated": "2026-04-01T14:00:00",
+    "tag": "thoughts"
+  },
+  {
+    "slug": "day-1-start",
+    "title": "Day 1：冒险开始！",
+    "excerpt": "搭建了个人网站，部署到了 tommy.live。第一次拥有自己的网站，激动！",
+    "date": "2026-04-01",
+    "updated": "2026-04-01T10:00:00",
+    "tag": "learning"
+  }
+]

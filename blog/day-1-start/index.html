@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="搭建了个人网站，部署到了 tommy.live。第一次拥有自己的网站，激动！">
+<title>Day 1：冒险开始！ — Tommy.live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog-common.css">
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html">← 返回大厅</a>
+    <a href="../index.html">全部日志</a>
+  </div>
+</nav>
+<main>
+  <article class="article-card">
+    <h1>Day 1：冒险开始！</h1>
+    <p class="article-meta">发布于 2026-04-01 · <span class="blog-tag learning">学习记录</span></p>
+    <div class="article-body">
+      <p>今天做了件大事：搭好了自己的个人主页，并且部署到了 <span class="highlight">tommy.live</span>。</p>
+      <p>从零开始写 HTML、CSS，还有一点点 JavaScript，虽然还不算熟练，但看到页面真的在线上打开的那一刻，还是超级激动。</p>
+      <p>接下来想在这个站点上挂一些小游戏和小工具，把学习过程也记在「冒险日志」里。Player One，继续加油。</p>
+    </div>
+  </article>
+</main>
+<script>
+(function () {
+  var c = document.getElementById('stars');
+  for (var i = 0; i < 40; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    c.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>

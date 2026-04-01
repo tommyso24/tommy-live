@@ -577,6 +577,36 @@ section {
 .blog-tag.thoughts { color: var(--pixel-purple); border-color: var(--pixel-purple); }
 .blog-tag.tutorial { color: var(--pixel-yellow); border-color: var(--pixel-yellow); }
 
+.blog-all-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.blog-all-link a {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 9px;
+  color: var(--pixel-blue);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.blog-all-link a:hover {
+  color: var(--pixel-green);
+}
+
+.blog-feed-error {
+  background: var(--bg-card);
+  border: 3px solid var(--border-color);
+  padding: 20px;
+  color: var(--text-dim);
+  font-size: 18px;
+  text-align: center;
+}
+
+.blog-feed-error a {
+  color: var(--pixel-green);
+}
+
 /* ═══════════════ PORTFOLIO ═══════════════ */
 .portfolio-grid {
   display: grid;
@@ -795,7 +825,8 @@ footer {
     <ul class="nav-links" id="navLinks">
       <li><a href="#games">游戏</a></li>
       <li><a href="#about">关于</a></li>
-      <li><a href="#blog">博客</a></li>
+      <li><a href="blog/index.html">博客</a></li>
+      <li><a href="changelog/index.html">更新日志</a></li>
       <li><a href="#portfolio">作品</a></li>
     </ul>
   </div>
@@ -1034,29 +1065,8 @@ footer {
     <span class="icon">📝</span> 冒险日志
   </h2>
   
-  <div class="blog-list">
-    <a href="#" class="blog-item fade-in">
-      <div class="blog-date">
-        2026<br>04.01
-      </div>
-      <div class="blog-content">
-        <h3>Day 1：冒险开始！</h3>
-        <p>搭建了个人网站，部署到了 tommy.live。第一次拥有自己的网站，激动！</p>
-        <span class="blog-tag learning">学习记录</span>
-      </div>
-    </a>
-    
-    <a href="#" class="blog-item fade-in">
-      <div class="blog-date">
-        2026<br>04.01
-      </div>
-      <div class="blog-content">
-        <h3>我为什么要学编程</h3>
-        <p>从代码小白到做出朋友们爱玩的游戏，这是我的目标和计划。</p>
-        <span class="blog-tag thoughts">碎碎念</span>
-      </div>
-    </a>
-  </div>
+  <div class="blog-list" id="blogFeed" aria-live="polite"></div>
+  <p class="blog-all-link fade-in"><a href="blog/index.html">查看全部日志 →</a></p>
 </section>
 
 <!-- Portfolio Section -->
@@ -1270,6 +1280,80 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ══════════════════════════════════
+// BLOG FEED (last 3 by updated)
+// ══════════════════════════════════
+(function initBlogFeed() {
+  const TAG_LABELS = { learning: '学习记录', thoughts: '碎碎念', tutorial: '教程' };
+  const listEl = document.getElementById('blogFeed');
+  if (!listEl) return;
+
+  function showError(msg) {
+    listEl.innerHTML = '';
+    const p = document.createElement('p');
+    p.className = 'blog-feed-error';
+    p.textContent = msg;
+    listEl.appendChild(p);
+  }
+
+  fetch('blog/posts.json')
+    .then((r) => {
+      if (!r.ok) throw new Error('load');
+      return r.json();
+    })
+    .then((posts) => {
+      if (!Array.isArray(posts) || posts.length === 0) {
+        showError('暂无文章。');
+        return;
+      }
+      posts.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+      const top = posts.slice(0, 3);
+      listEl.innerHTML = '';
+      top.forEach((post) => {
+        const a = document.createElement('a');
+        a.className = 'blog-item fade-in';
+        a.href = 'blog/' + encodeURIComponent(post.slug) + '/';
+
+        const dateDiv = document.createElement('div');
+        dateDiv.className = 'blog-date';
+        const parts = post.date.split('-');
+        dateDiv.appendChild(document.createTextNode(parts[0]));
+        dateDiv.appendChild(document.createElement('br'));
+        dateDiv.appendChild(document.createTextNode(parts[1] + '.' + parts[2]));
+
+        const content = document.createElement('div');
+        content.className = 'blog-content';
+        const h3 = document.createElement('h3');
+        h3.textContent = post.title;
+        const p = document.createElement('p');
+        p.textContent = post.excerpt;
+        const tag = document.createElement('span');
+        tag.className = 'blog-tag ' + post.tag;
+        tag.textContent = TAG_LABELS[post.tag] || post.tag;
+        content.appendChild(h3);
+        content.appendChild(p);
+        content.appendChild(tag);
+
+        a.appendChild(dateDiv);
+        a.appendChild(content);
+        listEl.appendChild(a);
+        observer.observe(a);
+      });
+    })
+    .catch(() => {
+      listEl.innerHTML = '';
+      const p = document.createElement('p');
+      p.className = 'blog-feed-error';
+      p.appendChild(document.createTextNode('无法加载最新日志。请用本地服务器或网站域名打开本站（勿直接用 file://）。'));
+      p.appendChild(document.createElement('br'));
+      const a = document.createElement('a');
+      a.href = 'blog/index.html';
+      a.textContent = '前往全部日志';
+      p.appendChild(a);
+      listEl.appendChild(p);
+    });
+})();
 
 // ══════════════════════════════════
 // MOBILE MENU

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tommy.live 站点更新记录">
+<title>更新日志 — Tommy.live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog/blog-common.css">
+<style>
+.changelog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cl-entry {
+  background: var(--bg-card);
+  border: 3px solid var(--border-color);
+  padding: 20px 24px;
+  border-left: 6px solid var(--pixel-green);
+}
+.cl-date {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 9px;
+  color: var(--pixel-blue);
+  margin-bottom: 12px;
+}
+.cl-entry h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 11px;
+  color: var(--pixel-yellow);
+  margin-bottom: 14px;
+  line-height: 1.7;
+}
+.cl-entry ul {
+  margin: 0;
+  padding-left: 1.2em;
+  color: var(--text-main);
+}
+.cl-entry li {
+  margin-bottom: 10px;
+}
+.cl-entry li:last-child {
+  margin-bottom: 0;
+}
+.cl-entry code,
+.cl-entry .path {
+  font-family: 'VT323', monospace;
+  font-size: 1.05em;
+  color: var(--pixel-pink);
+  background: rgba(0,0,0,0.25);
+  padding: 0 6px;
+  border: 1px solid var(--border-color);
+}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html">← 返回大厅</a>
+    <a href="../blog/index.html">博客</a>
+  </div>
+</nav>
+<main>
+  <h1 class="page-title">更新日志</h1>
+  <p class="page-sub">站点改了啥，一目了然</p>
+
+  <div class="changelog-list">
+    <article class="cl-entry">
+      <p class="cl-date">2026-04-01</p>
+      <h2>导航与博客入口</h2>
+      <ul>
+        <li>顶部导航「博客」改为跳转到冒险日志归档页 <span class="path">blog/index.html</span>（不再只锚点到首页区块）。</li>
+        <li>新增导航项「更新日志」，即本页，用于记录站点功能与内容变更。</li>
+      </ul>
+    </article>
+
+    <article class="cl-entry">
+      <p class="cl-date">2026-04-01</p>
+      <h2>博客结构</h2>
+      <ul>
+        <li>文章以 <span class="path">blog/&lt;slug&gt;/index.html</span> 形式存放；元数据集中在 <span class="path">blog/posts.json</span>（含 <span class="path">updated</span> 字段）。</li>
+        <li>首页「冒险日志」区块自动拉取并展示按更新时间排序的 <strong>最近 3 篇</strong>；完整列表见归档页。</li>
+        <li>本地预览请用 HTTP 服务打开站点，勿用 <code>file://</code>，否则列表可能无法加载。</li>
+      </ul>
+    </article>
+
+    <article class="cl-entry">
+      <p class="cl-date">2026-04-01</p>
+      <h2>今天吃什么 · 转盘</h2>
+      <ul>
+        <li>新页面 <span class="path">games/food-spinner/index.html</span>：可输入多个餐厅/菜名，转盘随机抽取，带缓动动画，风格与主页像素风一致，支持手机。</li>
+        <li>游戏大厅与作品集「今天吃什么 转盘」卡片已链到该页，状态为<strong>已完成</strong>。</li>
+      </ul>
+    </article>
+  </div>
+</main>
+<script>
+(function () {
+  var c = document.getElementById('stars');
+  for (var i = 0; i < 45; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    c.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>

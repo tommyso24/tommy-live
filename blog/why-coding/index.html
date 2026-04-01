@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="从代码小白到做出朋友们爱玩的游戏，这是我的目标和计划。">
+<title>我为什么要学编程 — Tommy.live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog-common.css">
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html">← 返回大厅</a>
+    <a href="../index.html">全部日志</a>
+  </div>
+</nav>
+<main>
+  <article class="article-card">
+    <h1>我为什么要学编程</h1>
+    <p class="article-meta">发布于 2026-04-01 · <span class="blog-tag thoughts">碎碎念</span></p>
+    <div class="article-body">
+      <p>我想学编程，不是因为想马上换工作，而是觉得——能亲手做出<span class="highlight">好玩、有用</span>的东西，是一件很酷的事。</p>
+      <p>我的目标挺具体的：从代码小白开始，一步步做出朋友们也愿意点开玩的小游戏、小工具。过程中肯定会卡壳、会搜一堆教程，但每解决一个小问题，就像游戏里过了一关。</p>
+      <p>这个网站会记录我的冒险。如果你也在学，欢迎一起交流。</p>
+    </div>
+  </article>
+</main>
+<script>
+(function () {
+  var c = document.getElementById('stars');
+  for (var i = 0; i < 40; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    c.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
