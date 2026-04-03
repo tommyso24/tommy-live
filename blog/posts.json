@@ -1,5 +1,13 @@
 [
   {
+    "slug": "ai-saas-frontend",
+    "title": "一个下午 + 一个晚上，AI 帮我搭了整个 SaaS 前端",
+    "excerpt": "15 个页面，从营销首页到后台管理系统，全部可交互。而我做的最多的事情，是「不对不对，改一下」。",
+    "date": "2026-04-04",
+    "updated": "2026-04-04T02:00:00",
+    "tag": "thoughts"
+  },
+  {
     "slug": "cloudflare-pages-tutorial",
     "title": "从零部署网站到 Cloudflare Pages",
     "excerpt": "代码小白踩坑实录：Cloudflare Pages + GitHub 自动发布的保姆级教程，把踩过的每一个坑都标出来。",

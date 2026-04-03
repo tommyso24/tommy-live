@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="一个下午加一个晚上，用 AI 搭建了整个 SaaS 平台的前端原型：15 个页面，从营销首页到后台管理系统，全部可交互。">
+<title>一个下午 + 一个晚上，AI 帮我搭了整个 SaaS 前端 — Tommy.live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog-common.css">
+<link rel="stylesheet" href="../../assets/site-chrome.css">
+</head>
+<body class="has-site-chrome">
+<div class="stars" id="stars"></div>
+<div class="xp-bar"><div class="xp-bar-fill" id="xpBar"></div></div>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../index.html" data-nav="blog">博客</a></li>
+      <li><a href="../../changelog/index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+  <article class="article-card">
+    <h1>一个下午 + 一个晚上，AI 帮我搭了整个 SaaS 平台的前端原型</h1>
+    <p class="article-meta">发布于 2026-04-04 · <span class="blog-tag thoughts">碎碎念</span></p>
+
+    <div class="intro-box">
+      <p>对，你没看错。一个下午加一个晚上。15 个页面。从营销首页到后台管理系统。全部可交互。</p>
+      <p>而我做的最多的事情，是<strong>「不对不对，改一下」</strong>。</p>
+    </div>
+
+    <div class="article-body">
+
+      <h2>起因：一个外贸人的野心</h2>
+
+      <p>事情是这样的。我们公司有一个旧的外贸建站系统叫「超新星」，跑了几年了，客户还行。但我一直觉得光建站不够——外贸人的痛点是全链路的，建站只是第一步，后面还有询盘管理、买家背调、跟进策略……</p>
+
+      <p>所以我想做一个平台，把三个产品整合到一起：</p>
+
+      <ol>
+        <li><strong>超新星建站</strong> — 老本行，高颜值外贸独立站</li>
+        <li><strong>MML表单</strong> — 自研 WordPress 询盘插件，带 AI 背调和国别过滤</li>
+        <li><strong>秒探客</strong> — 60 秒 AI 买家情报报告</li>
+      </ol>
+
+      <p>听起来工程量很大对吧？如果用传统方式找设计师出图、前端写页面，没个月也拿不下。</p>
+
+      <p>但是 2026 年了，我有 Claude。</p>
+
+      <hr>
+
+      <h2>第一阶段：从 0 到 1（下午 2 点 - 6 点）</h2>
+
+      <h3>先聊天，一行代码不写</h3>
+
+      <p>我没有一上来就让 AI 写代码。而是先跟它聊了半小时——把整个产品的定位、三个产品的关系、注册漏斗的逻辑、后台的导航方式全部讲了一遍。</p>
+
+      <p>AI 很快就理解了，还给我画了一个 ASCII 架构图（对，就是用文本符号画的那种）。看了一下，大方向没问题，但有几个细节要调：</p>
+
+      <ul>
+        <li>后台导航要用「顶部 Tab 切换产品 + 左侧子菜单」的两层结构</li>
+        <li>公司资料库要作为独立顶级入口，不藏在设置里</li>
+        <li>每个产品的后台是独立页面，不搞 SPA</li>
+      </ul>
+
+      <p>这些决策一旦确认，后面就快了。</p>
+
+      <h3>文件夹重组 + 首页</h3>
+
+      <p>我把之前做的一个秒探客注册流程页面丢给 AI 看了看样式，说「照这个风格做」。然后它：</p>
+
+      <ol>
+        <li>把文件夹重新组织了一遍（tools/、onboarding/、app/ 分层）</li>
+        <li>去爬了我们旧站 www.msupernova.com 的内容</li>
+        <li>用新的 Apple 质感风格重新设计了首页</li>
+      </ol>
+
+      <p>全程我只需要给意见。比如我说「Hero 的副标题要按业务流来写——建站、表单、背调」，它就给了我几个方案选，我选了一个，改了几个字，搞定。</p>
+
+      <h3>MML表单产品页</h3>
+
+      <p>这个页面花了比较多时间跟 AI 讨论文案。比如「AI 自适应表单样式设计」这个卖点，我觉得太技术向了，我们俩头脑风暴了几轮：</p>
+
+      <pre><code>AI: "零 CSS 基础，一键适配网站风格"
+我: 太长了，要跟其他 bullet point 长度一样
+AI: "一键匹配网站风格" / "零基础 AI 设计表单" / "截图即设计，零代码"
+我: 零代码，一键适配网站风格</code></pre>
+
+      <p>最后定稿的这句，其实是我从 AI 给的几个选项里拼凑改了几个字拼的。<strong>AI 是很好的文案引擎，但最后的决策还是得人来拍板。</strong></p>
+
+      <hr>
+
+      <h2>第二阶段：后台系统（晚上 7 点 - 11 点）</h2>
+
+      <p>这部分是最有成就感的。一个晚上做了：</p>
+
+      <table>
+        <tr><th>模块</th><th>包含内容</th></tr>
+        <tr><td>后台框架</td><td>顶栏 Tab + 侧栏 + 内容区</td></tr>
+        <tr><td>充值页</td><td>微信/支付宝扫码 + Token 套餐 + 开票 + 对公转账</td></tr>
+        <tr><td>账单页</td><td>4 个 Tab（全部/充值/购买/Token 消耗）</td></tr>
+        <tr><td>建站系统面板</td><td>控制面板/页面管理/模板库/询盘管理/数据分析</td></tr>
+        <tr><td>MML表单面板</td><td>概览/询盘列表/购买定价/License/下载/推送设置/插件设置</td></tr>
+        <tr><td>公司资料库</td><td>公司信息/产品线管理/文件资料</td></tr>
+        <tr><td>秒探客面板</td><td>数据概览/新建秒探/历史报告/偏好设置</td></tr>
+        <tr><td>个人中心</td><td>个人信息/账户安全/我的订阅</td></tr>
+      </table>
+
+      <p>每个页面我都会本地预览、截图看效果、提修改意见。AI 改起来也快，基本上我说一句，它几秒钟就改好了。</p>
+
+      <h3>一些有趣的插曲</h3>
+
+      <p><strong>Vercel 部署被 block 了。</strong> 因为我本地 git 的提交者是 <code>苏鹏 &lt;supeng@Tommys-MacBook.local&gt;</code>，Vercel Hobby 计划不认识这个用户，以为是「团队协作」结果 block 了。解决方法：把 git 的邮箱改成 GitHub 注册邮箱，force push 一下。白白浪费了 20 分钟排查。</p>
+
+      <p><strong>dashboard.html 被我自己弄丢了。</strong> 之前做了一个 dashboard.html 作为后台框架（里面有秒探客的完整内容），后来我让 AI 把它改名为 mml-leads.html，结果秒探客的内容就没了。最后从 git 历史里找了回来。教训：<strong>git log 是你最好的后悔药。</strong></p>
+
+      <p><strong>侧栏出了 bug。</strong> AI 在合并代码的时候，把「购买」和「License」两个菜单项重复写了两遍。我截了个图扔过去，它秒速修好。这就是为什么一定要一边做一边预览——<strong>不要等全做完再看，那时候 bug 已经叠了一层了。</strong></p>
+
+      <hr>
+
+      <h2>我的工作流总结</h2>
+
+      <div class="flow-diagram">
+        我讲清需求和背景（别省）<br>
+        <span class="arrow">↓</span><br>
+        AI 出架构方案，我确认关键决策<br>
+        <span class="arrow">↓</span><br>
+        AI 写页面，我本地预览<br>
+        <span class="arrow">↓</span><br>
+        我截图 + 标注反馈<br>
+        <span class="arrow">↓</span><br>
+        AI 修改，我验收<br>
+        <span class="arrow">↓</span><br>
+        满意 → push 到 GitHub → Vercel 自动部署<br>
+        <span class="arrow">↓</span><br>
+        重复，直到所有页面完成
+      </div>
+
+      <p>整个过程中我<strong>没有写过一行 CSS</strong>。但我做了所有的设计决策：配色、布局、文案、交互逻辑、信息架构。</p>
+
+      <p>AI 是执行力最强的搭档，但它不是产品经理。它不知道「建站→表单→背调」这个业务流的顺序哪个字母是最优摆放最重要。它不知道 MML表单的表单管理和 AI 设计功能应该在 WordPress 后台里，不应该放在我们的 SaaS 后台。这些判断，只有懂业务的人能做。</p>
+
+      <hr>
+
+      <h2>最终成果</h2>
+
+      <table>
+        <tr><th>类型</th><th>页面数</th><th>包含内容</th></tr>
+        <tr><td>营销前台</td><td>3</td><td>首页、秒探客产品页、MML表单产品页</td></tr>
+        <tr><td>注册漏斗</td><td>3</td><td>秒探客 2 步 + MML表单 1 步</td></tr>
+        <tr><td>用户后台</td><td>7</td><td>建站/秒探客/MML表单/公司资料库/充值/账单/个人中心</td></tr>
+        <tr><td>辅助页面</td><td>2</td><td>sitemap + CHANGELOG</td></tr>
+        <tr><th>总计</th><th>15</th><th>全部可交互，含完整导航</th></tr>
+      </table>
+
+      <p>部署在 Vercel 上，GitHub push 自动部署。从第一行代码到全部上线，大概 8 小时。</p>
+
+      <hr>
+
+      <h2>给想用 AI 做项目的人的建议</h2>
+
+      <ol>
+        <li><strong>先聊天再动手。</strong> 花 30 分钟把需求讲清楚，能省后面 3 小时的返工。</li>
+        <li><strong>分阶段确认。</strong> 不要一口气让 AI 做完所有页面再看。做一个看一个，及时纠偏。</li>
+        <li><strong>截图比文字好使。</strong> 说「左边导航栏不对」不如直接截图画个箭头。</li>
+        <li><strong>文案要自己拍板。</strong> AI 给的文案 80 分没问题，但从 80 到 95 需要你自己的判断。</li>
+        <li><strong>git 是你的安全网。</strong> 大胆让 AI 改，改坏了从历史版本找。</li>
+        <li><strong>不要怕推翻重来。</strong> 我中间把整个文件夹结构重组了两次，把 dashboard 改名又改回来，都没关系。纯 HTML 的好处就是成本低。</li>
+      </ol>
+
+      <hr>
+
+      <h2>最后</h2>
+
+      <p>有人可能会说，「这不就是原型吗，又不是真正的产品。」</p>
+
+      <p>没错，但原型的意义就在于——<strong>它让所有人（包括我自己）第一次能看到这个平台长什么样。</strong> 在此之前，这些东西只存在于我的脑子里和几页 PPT 上。</p>
+
+      <p>现在，我可以把链接甩给同事说，「点开看，这就是我们要做的东西。」</p>
+
+      <p>然后我们就可以开始真正的开发了。</p>
+
+      <p>而这一切，只花了一个下午加一个晚上。</p>
+
+      <div class="article-footer">
+        — 写于 2026.04.04 凌晨 · 广州 —<br>
+        用 Claude AI 辅助搭建 · Cursor + Claude Code 开发 · Vercel 部署
+      </div>
+
+    </div>
+  </article>
+</main>
+<script>
+(function () {
+  var c = document.getElementById('stars');
+  for (var i = 0; i < 40; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    c.appendChild(s);
+  }
+})();
+</script>
+<script src="../../assets/site-chrome.js"></script>
+</body>
+</html>
