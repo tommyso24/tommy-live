@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../blog-common.css">
+<link rel="stylesheet" href="../comment-widget.css">
 <link rel="stylesheet" href="../../assets/site-chrome.css">
 </head>
 <body class="has-site-chrome">
@@ -34,6 +35,26 @@
       <p>我想学编程，不是因为想马上换工作，而是觉得——能亲手做出<span class="highlight">好玩、有用</span>的东西，是一件很酷的事。</p>
       <p>我的目标挺具体的：从代码小白开始，一步步做出朋友们也愿意点开玩的小游戏、小工具。过程中肯定会卡壳、会搜一堆教程，但每解决一个小问题，就像游戏里过了一关。</p>
       <p>这个网站会记录我的冒险。如果你也在学，欢迎一起交流。</p>
+
+      <!-- 评论区 -->
+      <div id="commentSection" class="comment-section">
+        <div id="commentSectionTitle" class="comment-section-title">💬 COMMENTS</div>
+
+        <div class="comment-form">
+          <div class="comment-form-label">💬 LEAVE A COMMENT</div>
+          <div id="commentReplyHint" class="comment-form-reply-hint"></div>
+          <input type="text" id="commentNickname" placeholder="昵称" maxlength="20">
+          <textarea id="commentContent" placeholder="写下你的想法..." maxlength="500"></textarea>
+          <div class="comment-form-footer">
+            <span id="commentCharCount" class="comment-char-count">0 / 500</span>
+            <button id="commentSubmitBtn" class="comment-submit-btn">SUBMIT ▶</button>
+          </div>
+          <div id="commentFormMessage" class="comment-form-message"></div>
+        </div>
+
+        <div id="commentList"></div>
+      </div>
+
     </div>
   </article>
 </main>
@@ -52,5 +73,6 @@
 })();
 </script>
 <script src="../../assets/site-chrome.js"></script>
+<script src="../comment-widget.js"></script>
 </body>
 </html>

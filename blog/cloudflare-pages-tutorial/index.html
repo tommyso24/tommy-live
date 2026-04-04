@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../blog-common.css">
+<link rel="stylesheet" href="../comment-widget.css">
 <link rel="stylesheet" href="../../assets/site-chrome.css">
 </head>
 <body class="has-site-chrome">
@@ -357,6 +358,25 @@ git push                      # 推送到 GitHub，自动部署</code></pre>
         用 Claude AI 辅助写代码 · Cursor + Claude Code 开发 · Cloudflare Pages 部署
       </div>
 
+      <!-- 评论区 -->
+      <div id="commentSection" class="comment-section">
+        <div id="commentSectionTitle" class="comment-section-title">💬 COMMENTS</div>
+
+        <div class="comment-form">
+          <div class="comment-form-label">💬 LEAVE A COMMENT</div>
+          <div id="commentReplyHint" class="comment-form-reply-hint"></div>
+          <input type="text" id="commentNickname" placeholder="昵称" maxlength="20">
+          <textarea id="commentContent" placeholder="写下你的想法..." maxlength="500"></textarea>
+          <div class="comment-form-footer">
+            <span id="commentCharCount" class="comment-char-count">0 / 500</span>
+            <button id="commentSubmitBtn" class="comment-submit-btn">SUBMIT ▶</button>
+          </div>
+          <div id="commentFormMessage" class="comment-form-message"></div>
+        </div>
+
+        <div id="commentList"></div>
+      </div>
+
     </div>
   </article>
 </main>
@@ -375,5 +395,6 @@ git push                      # 推送到 GitHub，自动部署</code></pre>
 })();
 </script>
 <script src="../../assets/site-chrome.js"></script>
+<script src="../comment-widget.js"></script>
 </body>
 </html>

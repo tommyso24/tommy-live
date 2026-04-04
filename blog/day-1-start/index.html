@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../blog-common.css">
+<link rel="stylesheet" href="../comment-widget.css">
 <link rel="stylesheet" href="../../assets/site-chrome.css">
 </head>
 <body class="has-site-chrome">
@@ -34,6 +35,26 @@
       <p>今天做了件大事：搭好了自己的个人主页，并且部署到了 <span class="highlight">tommy.live</span>。</p>
       <p>从零开始写 HTML、CSS，还有一点点 JavaScript，虽然还不算熟练，但看到页面真的在线上打开的那一刻，还是超级激动。</p>
       <p>接下来想在这个站点上挂一些小游戏和小工具，把学习过程也记在「冒险日志」里。Player One，继续加油。</p>
+
+      <!-- 评论区 -->
+      <div id="commentSection" class="comment-section">
+        <div id="commentSectionTitle" class="comment-section-title">💬 COMMENTS</div>
+
+        <div class="comment-form">
+          <div class="comment-form-label">💬 LEAVE A COMMENT</div>
+          <div id="commentReplyHint" class="comment-form-reply-hint"></div>
+          <input type="text" id="commentNickname" placeholder="昵称" maxlength="20">
+          <textarea id="commentContent" placeholder="写下你的想法..." maxlength="500"></textarea>
+          <div class="comment-form-footer">
+            <span id="commentCharCount" class="comment-char-count">0 / 500</span>
+            <button id="commentSubmitBtn" class="comment-submit-btn">SUBMIT ▶</button>
+          </div>
+          <div id="commentFormMessage" class="comment-form-message"></div>
+        </div>
+
+        <div id="commentList"></div>
+      </div>
+
     </div>
   </article>
 </main>
@@ -52,5 +73,6 @@
 })();
 </script>
 <script src="../../assets/site-chrome.js"></script>
+<script src="../comment-widget.js"></script>
 </body>
 </html>
