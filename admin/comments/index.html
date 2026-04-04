@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COMMENT ADMIN | tommy.live</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #0f0e17;
+      --bg-card: #1a1925;
+      --pixel-green: #2de2a6;
+      --pixel-pink: #ff6b9d;
+      --pixel-blue: #4cc9f0;
+      --pixel-yellow: #f7d754;
+      --pixel-purple: #c77dff;
+      --text-main: #e8e4f0;
+      --text-dim: #8b8598;
+      --border-color: #2e2b3a;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      min-height: 100vh;
+    }
+
+    /* ─── LOGIN OVERLAY ─────────────────────────────── */
+    #login-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .login-box {
+      background: var(--bg-card);
+      border: 2px solid var(--pixel-pink);
+      padding: 40px 48px;
+      text-align: center;
+      width: min(420px, 90vw);
+    }
+
+    .login-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 13px;
+      color: var(--pixel-pink);
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .login-sub {
+      color: var(--text-dim);
+      font-size: 16px;
+      margin-bottom: 28px;
+    }
+
+    .login-box input[type="password"] {
+      width: 100%;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-family: 'VT323', monospace;
+      font-size: 22px;
+      padding: 10px 14px;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .login-box input[type="password"]:focus {
+      border-color: var(--pixel-pink);
+    }
+
+    .login-btn {
+      width: 100%;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      background: var(--pixel-pink);
+      color: var(--bg-dark);
+      border: none;
+      padding: 12px;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: opacity 0.15s;
+    }
+
+    .login-btn:hover { opacity: 0.85; }
+    .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    #login-error {
+      margin-top: 14px;
+      color: #ff4d4d;
+      font-size: 17px;
+      min-height: 22px;
+    }
+
+    /* ─── MAIN UI ───────────────────────────────────── */
+    #main-ui {
+      display: none;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .page-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 16px;
+      color: var(--pixel-pink);
+      margin-bottom: 28px;
+      letter-spacing: 1px;
+    }
+
+    /* ─── TABS ──────────────────────────────────────── */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--border-color);
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--text-dim);
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-bottom: -2px;
+      transition: color 0.15s, border-color 0.15s;
+      letter-spacing: 1px;
+    }
+
+    .tab-btn:hover { color: var(--text-main); }
+
+    .tab-btn.active {
+      color: var(--pixel-green);
+      border-bottom-color: var(--pixel-green);
+    }
+
+    /* ─── TOOLBAR ───────────────────────────────────── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .select-all-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .select-all-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--pixel-green);
+      cursor: pointer;
+    }
+
+    .toolbar-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      border: 1px solid;
+      background: none;
+      padding: 7px 12px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .toolbar-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .btn-approve {
+      border-color: var(--pixel-green);
+      color: var(--pixel-green);
+    }
+    .btn-approve:not(:disabled):hover {
+      background: var(--pixel-green);
+      color: var(--bg-dark);
+    }
+
+    .btn-reject {
+      border-color: var(--pixel-yellow);
+      color: var(--pixel-yellow);
+    }
+    .btn-reject:not(:disabled):hover {
+      background: var(--pixel-yellow);
+      color: var(--bg-dark);
+    }
+
+    .btn-delete {
+      border-color: #ff4d4d;
+      color: #ff4d4d;
+    }
+    .btn-delete:not(:disabled):hover {
+      background: #ff4d4d;
+      color: #fff;
+    }
+
+    /* ─── COMMENT LIST ──────────────────────────────── */
+    #comment-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .comment-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: 24px 1fr auto;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .comment-item:hover {
+      border-color: var(--pixel-blue);
+    }
+
+    .comment-cb {
+      margin-top: 4px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--pixel-green);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .comment-body { flex: 1; min-width: 0; }
+
+    .comment-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .comment-nick {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: var(--pixel-blue);
+    }
+
+    .comment-slug {
+      font-size: 15px;
+      color: var(--pixel-purple);
+    }
+
+    .comment-time {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    .comment-content {
+      font-size: 19px;
+      color: var(--text-main);
+      word-break: break-word;
+      line-height: 1.4;
+    }
+
+    .comment-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .action-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 4px 6px;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+    }
+    .action-btn:hover { opacity: 0.75; }
+
+    .action-approve { color: var(--pixel-green); }
+    .action-reject  { color: var(--pixel-yellow); }
+    .action-delete  { color: #ff4d4d; }
+
+    /* ─── STATES ────────────────────────────────────── */
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--text-dim);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      letter-spacing: 1px;
+      border: 1px dashed var(--border-color);
+    }
+
+    .loading-state {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-dim);
+      font-size: 22px;
+      animation: blink 1s step-start infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: var(--bg-card);
+      border-left: 3px solid var(--pixel-green);
+      color: var(--text-main);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      padding: 12px 16px;
+      z-index: 9999;
+      animation: slideIn 0.2s ease;
+    }
+
+    .toast.error { border-left-color: #ff4d4d; }
+
+    @keyframes slideIn {
+      from { transform: translateX(120%); opacity: 0; }
+      to   { transform: translateX(0);   opacity: 1; }
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 600px) {
+      .comment-item {
+        grid-template-columns: 24px 1fr;
+      }
+      .comment-actions {
+        grid-column: 2;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ LOGIN OVERLAY ═══════════════════════════════════════════════ -->
+<div id="login-overlay">
+  <div class="login-box">
+    <p class="login-title">🔐 ADMIN LOGIN</p>
+    <p class="login-sub">tommy.live 管理后台</p>
+    <input
+      type="password"
+      id="token-input"
+      placeholder="输入管理员密码..."
+      autocomplete="current-password"
+    />
+    <button class="login-btn" id="login-btn">进入后台</button>
+    <p id="login-error"></p>
+  </div>
+</div>
+
+<!-- ═══ MAIN UI ══════════════════════════════════════════════════════ -->
+<div id="main-ui">
+  <h1 class="page-title">📋 COMMENT ADMIN</h1>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-status="pending">待审核</button>
+    <button class="tab-btn" data-status="approved">已通过</button>
+    <button class="tab-btn" data-status="rejected">已拒绝</button>
+  </div>
+
+  <div class="toolbar">
+    <label class="select-all-label">
+      <input type="checkbox" id="select-all" />
+      全选
+    </label>
+    <button class="toolbar-btn btn-approve" id="bulk-approve" disabled>批量通过</button>
+    <button class="toolbar-btn btn-reject"  id="bulk-reject"  disabled>批量拒绝</button>
+    <button class="toolbar-btn btn-delete"  id="bulk-delete"  disabled>批量删除</button>
+  </div>
+
+  <div id="comment-list"></div>
+</div>
+
+<script>
+  // ─── State ───────────────────────────────────────────────────────────
+  let adminToken = '';
+  let currentStatus = 'pending';
+
+  // ─── Helpers ─────────────────────────────────────────────────────────
+  function showToast(msg, isError = false) {
+    const existing = document.querySelector('.toast');
+    if (existing) existing.remove();
+    const t = document.createElement('div');
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+  }
+
+  function formatTime(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    return d.toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-');
+  }
+
+  async function apiFetch(method, body) {
+    const opts = {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Token': adminToken,
+      },
+    };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch('/api/admin/comments' + (method === 'GET' ? `?status=${currentStatus}` : ''), opts);
+    return res;
+  }
+
+  // ─── Render ───────────────────────────────────────────────────────────
+  function renderList(comments) {
+    const container = document.getElementById('comment-list');
+    container.innerHTML = '';
+
+    if (!comments || comments.length === 0) {
+      container.innerHTML = '<div class="empty-state">暂无评论</div>';
+      updateBulkBtns();
+      return;
+    }
+
+    comments.forEach(c => {
+      const item = document.createElement('div');
+      item.className = 'comment-item';
+      item.dataset.id = c.id;
+
+      const showApprove = currentStatus !== 'approved';
+      const showReject  = currentStatus !== 'rejected';
+
+      item.innerHTML = `
+        <input type="checkbox" class="comment-cb" value="${c.id}" />
+        <div class="comment-body">
+          <div class="comment-meta">
+            <span class="comment-nick">${escHtml(c.nickname || '匿名')}</span>
+            <span class="comment-slug">${escHtml(c.slug || '')}</span>
+            <span class="comment-time">${formatTime(c.created_at)}</span>
+          </div>
+          <div class="comment-content">${escHtml(c.content || '')}</div>
+        </div>
+        <div class="comment-actions">
+          ${showApprove ? `<button class="action-btn action-approve" data-action="approve" data-id="${c.id}">✅ 通过</button>` : ''}
+          ${showReject  ? `<button class="action-btn action-reject"  data-action="reject"  data-id="${c.id}">❌ 拒绝</button>` : ''}
+          <button class="action-btn action-delete" data-action="delete" data-id="${c.id}">🗑 删除</button>
+        </div>
+      `;
+      container.appendChild(item);
+    });
+
+    // Checkbox change → update bulk buttons
+    container.querySelectorAll('.comment-cb').forEach(cb => {
+      cb.addEventListener('change', updateBulkBtns);
+    });
+
+    // Action buttons
+    container.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('click', handleSingleAction);
+    });
+
+    updateBulkBtns();
+  }
+
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function getCheckedIds() {
+    return [...document.querySelectorAll('.comment-cb:checked')].map(cb => Number(cb.value));
+  }
+
+  function updateBulkBtns() {
+    const checked = getCheckedIds().length > 0;
+    document.getElementById('bulk-approve').disabled = !checked || currentStatus === 'approved';
+    document.getElementById('bulk-reject').disabled  = !checked || currentStatus === 'rejected';
+    document.getElementById('bulk-delete').disabled  = !checked;
+
+    // Sync select-all state
+    const all = document.querySelectorAll('.comment-cb');
+    const allChecked = document.querySelectorAll('.comment-cb:checked');
+    const sa = document.getElementById('select-all');
+    sa.indeterminate = allChecked.length > 0 && allChecked.length < all.length;
+    sa.checked = all.length > 0 && allChecked.length === all.length;
+  }
+
+  // ─── Load Comments ───────────────────────────────────────────────────
+  async function loadComments() {
+    const container = document.getElementById('comment-list');
+    container.innerHTML = '<div class="loading-state">LOADING...</div>';
+    document.getElementById('select-all').checked = false;
+    updateBulkBtns();
+
+    try {
+      const res = await apiFetch('GET');
+      if (!res.ok) throw new Error('Failed: ' + res.status);
+      const data = await res.json();
+      renderList(data.comments || []);
+    } catch (err) {
+      container.innerHTML = '<div class="empty-state">加载失败，请刷新重试</div>';
+      showToast('加载失败: ' + err.message, true);
+    }
+  }
+
+  // ─── Actions ─────────────────────────────────────────────────────────
+  async function handleSingleAction(e) {
+    const btn = e.currentTarget;
+    const action = btn.dataset.action;
+    const id = Number(btn.dataset.id);
+
+    if (action === 'approve') await doStatus([id], 'approved');
+    else if (action === 'reject') await doStatus([id], 'rejected');
+    else if (action === 'delete') await doDelete([id]);
+  }
+
+  async function doStatus(ids, status) {
+    try {
+      const res = await apiFetch('PATCH', { ids, status });
+      if (!res.ok) throw new Error('Failed: ' + res.status);
+      showToast(status === 'approved' ? '已通过 ✓' : '已拒绝 ✓');
+      loadComments();
+    } catch (err) {
+      showToast('操作失败: ' + err.message, true);
+    }
+  }
+
+  async function doDelete(ids) {
+    if (!confirm(`确定删除 ${ids.length} 条评论？此操作不可撤销。`)) return;
+    try {
+      const res = await apiFetch('DELETE', { ids });
+      if (!res.ok) throw new Error('Failed: ' + res.status);
+      showToast('已删除 ✓');
+      loadComments();
+    } catch (err) {
+      showToast('删除失败: ' + err.message, true);
+    }
+  }
+
+  // ─── Select All ──────────────────────────────────────────────────────
+  document.getElementById('select-all').addEventListener('change', function () {
+    document.querySelectorAll('.comment-cb').forEach(cb => { cb.checked = this.checked; });
+    updateBulkBtns();
+  });
+
+  // ─── Bulk Buttons ────────────────────────────────────────────────────
+  document.getElementById('bulk-approve').addEventListener('click', () => doStatus(getCheckedIds(), 'approved'));
+  document.getElementById('bulk-reject').addEventListener('click',  () => doStatus(getCheckedIds(), 'rejected'));
+  document.getElementById('bulk-delete').addEventListener('click',  () => doDelete(getCheckedIds()));
+
+  // ─── Tabs ─────────────────────────────────────────────────────────────
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      currentStatus = this.dataset.status;
+      loadComments();
+    });
+  });
+
+  // ─── Login ───────────────────────────────────────────────────────────
+  async function attemptLogin() {
+    const tokenInput = document.getElementById('token-input');
+    const loginBtn   = document.getElementById('login-btn');
+    const loginError = document.getElementById('login-error');
+    const token = tokenInput.value.trim();
+
+    if (!token) {
+      loginError.textContent = '请输入密码';
+      return;
+    }
+
+    loginBtn.disabled = true;
+    loginBtn.textContent = '验证中...';
+    loginError.textContent = '';
+
+    try {
+      const res = await fetch(`/api/admin/comments?status=pending`, {
+        headers: { 'X-Admin-Token': token },
+      });
+
+      if (res.status === 401) {
+        loginError.textContent = '密码错误，请重试';
+        loginBtn.disabled = false;
+        loginBtn.textContent = '进入后台';
+        return;
+      }
+
+      if (!res.ok) {
+        loginError.textContent = '服务器错误，请稍后重试';
+        loginBtn.disabled = false;
+        loginBtn.textContent = '进入后台';
+        return;
+      }
+
+      // Auth succeeded
+      adminToken = token;
+      const data = await res.json();
+
+      document.getElementById('login-overlay').style.display = 'none';
+      document.getElementById('main-ui').style.display = 'block';
+      renderList(data.comments || []);
+
+    } catch (err) {
+      loginError.textContent = '网络错误: ' + err.message;
+      loginBtn.disabled = false;
+      loginBtn.textContent = '进入后台';
+    }
+  }
+
+  document.getElementById('login-btn').addEventListener('click', attemptLogin);
+  document.getElementById('token-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') attemptLogin();
+  });
+</script>
+</body>
+</html>
