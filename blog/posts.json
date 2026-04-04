@@ -1,5 +1,13 @@
 [
   {
+    "slug": "superpowers-comment-system",
+    "title": "给 AI 装上超能力，然后它帮我造了个评论系统",
+    "excerpt": "Superpowers 技能框架让 AI 先问需求、再设计、再写代码。我用它从零搭了博客评论系统：D1 数据库 + API + 前端组件 + 管理后台。",
+    "date": "2026-04-04",
+    "updated": "2026-04-04T10:00:00",
+    "tag": "learning"
+  },
+  {
     "slug": "ai-saas-frontend",
     "title": "一个下午 + 一个晚上，AI 帮我搭了整个 SaaS 前端",
     "excerpt": "15 个页面，从营销首页到后台管理系统，全部可交互。而我做的最多的事情，是「不对不对，改一下」。",

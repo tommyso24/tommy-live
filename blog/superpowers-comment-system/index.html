@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="给 AI 编程助手装上 Superpowers 技能框架，让它像高级工程师一样工作。然后我用它从零搭了一套博客评论系统。">
+<title>给 AI 装上超能力，然后它帮我造了个评论系统 — Tommy.live</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog-common.css">
+<link rel="stylesheet" href="../comment-widget.css">
+<link rel="stylesheet" href="../../assets/site-chrome.css">
+</head>
+<body class="has-site-chrome">
+<div class="stars" id="stars"></div>
+<div class="xp-bar"><div class="xp-bar-fill" id="xpBar"></div></div>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../index.html" data-nav="blog">博客</a></li>
+      <li><a href="../../changelog/index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+  <article class="article-card">
+    <h1>给 AI 装上超能力，然后它帮我造了个评论系统</h1>
+    <p class="article-meta">发布于 2026-04-04 · <span class="blog-tag learning">学习记录</span></p>
+
+    <div class="intro-box">
+      <p>今天早上研究了一个叫 <strong>Superpowers</strong> 的开源技能框架——装上之后，AI 编程助手不再是上来就甩代码，而是先跟你聊需求、画架构、写计划，确认了再动手。</p>
+      <p>为了测试效果，我让它帮我给博客做了一套完整的评论系统。从数据库设计到前端组件到管理后台，全套。</p>
+    </div>
+
+    <div class="article-body">
+
+      <h2>Superpowers 是什么</h2>
+
+      <p>一句话：<strong>它是一套开源技能框架，让 AI 编程工具自动遵循专业软件工程流程。</strong></p>
+
+      <p>平时用 Claude Code 或者 Cursor，说「帮我加个功能」，AI 通常上来就写代码。写出来能不能用？看运气。</p>
+
+      <p>装了 Superpowers 之后，AI 的行为模式完全变了：</p>
+
+      <ol>
+        <li><strong>先问你需求</strong> — 不急着写代码，先通过提问帮你理清到底要什么</li>
+        <li><strong>再出设计方案</strong> — 画架构图、选技术栈、列出文件结构</li>
+        <li><strong>然后制定计划</strong> — 把任务拆成 2-5 分钟的小步骤，每步写什么、测什么、怎么验证</li>
+        <li><strong>你确认了才动手</strong> — 说「go」之后，它按计划一步步执行</li>
+      </ol>
+
+      <p>简单说就是从「随便写写」变成了「需求分析 → 设计 → 计划 → 执行」的正经流程。GitHub 130k+ Stars，MIT 开源，完全免费。</p>
+
+      <h3>怎么装</h3>
+
+      <p>在 Claude Code 里一行命令：</p>
+
+      <pre><code>/plugin install superpowers@claude-plugins-official</code></pre>
+
+      <p>装完重启 Claude Code 就生效了。不需要记任何命令，用自然语言说「帮我做个 XX 功能」就能触发整套流程。</p>
+
+      <p>怎么确认装好了？跟 AI 说「我想给这个项目加个新功能」——如果它开始问你需求细节而不是直接写代码，就说明在工作了。</p>
+
+      <hr>
+
+      <h2>实战：用 Superpowers 从零搭评论系统</h2>
+
+      <p>光说不练假把式。我直接拿我这个博客开刀——之前文章没有评论功能，读者看完了没地方说话。</p>
+
+      <h3>阶段一：头脑风暴（AI 问，我答）</h3>
+
+      <p>我跟 AI 说：「我想给博客文章加评论功能」。</p>
+
+      <p>装了 Superpowers 之后，它没有直接开始写代码，而是问了我一串问题：</p>
+
+      <ul>
+        <li>需要登录才能评论吗？ → 不要，匿名的，填个昵称就行</li>
+        <li>要不要楼中楼回复？ → 要，但最多两层就够了</li>
+        <li>评论需要审核吗？ → 要，我手动审核通过才显示</li>
+        <li>管理后台怎么进？ → 密码保护的独立页面</li>
+        <li>技术栈有偏好吗？ → 用 Cloudflare Pages Functions + D1，跟现有部署一致</li>
+        <li>风格？ → 跟站点像素风统一</li>
+      </ul>
+
+      <p>这些问题我之前自己都没全想清楚。<strong>被 AI 问一遍之后，需求反而更明确了。</strong></p>
+
+      <h3>阶段二：设计文档</h3>
+
+      <p>问完之后，AI 生成了一份完整的设计文档，包括：</p>
+
+      <ul>
+        <li>架构图（浏览器 → Pages Functions → D1 数据库）</li>
+        <li>数据库表结构（comments 表，带 slug、nickname、content、status、parent_id）</li>
+        <li>API 设计（公开的 GET/POST + 管理员的 GET/PATCH/DELETE）</li>
+        <li>安全措施（IP 哈希限频、XSS 防护、参数校验）</li>
+      </ul>
+
+      <p>我看了一遍，调了几个细节（比如限频改成 60 秒一条），确认通过。</p>
+
+      <h3>阶段三：实施计划</h3>
+
+      <p>然后 AI 把整个项目拆成了 7 个任务：</p>
+
+      <table>
+        <tr><th>任务</th><th>内容</th></tr>
+        <tr><td>Task 1</td><td>数据库 Schema + Wrangler 配置</td></tr>
+        <tr><td>Task 2</td><td>公开评论 API（GET 获取 + POST 提交）</td></tr>
+        <tr><td>Task 3</td><td>管理员 API（审核/删除）</td></tr>
+        <tr><td>Task 4</td><td>评论组件样式（像素风 CSS）</td></tr>
+        <tr><td>Task 5</td><td>评论组件逻辑（vanilla JS）</td></tr>
+        <tr><td>Task 6</td><td>嵌入所有博客文章页面</td></tr>
+        <tr><td>Task 7</td><td>管理后台页面</td></tr>
+      </table>
+
+      <p>每个任务都标了要改哪些文件、写什么代码、先测什么。我确认后说「go」，它就开始一个一个执行了。</p>
+
+      <h3>阶段四：自动执行</h3>
+
+      <p>接下来就是看它干活了。每完成一个任务会自动 commit，我可以随时看进度。</p>
+
+      <p>最终产出：</p>
+
+      <ul>
+        <li><strong>后端 API</strong> — 两个 Cloudflare Pages Functions，处理评论的增删查改</li>
+        <li><strong>D1 数据库</strong> — 一张 comments 表，带索引，支持楼中楼</li>
+        <li><strong>前端组件</strong> — 纯 vanilla JS + CSS，像素风，支持回复和字数统计</li>
+        <li><strong>管理后台</strong> — 密码保护，可以审核/删除评论，带筛选和搜索</li>
+        <li><strong>全站集成</strong> — 所有博客文章底部自动嵌入评论区</li>
+      </ul>
+
+      <p>整个过程不到两小时。如果没有 Superpowers 的流程约束，AI 大概率会跳过设计直接写代码，然后中途发现架构不对再推翻重来。</p>
+
+      <hr>
+
+      <h2>有 vs 没有 Superpowers</h2>
+
+      <table>
+        <tr><th>对比</th><th>没装</th><th>装了</th></tr>
+        <tr><td>开局</td><td>AI 直接写代码</td><td>AI 先问需求细节</td></tr>
+        <tr><td>设计</td><td>没有</td><td>生成设计文档，你确认后才开始</td></tr>
+        <tr><td>计划</td><td>没有</td><td>拆成小任务，标清文件和步骤</td></tr>
+        <tr><td>执行</td><td>一口气输出一大堆</td><td>按计划逐步执行，每步可验证</td></tr>
+        <tr><td>出错时</td><td>不知道哪步错了</td><td>精确到具体任务，回退成本低</td></tr>
+      </table>
+
+      <hr>
+
+      <h2>几个实用技巧</h2>
+
+      <ol>
+        <li><strong>认真对待头脑风暴。</strong> 这是 ROI 最高的环节，花 10 分钟能省后面 2 小时。</li>
+        <li><strong>一次只做一个功能。</strong> 范围太大会让计划变得混乱，保持聚焦最有效。</li>
+        <li><strong>不需要记命令。</strong> 用自然语言就行，「帮我规划这个功能」就能触发全流程。</li>
+        <li><strong>Session 崩了也不怕。</strong> 计划文档里的 checkbox 记录了进度，新会话从断点恢复。</li>
+        <li><strong>计划阶段就提修改。</strong> 不要等到执行时才发现不对，那时候改成本高。</li>
+      </ol>
+
+      <hr>
+
+      <h2>最后</h2>
+
+      <p>Superpowers 最大的价值不是让 AI 写更多代码，而是<strong>让它在写代码之前先想清楚</strong>。</p>
+
+      <p>这跟我之前写的 SaaS 原型那篇文章说的是同一个道理——AI 是执行力最强的搭档，但它需要方向。Superpowers 做的事情，就是给这个方向加了一套流程保障。</p>
+
+      <p>对了，你现在就可以试试这篇文章底部的评论区——那就是用 Superpowers 搭出来的。</p>
+
+      <div class="article-footer">
+        — 写于 2026.04.04 上午 · 广州 —<br>
+        Superpowers 开源地址：github.com/obra/superpowers
+      </div>
+
+      <!-- 评论区 -->
+      <div id="commentSection" class="comment-section">
+        <div id="commentSectionTitle" class="comment-section-title">💬 COMMENTS</div>
+
+        <div class="comment-form">
+          <div class="comment-form-label">💬 LEAVE A COMMENT</div>
+          <div id="commentReplyHint" class="comment-form-reply-hint"></div>
+          <input type="text" id="commentNickname" placeholder="昵称" maxlength="20">
+          <textarea id="commentContent" placeholder="写下你的想法..." maxlength="500"></textarea>
+          <div class="comment-form-footer">
+            <span id="commentCharCount" class="comment-char-count">0 / 500</span>
+            <button id="commentSubmitBtn" class="comment-submit-btn">SUBMIT ▶</button>
+          </div>
+          <div id="commentFormMessage" class="comment-form-message"></div>
+        </div>
+
+        <div id="commentList"></div>
+      </div>
+
+    </div>
+  </article>
+</main>
+<script>
+(function () {
+  var c = document.getElementById('stars');
+  for (var i = 0; i < 40; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    c.appendChild(s);
+  }
+})();
+</script>
+<script src="../../assets/site-chrome.js"></script>
+<script src="../comment-widget.js"></script>
+</body>
+</html>
