@@ -576,12 +576,12 @@ h1 {
         })
       });
 
-      if (resp.ok) {
+      const data = await resp.json();
+      if (resp.ok && data.ok) {
         submitMsg.textContent = '提交成功！排行榜已更新';
         submitMsg.style.color = 'var(--pixel-green)';
         fetchLeaderboard();
       } else {
-        const data = await resp.json();
         submitMsg.textContent = '错误: ' + (data.message || '提交失败');
         submitMsg.style.color = 'var(--pixel-pink)';
         btnSubmit.disabled = false;
@@ -604,15 +604,15 @@ h1 {
       const resp = await window.TommyAuth.fetchWithAuth('/api/scores?game=reaction');
       if (resp.ok) {
         const data = await resp.json();
-        renderLeaderboard(data.top10, data.myScore);
+        renderLeaderboard(data.leaderboard, data.me);
       }
     } catch (err) {
       console.error('Failed to fetch leaderboard', err);
     }
   }
 
-  function renderLeaderboard(top10, myScore) {
-    if (!top10 || top10.length === 0) {
+  function renderLeaderboard(leaderboard, me) {
+    if (!leaderboard || leaderboard.length === 0) {
       leaderboardBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-dim);">暂无数据</td></tr>';
       return;
     }
@@ -621,11 +621,11 @@ h1 {
     const user = window.TommyAuth.getUser();
     const currentUserId = user ? user.id : null;
 
-    top10.forEach((item, idx) => {
+    leaderboard.forEach((item, idx) => {
       const tr = document.createElement('tr');
       if (item.userId === currentUserId) tr.className = 'row-me';
       
-      const rank = idx + 1;
+      const rank = item.rank || (idx + 1);
       let rankClass = '';
       if (rank === 1) rankClass = 'rank-1';
       else if (rank === 2) rankClass = 'rank-2';
@@ -634,15 +634,15 @@ h1 {
       tr.innerHTML = `
         <td class="${rankClass}">${rank}</td>
         <td>${escapeHTML(item.nickname)}</td>
-        <td style="text-align: right;">${item.bestTime}ms</td>
-        <td style="text-align: right;">${item.playCount}</td>
+        <td style="text-align: right;">${item.best_time}ms</td>
+        <td style="text-align: right;">${item.play_count}</td>
       `;
       leaderboardBody.appendChild(tr);
     });
 
-    if (myScore && myScore.rank > 10) {
-      myRankInfo.innerHTML = `你在排行榜中位列第 <b>${myScore.rank}</b> 名 (最佳: ${myScore.bestTime}ms)`;
-    } else if (!myScore && window.TommyAuth.isLoggedIn()) {
+    if (me && me.rank > 10) {
+      myRankInfo.innerHTML = `你在排行榜中位列第 <b>${me.rank}</b> 名 (最佳: ${me.best_time}ms)`;
+    } else if (!me && window.TommyAuth.isLoggedIn()) {
       myRankInfo.textContent = '你还没有提交过成绩，快来挑战吧！';
     } else {
       myRankInfo.textContent = '';
