@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>反应力对决 — Tommy.live</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site-chrome.css">
+<style>
+:root {
+  --bg-dark: #0f0e17;
+  --bg-card: #1a1925;
+  --bg-card-hover: #232136;
+  --pixel-green: #2de2a6;
+  --pixel-pink: #ff6b9d;
+  --pixel-blue: #4cc9f0;
+  --pixel-yellow: #f7d754;
+  --pixel-orange: #ff9e64;
+  --pixel-purple: #c77dff;
+  --text-main: #e8e4f0;
+  --text-dim: #8b8598;
+  --border-color: #2e2b3a;
+  --pixel-size: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.6;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect x='4' y='0' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='0' y='4' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='4' y='4' width='4' height='4' fill='%23fff'/%3E%3Crect x='8' y='4' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='4' y='8' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='8' y='8' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='8' y='12' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='12' y='12' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='12' y='16' width='4' height='4' fill='%234cc9f0'/%3E%3C/svg%3E") 4 4, auto;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: var(--pixel-size);
+  height: var(--pixel-size);
+  background: #fff;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.1; }
+  100% { opacity: 0.8; }
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(14px, 3.5vw, 18px);
+  color: var(--pixel-blue);
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 24px;
+  font-size: clamp(16px, 4vw, 20px);
+}
+
+#userBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+#userBar span { color: var(--pixel-yellow); }
+
+.btn-logout {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-dim);
+  padding: 2px 8px;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-logout:hover { color: var(--pixel-pink); border-color: var(--pixel-pink); }
+
+/* Game Area */
+.rounds {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.round-box {
+  width: 50px;
+  height: 40px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.round-box.active { border-color: var(--pixel-yellow); background: var(--bg-card-hover); }
+.round-box.done { background: var(--pixel-blue); color: var(--bg-dark); border-color: var(--pixel-blue); }
+.round-box.foul { background: var(--pixel-pink); border-color: var(--pixel-pink); color: var(--bg-dark); }
+.round-box span { font-size: 14px; font-weight: bold; }
+
+.game-zone {
+  min-height: 320px;
+  border: 4px solid var(--border-color);
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.1s;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.game-zone[data-state="waiting"] { background: var(--bg-card); }
+.game-zone[data-state="waiting"]:hover { background: var(--bg-card-hover); }
+.game-zone[data-state="ready"] { background: #8b0000; }
+.game-zone[data-state="go"] { background: var(--pixel-green); color: var(--bg-dark); }
+.game-zone[data-state="result"] { background: var(--bg-card); }
+.game-zone[data-state="foul"] { background: var(--pixel-pink); color: var(--bg-dark); }
+
+.game-hint {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.game-sub { font-size: 20px; opacity: 0.8; }
+
+/* Stats Panel */
+#statsPanel {
+  background: var(--bg-card);
+  border: 3px solid var(--pixel-yellow);
+  padding: 24px;
+  margin-bottom: 32px;
+  display: none;
+}
+
+#statsPanel h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  text-align: center;
+  color: var(--pixel-yellow);
+  margin-bottom: 16px;
+}
+
+.final-score {
+  text-align: center;
+  font-size: 48px;
+  font-weight: bold;
+  color: var(--pixel-green);
+  margin-bottom: 8px;
+}
+
+.final-unit { text-align: center; color: var(--text-dim); margin-bottom: 20px; }
+
+.score-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.score-item {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+.score-item.discarded { color: var(--text-dim); text-decoration: line-through; border-style: dashed; }
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-game {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  padding: 14px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.1s;
+}
+
+.btn-game:active { transform: translateY(2px); }
+
+.btn-primary { background: var(--pixel-green); color: var(--bg-dark); border-bottom: 4px solid #1a9d6e; }
+.btn-secondary { background: var(--pixel-blue); color: var(--bg-dark); border-bottom: 4px solid #36a1c1; }
+
+#submitMsg { text-align: center; margin-top: 10px; font-size: 16px; }
+
+/* Leaderboard */
+.leaderboard {
+  border-top: 2px dashed var(--border-color);
+  padding-top: 32px;
+}
+
+.leaderboard h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--pixel-blue);
+}
+
+.score-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.score-table th {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--text-dim);
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.score-table td { padding: 12px 8px; border-bottom: 1px solid var(--border-color); }
+
+.rank-1 { color: #ffd700; } /* Gold */
+.rank-2 { color: #c0c0c0; } /* Silver */
+.rank-3 { color: #cd7f32; } /* Bronze? Actually let's use pixel pink for 3 */
+.rank-3 { color: var(--pixel-pink); }
+.row-me { background: rgba(76, 201, 240, 0.15); border: 1px solid var(--pixel-blue); }
+
+.my-rank-info {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 18px;
+  color: var(--pixel-blue);
+}
+</style>
+</head>
+<body class="has-site-chrome">
+<div class="stars" id="stars"></div>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../../blog/index.html" data-nav="blog">博客</a></li>
+      <li><a href="../../changelog/index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <h1>反应力对决</h1>
+  <p class="subtitle">屏幕变绿后立刻点击！5 轮取平均</p>
+
+  <div id="userBar" style="display: none;">
+    <span>玩家：<b id="userName"></b></span>
+    <button class="btn-logout" id="btnLogout">退出</button>
+  </div>
+
+  <div class="rounds" id="roundsBar">
+    <div class="round-box" data-idx="0">R1 <span id="r0">--</span></div>
+    <div class="round-box" data-idx="1">R2 <span id="r1">--</span></div>
+    <div class="round-box" data-idx="2">R3 <span id="r2">--</span></div>
+    <div class="round-box" data-idx="3">R4 <span id="r3">--</span></div>
+    <div class="round-box" data-idx="4">R5 <span id="r4">--</span></div>
+  </div>
+
+  <div class="game-zone" id="gameZone" data-state="waiting">
+    <div class="game-hint" id="gameHint">准备好了吗？</div>
+    <div class="game-sub" id="gameSub">点击此区域开始游戏</div>
+  </div>
+
+  <div id="statsPanel">
+    <h2>挑战完成！</h2>
+    <div class="final-score" id="avgScore">--</div>
+    <div class="final-unit">毫秒 (ms)</div>
+    <div class="score-details" id="scoreDetails">
+      <!-- 5 items -->
+    </div>
+    <div class="actions">
+      <button class="btn-game btn-primary" id="btnRestart">再来一局</button>
+      <button class="btn-game btn-secondary" id="btnSubmit">提交成绩</button>
+      <a href="../../auth/login.html?return=../games/reaction/index.html" class="btn-game btn-secondary" id="btnLoginToSubmit" style="text-decoration: none; display: none;">登录后提交</a>
+    </div>
+    <p id="submitMsg"></p>
+  </div>
+
+  <div class="leaderboard">
+    <h2>TOP 10 排行榜</h2>
+    <table class="score-table">
+      <thead>
+        <tr>
+          <th style="width: 50px;">排名</th>
+          <th>玩家</th>
+          <th style="text-align: right;">最佳成绩</th>
+          <th style="text-align: right;">挑战次数</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardBody">
+        <tr><td colspan="4" style="text-align: center; color: var(--text-dim);">加载中...</td></tr>
+      </tbody>
+    </table>
+    <div id="myRankInfo" class="my-rank-info"></div>
+  </div>
+</main>
+
+<script src="../../assets/auth.js"></script>
+<script>
+(function() {
+  // Stars animation
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 45; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    starsEl.appendChild(s);
+  }
+
+  const GAME_STATE = {
+    WAITING: 'waiting',
+    READY: 'ready',
+    GO: 'go',
+    RESULT: 'result',
+    FOUL: 'foul'
+  };
+
+  const gameZone = document.getElementById('gameZone');
+  const gameHint = document.getElementById('gameHint');
+  const gameSub = document.getElementById('gameSub');
+  const statsPanel = document.getElementById('statsPanel');
+  const avgScoreEl = document.getElementById('avgScore');
+  const scoreDetailsEl = document.getElementById('scoreDetails');
+  const userBar = document.getElementById('userBar');
+  const userNameEl = document.getElementById('userName');
+  const btnLogout = document.getElementById('btnLogout');
+  const btnRestart = document.getElementById('btnRestart');
+  const btnSubmit = document.getElementById('btnSubmit');
+  const btnLoginToSubmit = document.getElementById('btnLoginToSubmit');
+  const submitMsg = document.getElementById('submitMsg');
+  const leaderboardBody = document.getElementById('leaderboardBody');
+  const myRankInfo = document.getElementById('myRankInfo');
+
+  let currentRound = 0;
+  let scores = [];
+  let startTime = 0;
+  let timerId = null;
+  let currentState = GAME_STATE.WAITING;
+
+  // UI Updates
+  function updateAuthUI() {
+    if (window.TommyAuth.isLoggedIn()) {
+      const user = window.TommyAuth.getUser();
+      userBar.style.display = 'flex';
+      userNameEl.textContent = user ? user.nickname : 'Unknown';
+      btnSubmit.style.display = 'block';
+      btnLoginToSubmit.style.display = 'none';
+    } else {
+      userBar.style.display = 'none';
+      btnSubmit.style.display = 'none';
+      btnLoginToSubmit.style.display = 'block';
+    }
+  }
+
+  btnLogout.addEventListener('click', () => {
+    window.TommyAuth.clear();
+    updateAuthUI();
+    fetchLeaderboard();
+  });
+
+  function setGameState(state) {
+    currentState = state;
+    gameZone.setAttribute('data-state', state);
+    
+    // Update round indicator classes
+    const boxes = document.querySelectorAll('.round-box');
+    boxes.forEach((box, i) => {
+      box.classList.remove('active', 'foul');
+      if (i === currentRound) box.classList.add('active');
+      if (state === GAME_STATE.FOUL && i === currentRound) box.classList.add('foul');
+    });
+
+    switch (state) {
+      case GAME_STATE.WAITING:
+        gameHint.textContent = '准备好了吗？';
+        gameSub.textContent = '点击此区域开始游戏';
+        break;
+      case GAME_STATE.READY:
+        gameHint.textContent = '等待变绿...';
+        gameSub.textContent = '千万别点早了！';
+        break;
+      case GAME_STATE.GO:
+        gameHint.textContent = '点击！！！';
+        gameSub.textContent = '快快快！';
+        startTime = performance.now();
+        break;
+      case GAME_STATE.RESULT:
+        const last = scores[scores.length - 1];
+        gameHint.textContent = last + ' ms';
+        gameSub.textContent = '休息一下，下一轮即将开始';
+        break;
+      case GAME_STATE.FOUL:
+        gameHint.textContent = '犯规！';
+        gameSub.textContent = '太早了，这一轮重来';
+        break;
+    }
+  }
+
+  function startGame() {
+    scores = [];
+    currentRound = 0;
+    statsPanel.style.display = 'none';
+    gameZone.style.display = 'flex';
+    document.querySelectorAll('.round-box span').forEach(s => s.textContent = '--');
+    document.querySelectorAll('.round-box').forEach(b => b.classList.remove('done', 'foul', 'active'));
+    setGameState(GAME_STATE.READY);
+    scheduleGo();
+  }
+
+  function scheduleGo() {
+    const delay = 2000 + Math.random() * 3000;
+    timerId = setTimeout(() => {
+      setGameState(GAME_STATE.GO);
+    }, delay);
+  }
+
+  gameZone.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return; // Only left click
+    
+    if (currentState === GAME_STATE.WAITING) {
+      startGame();
+    } else if (currentState === GAME_STATE.READY) {
+      // Foul
+      clearTimeout(timerId);
+      setGameState(GAME_STATE.FOUL);
+      setTimeout(() => {
+        setGameState(GAME_STATE.READY);
+        scheduleGo();
+      }, 1500);
+    } else if (currentState === GAME_STATE.GO) {
+      const endTime = performance.now();
+      const reactionTime = Math.round(endTime - startTime);
+      scores.push(reactionTime);
+      
+      document.getElementById(`r${currentRound}`).textContent = reactionTime;
+      document.querySelector(`.round-box[data-idx="${currentRound}"]`).classList.add('done');
+      
+      setGameState(GAME_STATE.RESULT);
+      
+      setTimeout(() => {
+        currentRound++;
+        if (currentRound < 5) {
+          setGameState(GAME_STATE.READY);
+          scheduleGo();
+        } else {
+          showStats();
+        }
+      }, 1200);
+    }
+  });
+
+  function showStats() {
+    gameZone.style.display = 'none';
+    statsPanel.style.display = 'block';
+    
+    const sorted = [...scores].sort((a, b) => a - b);
+    // Remove min and max, take middle 3
+    const middle3 = sorted.slice(1, 4);
+    const avg = Math.round(middle3.reduce((a, b) => a + b, 0) / 3);
+    
+    avgScoreEl.textContent = avg;
+    avgScoreEl.dataset.value = avg;
+
+    scoreDetailsEl.innerHTML = '';
+    scores.forEach((s, idx) => {
+      const item = document.createElement('div');
+      item.className = 'score-item';
+      
+      // Mark min/max as discarded
+      const isMin = s === sorted[0] && sorted.indexOf(s) === sorted.lastIndexOf(sorted[0]);
+      const isMax = s === sorted[4] && sorted.indexOf(s) === sorted.lastIndexOf(sorted[4]);
+      // Note: If multiple scores are same, we just need to discard ONE of them. 
+      // Simpler logic for UI: find index in sorted and check if it's 0 or 4
+      const indexInSorted = sorted.indexOf(s);
+      let discarded = false;
+      if (indexInSorted === 0) {
+        discarded = true;
+        sorted[0] = -1; // Mark as handled
+      } else if (indexInSorted === 4) {
+        discarded = true;
+        sorted[4] = -1;
+      }
+
+      if (discarded) item.classList.add('discarded');
+      item.textContent = `R${idx + 1}: ${s}ms`;
+      scoreDetailsEl.appendChild(item);
+    });
+
+    submitMsg.textContent = '';
+    btnSubmit.disabled = false;
+  }
+
+  btnRestart.addEventListener('click', startGame);
+
+  btnSubmit.addEventListener('click', async () => {
+    if (!window.TommyAuth.isLoggedIn()) return;
+    
+    btnSubmit.disabled = true;
+    submitMsg.textContent = '提交中...';
+    submitMsg.style.color = 'var(--text-main)';
+
+    try {
+      const avg = parseInt(avgScoreEl.dataset.value);
+      const resp = await window.TommyAuth.fetchWithAuth('/api/scores', {
+        method: 'POST',
+        body: JSON.stringify({
+          game: 'reaction',
+          time: avg
+        })
+      });
+
+      if (resp.ok) {
+        submitMsg.textContent = '提交成功！排行榜已更新';
+        submitMsg.style.color = 'var(--pixel-green)';
+        fetchLeaderboard();
+      } else {
+        const data = await resp.json();
+        submitMsg.textContent = '错误: ' + (data.message || '提交失败');
+        submitMsg.style.color = 'var(--pixel-pink)';
+        btnSubmit.disabled = false;
+      }
+    } catch (err) {
+      submitMsg.textContent = '网络错误';
+      submitMsg.style.color = 'var(--pixel-pink)';
+      btnSubmit.disabled = false;
+    }
+  });
+
+  function escapeHTML(str) {
+    const p = document.createElement('p');
+    p.textContent = str;
+    return p.innerHTML;
+  }
+
+  async function fetchLeaderboard() {
+    try {
+      const resp = await window.TommyAuth.fetchWithAuth('/api/scores?game=reaction');
+      if (resp.ok) {
+        const data = await resp.json();
+        renderLeaderboard(data.top10, data.myScore);
+      }
+    } catch (err) {
+      console.error('Failed to fetch leaderboard', err);
+    }
+  }
+
+  function renderLeaderboard(top10, myScore) {
+    if (!top10 || top10.length === 0) {
+      leaderboardBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-dim);">暂无数据</td></tr>';
+      return;
+    }
+
+    leaderboardBody.innerHTML = '';
+    const user = window.TommyAuth.getUser();
+    const currentUserId = user ? user.id : null;
+
+    top10.forEach((item, idx) => {
+      const tr = document.createElement('tr');
+      if (item.userId === currentUserId) tr.className = 'row-me';
+      
+      const rank = idx + 1;
+      let rankClass = '';
+      if (rank === 1) rankClass = 'rank-1';
+      else if (rank === 2) rankClass = 'rank-2';
+      else if (rank === 3) rankClass = 'rank-3';
+
+      tr.innerHTML = `
+        <td class="${rankClass}">${rank}</td>
+        <td>${escapeHTML(item.nickname)}</td>
+        <td style="text-align: right;">${item.bestTime}ms</td>
+        <td style="text-align: right;">${item.playCount}</td>
+      `;
+      leaderboardBody.appendChild(tr);
+    });
+
+    if (myScore && myScore.rank > 10) {
+      myRankInfo.innerHTML = `你在排行榜中位列第 <b>${myScore.rank}</b> 名 (最佳: ${myScore.bestTime}ms)`;
+    } else if (!myScore && window.TommyAuth.isLoggedIn()) {
+      myRankInfo.textContent = '你还没有提交过成绩，快来挑战吧！';
+    } else {
+      myRankInfo.textContent = '';
+    }
+  }
+
+  // Init
+  updateAuthUI();
+  fetchLeaderboard();
+
+})();
+</script>
+<script src="../../assets/site-chrome.js"></script>
+</body>
+</html>

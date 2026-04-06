@@ -13,3 +13,39 @@ CREATE TABLE IF NOT EXISTS comments (
 
 CREATE INDEX IF NOT EXISTS idx_comments_slug ON comments(slug, status);
 CREATE INDEX IF NOT EXISTS idx_comments_status ON comments(status);
+
+-- 全站用户账户
+CREATE TABLE IF NOT EXISTS users (
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  nickname      TEXT NOT NULL,
+  email         TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  verified      INTEGER NOT NULL DEFAULT 0,
+  created_at    TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+
+-- 邮箱验证码
+CREATE TABLE IF NOT EXISTS verification_codes (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  email      TEXT NOT NULL,
+  code       TEXT NOT NULL,
+  expires_at TEXT NOT NULL,
+  used       INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE INDEX IF NOT EXISTS idx_vcode_email ON verification_codes(email, used);
+
+-- 游戏排行榜
+CREATE TABLE IF NOT EXISTS scores (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id    INTEGER NOT NULL REFERENCES users(id),
+  game       TEXT NOT NULL,
+  best_time  INTEGER NOT NULL,
+  play_count INTEGER NOT NULL DEFAULT 1,
+  updated_at TEXT NOT NULL
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_scores_user_game ON scores(user_id, game);
+CREATE INDEX IF NOT EXISTS idx_scores_game_time ON scores(game, best_time);
