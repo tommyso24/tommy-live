@@ -14,7 +14,7 @@ export async function onRequestGet(context) {
     }
 
     const user = await env.DB.prepare(
-      `SELECT id, nickname, email, created_at
+      `SELECT id, nickname, email, avatar_id, bio, created_at
        FROM users
        WHERE id = ? AND verified = 1
        LIMIT 1`
@@ -33,6 +33,8 @@ export async function onRequestGet(context) {
           id: user.id,
           nickname: user.nickname,
           email: user.email,
+          avatar_id: user.avatar_id,
+          bio: user.bio,
           created_at: user.created_at,
         },
       },

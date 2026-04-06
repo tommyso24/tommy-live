@@ -23,7 +23,7 @@ export async function onRequestGet(context) {
     }
 
     const { results } = await env.DB.prepare(
-      `SELECT s.best_time, s.play_count, u.nickname
+      `SELECT s.best_time, s.play_count, u.nickname, u.avatar_id, u.bio
        FROM scores s
        JOIN users u ON s.user_id = u.id
        WHERE s.game = ?
@@ -38,6 +38,8 @@ export async function onRequestGet(context) {
       best_time: item.best_time,
       play_count: item.play_count,
       nickname: item.nickname,
+      avatar_id: item.avatar_id,
+      bio: item.bio,
     }));
 
     let me = null;
