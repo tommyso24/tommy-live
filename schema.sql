@@ -54,3 +54,4 @@ CREATE INDEX IF NOT EXISTS idx_scores_game_time ON scores(game, best_time);
 -- 用户资料扩展字段（v2）
 ALTER TABLE users ADD COLUMN avatar_id INTEGER NOT NULL DEFAULT 0;
 ALTER TABLE users ADD COLUMN bio TEXT NOT NULL DEFAULT '';
+ALTER TABLE users ADD COLUMN is_admin INTEGER NOT NULL DEFAULT 0;
