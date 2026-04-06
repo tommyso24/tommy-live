@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>登录 — Tommy.live</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site-chrome.css">
+<link rel="stylesheet" href="./auth-common.css">
+<style>
+:root {
+  --bg-dark: #0f0e17;
+  --bg-card: #1a1925;
+  --bg-card-hover: #232136;
+  --pixel-green: #2de2a6;
+  --pixel-pink: #ff6b9d;
+  --pixel-blue: #4cc9f0;
+  --pixel-yellow: #f7d754;
+  --pixel-orange: #ff9e64;
+  --pixel-purple: #c77dff;
+  --text-main: #e8e4f0;
+  --text-dim: #8b8598;
+  --border-color: #2e2b3a;
+  --pixel-size: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.6;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect x='4' y='0' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='0' y='4' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='4' y='4' width='4' height='4' fill='%23fff'/%3E%3Crect x='8' y='4' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='4' y='8' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='8' y='8' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='8' y='12' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='12' y='12' width='4' height='4' fill='%232de2a6'/%3E%3Crect x='12' y='16' width='4' height='4' fill='%232de2a6'/%3E%3C/svg%3E") 4 4, auto;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: var(--pixel-size);
+  height: var(--pixel-size);
+  background: #fff;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.1; }
+  100% { opacity: 0.8; }
+}
+</style>
+</head>
+<body class="has-site-chrome">
+<div class="stars" id="stars"></div>
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../blog/index.html" data-nav="blog">博客</a></li>
+      <li><a href="../changelog/index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="auth-container">
+  <h1>欢迎回来</h1>
+  <p class="auth-subtitle">继续你的像素之旅</p>
+
+  <div class="auth-panel">
+    <form id="loginForm">
+      <div class="auth-field">
+        <label for="email">邮箱</label>
+        <input type="email" id="email" name="email" placeholder="hello@example.com" required>
+      </div>
+      <div class="auth-field">
+        <label for="password">密码</label>
+        <input type="password" id="password" name="password" placeholder="请输入密码" required>
+      </div>
+      <button type="submit" id="btnLogin" class="auth-btn">立即登录</button>
+    </form>
+    <div id="errorMsg" class="auth-error" style="display: none;"></div>
+    <div id="successMsg" class="auth-success" style="display: none;"></div>
+  </div>
+
+  <p class="auth-link">还没有账号？<a href="./register.html">去注册</a></p>
+</main>
+
+<script src="../assets/auth.js"></script>
+<script>
+(function() {
+  // Stars animation
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 45; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    starsEl.appendChild(s);
+  }
+
+  const loginForm = document.getElementById('loginForm');
+  const errorMsg = document.getElementById('errorMsg');
+  const successMsg = document.getElementById('successMsg');
+  const btnLogin = document.getElementById('btnLogin');
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const returnUrl = urlParams.get('return') || '../index.html';
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorMsg.style.display = 'block';
+    successMsg.style.display = 'none';
+  }
+
+  function showSuccess(msg) {
+    successMsg.textContent = msg;
+    successMsg.style.display = 'block';
+    errorMsg.style.display = 'none';
+  }
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorMsg.style.display = 'none';
+    btnLogin.disabled = true;
+    btnLogin.textContent = '登录中...';
+
+    const formData = new FormData(loginForm);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const resp = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await resp.json();
+      if (resp.ok) {
+        showSuccess('登录成功！正在跳转...');
+        window.TommyAuth.save(result.token, result.user);
+        setTimeout(() => {
+          window.location.href = returnUrl;
+        }, 1200);
+      } else {
+        showError(result.message || '登录失败，请检查邮箱和密码');
+      }
+    } catch (err) {
+      showError('网络错误，请检查连接');
+    } finally {
+      btnLogin.disabled = false;
+      btnLogin.textContent = '立即登录';
+    }
+  });
+
+})();
+</script>
+<script src="../assets/site-chrome.js"></script>
+</body>
+</html>
