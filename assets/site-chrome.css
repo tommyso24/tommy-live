@@ -59,6 +59,99 @@ html.site-nav-compact nav {
   transition: height 0.35s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
+.user-status {
+  margin-left: auto;
+  margin-right: 12px;
+  position: relative;
+  z-index: 1001;
+}
+
+.login-btn {
+  display: inline-block;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  padding: 8px 12px;
+  background: var(--pixel-green);
+  color: var(--bg-dark);
+  text-decoration: none;
+  border-bottom: 3px solid #1a9d6e;
+  transition: transform 0.1s;
+}
+
+.login-btn:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.avatar-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--text-main);
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+}
+
+.avatar-btn canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 2px solid var(--border-color);
+  background: var(--bg-card);
+  display: block;
+}
+
+.avatar-btn .nickname {
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 140px;
+  background: var(--bg-card);
+  border: 3px solid var(--border-color);
+  box-shadow: 0 8px 0 rgba(0,0,0,0.3);
+  display: none;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.user-dropdown.show {
+  display: flex;
+}
+
+.user-dropdown a, .user-dropdown button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--text-main);
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.user-dropdown a:hover, .user-dropdown button:hover {
+  background: var(--bg-card-hover);
+  color: var(--pixel-blue);
+}
+
+.user-dropdown button {
+  color: var(--pixel-pink);
+}
+
 .nav-logo {
   font-family: 'Press Start 2P', cursive;
   font-size: 20px;
@@ -168,6 +261,14 @@ body.has-site-chrome main {
 }
 
 @media (max-width: 768px) {
+  .user-status {
+    margin-right: 48px; /* Leave space for burger menu */
+  }
+
+  .avatar-btn .nickname {
+    display: none;
+  }
+
   .menu-toggle {
     display: block;
   }
