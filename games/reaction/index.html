@@ -286,6 +286,69 @@ h1 {
   font-size: 18px;
   color: var(--pixel-blue);
 }
+
+/* Player Card Modal */
+.player-card-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(4px);
+  padding: 20px;
+}
+
+.player-card {
+  background: var(--bg-card);
+  border: 3px solid var(--pixel-blue);
+  width: 100%;
+  max-width: 320px;
+  padding: 24px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(76, 201, 240, 0.2);
+}
+
+.player-card canvas {
+  border: 4px solid var(--pixel-green);
+  background: var(--bg-dark);
+  margin-bottom: 16px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.player-card h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  color: var(--pixel-yellow);
+  margin-bottom: 12px;
+}
+
+.player-card .player-bio {
+  background: var(--bg-dark);
+  border: 2px solid var(--border-color);
+  padding: 12px;
+  font-size: 18px;
+  color: var(--text-main);
+  text-align: left;
+  min-height: 60px;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.btn-close-card {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  padding: 10px 20px;
+  background: var(--pixel-pink);
+  color: var(--bg-dark);
+  border: none;
+  border-bottom: 3px solid #b34a6e;
+  cursor: pointer;
+}
 </style>
 </head>
 <body class="has-site-chrome">
@@ -631,12 +694,41 @@ h1 {
       else if (rank === 2) rankClass = 'rank-2';
       else if (rank === 3) rankClass = 'rank-3';
 
-      tr.innerHTML = `
-        <td class="${rankClass}">${rank}</td>
-        <td>${escapeHTML(item.nickname)}</td>
-        <td style="text-align: right;">${item.best_time}ms</td>
-        <td style="text-align: right;">${item.play_count}</td>
-      `;
+      const avatarId = typeof item.avatar_id !== 'undefined' ? item.avatar_id : 0;
+      
+      const rankTd = document.createElement('td');
+      rankTd.className = rankClass;
+      rankTd.textContent = rank;
+      
+      const nameTd = document.createElement('td');
+      nameTd.style.cursor = 'pointer';
+      nameTd.style.display = 'flex';
+      nameTd.style.alignItems = 'center';
+      nameTd.style.gap = '8px';
+      
+      if (window.TommyAvatars) {
+        const avatarCanvas = window.TommyAvatars.create(avatarId, 24);
+        nameTd.appendChild(avatarCanvas);
+      }
+      
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = item.nickname;
+      nameTd.appendChild(nameSpan);
+      
+      nameTd.onclick = () => showPlayerCard(item);
+
+      const timeTd = document.createElement('td');
+      timeTd.style.textAlign = 'right';
+      timeTd.textContent = item.best_time + 'ms';
+      
+      const countTd = document.createElement('td');
+      countTd.style.textAlign = 'right';
+      countTd.textContent = item.play_count;
+
+      tr.appendChild(rankTd);
+      tr.appendChild(nameTd);
+      tr.appendChild(timeTd);
+      tr.appendChild(countTd);
       leaderboardBody.appendChild(tr);
     });
 
@@ -649,12 +741,45 @@ h1 {
     }
   }
 
+  function showPlayerCard(item) {
+    const overlay = document.createElement('div');
+    overlay.className = 'player-card-overlay';
+    
+    const card = document.createElement('div');
+    card.className = 'player-card';
+    
+    const avatarId = typeof item.avatar_id !== 'undefined' ? item.avatar_id : 0;
+    const avatarCanvas = window.TommyAvatars ? window.TommyAvatars.create(avatarId, 64) : document.createElement('canvas');
+    
+    card.innerHTML = `
+      <h3>${escapeHTML(item.nickname)}</h3>
+      <div class="player-bio">${escapeHTML(item.bio || '这个人很懒，什么都没写')}</div>
+      <button class="btn-close-card">关闭</button>
+    `;
+    
+    card.prepend(avatarCanvas);
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+    
+    const close = () => {
+      document.body.removeChild(overlay);
+    };
+    
+    overlay.onclick = (e) => {
+      if (e.target === overlay) close();
+    };
+    
+    card.querySelector('.btn-close-card').onclick = close;
+  }
+
   // Init
   updateAuthUI();
   fetchLeaderboard();
 
 })();
 </script>
+<script src="../../assets/auth.js"></script>
+<script src="../../assets/avatars.js"></script>
 <script src="../../assets/site-chrome.js"></script>
 </body>
 </html>
