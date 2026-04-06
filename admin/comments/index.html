@@ -407,6 +407,7 @@
   <div id="comment-list"></div>
 </div>
 
+<script src="../../assets/auth.js"></script>
 <script>
   // ─── State ───────────────────────────────────────────────────────────
   let adminToken = '';
@@ -430,16 +431,28 @@
   }
 
   async function apiFetch(method, body) {
+    const useJWT = window.TommyAuth && window.TommyAuth.isLoggedIn() && (window.TommyAuth.getUser() || {}).is_admin === 1;
+    
     const opts = {
       method,
       headers: {
         'Content-Type': 'application/json',
-        'X-Admin-Token': adminToken,
       },
     };
+    
+    if (adminToken) {
+      opts.headers['X-Admin-Token'] = adminToken;
+    }
+    
     if (body) opts.body = JSON.stringify(body);
-    const res = await fetch('/api/admin/comments' + (method === 'GET' ? `?status=${currentStatus}` : ''), opts);
-    return res;
+    
+    const url = '/api/admin/comments' + (method === 'GET' ? `?status=${currentStatus}` : '');
+    
+    if (useJWT) {
+      return window.TommyAuth.fetchWithAuth(url, opts);
+    } else {
+      return fetch(url, opts);
+    }
   }
 
   // ─── Render ───────────────────────────────────────────────────────────
@@ -646,6 +659,27 @@
   document.getElementById('token-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') attemptLogin();
   });
+
+  // 管理员 JWT 自动登录
+  (async function autoLogin() {
+    if (window.TommyAuth && window.TommyAuth.isLoggedIn()) {
+      var user = window.TommyAuth.getUser();
+      if (user && user.is_admin === 1) {
+        try {
+          var res = await window.TommyAuth.fetchWithAuth('/api/admin/comments?status=pending');
+          if (res.ok) {
+            var data = await res.json();
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('main-ui').style.display = 'block';
+            renderList(data.comments || []);
+            return;
+          }
+        } catch (e) {}
+      }
+    }
+  })();
 </script>
+<script src="../../assets/avatars.js"></script>
+<script src="../../assets/site-chrome.js"></script>
 </body>
 </html>
