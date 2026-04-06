@@ -1,12 +1,33 @@
+import { extractUser } from '../auth/_helpers.js';
+
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, PATCH, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Token',
+  'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Token, Authorization',
 };
 
-function checkAuth(request, env) {
+async function checkAuth(request, env) {
+  // 方式1：原有的 X-Admin-Token
   const token = request.headers.get('X-Admin-Token');
-  return token && token === env.ADMIN_TOKEN;
+  if (token && token === env.ADMIN_TOKEN) {
+    return true;
+  }
+
+  // 方式2：JWT + is_admin
+  const payload = await extractUser(request, env);
+  if (payload && payload.userId) {
+    const user = await env.DB.prepare(
+      'SELECT is_admin FROM users WHERE id = ?'
+    )
+      .bind(payload.userId)
+      .first();
+
+    if (user && Number(user.is_admin) === 1) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 export async function onRequestOptions() {
@@ -19,7 +40,7 @@ export async function onRequestOptions() {
 export async function onRequestGet(context) {
   const { request, env } = context;
 
-  if (!checkAuth(request, env)) {
+  if (!(await checkAuth(request, env))) {
     return Response.json(
       { error: 'Unauthorized' },
       { status: 401, headers: CORS_HEADERS }
@@ -54,7 +75,7 @@ export async function onRequestGet(context) {
 export async function onRequestPatch(context) {
   const { request, env } = context;
 
-  if (!checkAuth(request, env)) {
+  if (!(await checkAuth(request, env))) {
     return Response.json(
       { error: 'Unauthorized' },
       { status: 401, headers: CORS_HEADERS }
@@ -110,7 +131,7 @@ export async function onRequestPatch(context) {
 export async function onRequestDelete(context) {
   const { request, env } = context;
 
-  if (!checkAuth(request, env)) {
+  if (!(await checkAuth(request, env))) {
     return Response.json(
       { error: 'Unauthorized' },
       { status: 401, headers: CORS_HEADERS }

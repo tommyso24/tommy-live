@@ -66,7 +66,7 @@ export async function onRequestPost(context) {
       .run();
 
     const user = await env.DB.prepare(
-      `SELECT id, nickname, email
+      `SELECT id, nickname, email, is_admin
        FROM users
        WHERE email = ?
        LIMIT 1`
@@ -95,6 +95,7 @@ export async function onRequestPost(context) {
           id: user.id,
           nickname: user.nickname,
           email: user.email,
+          is_admin: user.is_admin,
         },
       },
       200
