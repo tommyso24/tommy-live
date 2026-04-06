@@ -35,6 +35,7 @@
   function resolveActiveNavKey() {
     var path = location.pathname.toLowerCase();
     if (path.indexOf('food-spinner') !== -1) return 'games';
+    if (path.indexOf('reaction') !== -1) return 'games';
     if (path.indexOf('changelog') !== -1) return 'changelog';
     if (path.indexOf('/blog/') !== -1) return 'blog';
     if (path.indexOf('/about/') !== -1) return 'about';
