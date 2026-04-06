@@ -1,5 +1,13 @@
 [
   {
+    "slug": "ai-team-reaction-game",
+    "title": "三个 AI 打工仔帮我造了个完整的用户系统——从注册登录到像素头像",
+    "excerpt": "让 Claude 当项目经理、Codex 写后端、Gemini 写前端，一天搭完邮箱注册、反应力游戏、排行榜、48 个像素头像和管理员系统。我全程没写一行代码。",
+    "date": "2026-04-06",
+    "updated": "2026-04-06T22:00:00",
+    "tag": "learning"
+  },
+  {
     "slug": "superpowers-comment-system",
     "title": "给 AI 装上超能力，然后它帮我造了个评论系统",
     "excerpt": "Superpowers 技能框架让 AI 先问需求、再设计、再写代码。我用它从零搭了博客评论系统：D1 数据库 + API + 前端组件 + 管理后台。",

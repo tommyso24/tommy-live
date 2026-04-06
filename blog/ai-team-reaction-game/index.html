@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="让 Claude 当项目经理、Codex 写后端、Gemini 写前端，一天搭完邮箱注册、反应力游戏、排行榜、48 个像素头像和管理员系统。我全程没写一行代码。">
+<title>三个 AI 打工仔帮我造了个完整的用户系统 — Tommy.live</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog-common.css">
+<link rel="stylesheet" href="../comment-widget.css">
+<link rel="stylesheet" href="../../assets/site-chrome.css">
+</head>
+<body class="has-site-chrome">
+<div class="stars" id="stars"></div>
+<div class="xp-bar"><div class="xp-bar-fill" id="xpBar"></div></div>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../index.html" data-nav="blog">博客</a></li>
+      <li><a href="../../changelog/index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+  <article class="article-card">
+    <h1>三个 AI 打工仔帮我造了个完整的用户系统——从注册登录到像素头像</h1>
+    <p class="article-meta">发布于 2026-04-06 · <span class="blog-tag learning">学习笔记</span></p>
+
+    <div class="intro-box">
+      <p>今天我干了一件挺疯的事：让三个 AI 分工协作，在一天之内给 tommy.live 搭了一整套用户系统。</p>
+      <p>不是那种注册个账号就完了的用户系统。是包含邮箱验证码、JWT 登录、48 个像素头像、个人资料页、游戏排行榜、管理员后台的完整系统。同时还做了一个新游戏——反应力对决。</p>
+      <p>而我全程<strong>没写一行代码</strong>。</p>
+    </div>
+
+    <div class="article-body">
+
+      <h2>先说分工</h2>
+
+      <p>我在项目规范里定了一条铁律：<strong>Claude 不写代码。</strong></p>
+
+      <p>Claude（就是跟我对话的这位）负责架构设计、任务拆分、代码审查、Git 管理。它是项目经理。</p>
+
+      <p>Codex 负责后端——API、数据库、Cloudflare Workers 函数。</p>
+
+      <p>Gemini 负责前端——HTML 页面、CSS 样式、JavaScript 交互。</p>
+
+      <p>我负责提需求、做决策、以及在 AI 们搞不定的时候拍板。</p>
+
+      <p>听起来像在管一个远程团队对吧？某种意义上确实是。</p>
+
+      <hr>
+
+      <h2>上午：设计反应力对决</h2>
+
+      <p>首页游戏大厅早就占了一个坑位叫「反应力对决」，描述写的是「屏幕变色后比谁先点击」。但一直没动工。</p>
+
+      <p>我跟 Claude 先花了十几分钟确认玩法：</p>
+
+<pre><code>我: 纯单人，但想搞排行榜
+Claude: 排行榜需要账户系统，昵称制还是邮箱制？
+我: 邮箱+密码，正式的
+Claude: 那这不只是一个游戏了，是整个账户系统
+我: 对，全站通用</code></pre>
+
+      <p>就这样，一个小游戏的需求滚雪球一样变成了一整套用户系统。</p>
+
+      <p>游戏规则最终定为：屏幕随机 2-5 秒后变绿，点击记录反应时间，5 轮取中间 3 轮的平均值（去掉最快和最慢）。提前点击算犯规。排行榜 Top 10，不在前十的显示「你的排名：第 XX 名」。</p>
+
+      <hr>
+
+      <h2>中午：后端流水线</h2>
+
+      <p>设计文档写完之后，Claude 开始像流水线一样给 Codex 派活。</p>
+
+      <p>第一波：数据库 Schema（users、verification_codes、scores 三张表）+ 共享工具模块（密码哈希、JWT、CORS）。</p>
+
+      <p>第二波：注册 API、验证码 API、登录 API，三个文件一起派。</p>
+
+      <p>第三波：用户信息 API + 排行榜 API。</p>
+
+      <p>每次 Codex 完成后，Claude 都会检查代码和 Git 提交记录。有一次我看到它在验收报告里写「Codex 额外加了 timingSafeEqual 防时序攻击，比计划更严谨」——行吧，打工仔比老板还上心。</p>
+
+      <p>后端 7 个 commit，大概 40 分钟搞定。</p>
+
+      <hr>
+
+      <h2>下午：前端接力</h2>
+
+      <p>后端搞完，轮到 Gemini 了。</p>
+
+      <p>先做认证管理（auth.js）和登录注册页面的共享样式，然后是注册页（两步表单：填信息 → 输验证码）和登录页。</p>
+
+      <p>最激动的是反应力对决的游戏页面。整个游戏区域就是一个大色块——红色表示等待，绿色表示「快点！」，粉色表示你犯规了。配上像素风的轮次指示器和排行榜，效果比我想象的好。</p>
+
+      <p>但部署后发现排行榜不显示数据。Claude 一查，原来 Gemini 写的前端用的字段名（<code>data.top10</code>）和 Codex 写的后端返回的字段名（<code>data.leaderboard</code>）对不上。</p>
+
+      <p><strong>这就是多 AI 协作的经典问题：它们各自的代码是对的，但接口约定没对齐。</strong></p>
+
+      <p>修了这个 bug，一切正常了。</p>
+
+      <hr>
+
+      <h2>傍晚：头像和用户中心</h2>
+
+      <p>我觉得光有个账号不够，得让用户有归属感。于是提了新需求：</p>
+
+      <ul>
+        <li>48 个像素头像，男女各 24 个，用代码生成</li>
+        <li>个人资料页，能选头像写签名</li>
+        <li>全站导航栏显示登录状态</li>
+        <li>排行榜点击昵称能看到玩家信息</li>
+      </ul>
+
+      <p>Gemini 生成了 48 个 10x10 像素的小人——战士、程序员、忍者、公主、科学家、猫女……每个都有独特的配色和造型。全部用 canvas 代码绘制，不需要任何图片文件。</p>
+
+      <p>然后是导航栏改造。要让所有页面都能显示登录状态，这意味着 13 个 HTML 文件都要加 script 引用。这种重复性的活儿正好适合 AI 干。</p>
+
+      <hr>
+
+      <h2>晚上：管理员系统</h2>
+
+      <p>最后一个需求来了：我想给自己加个管理员标识，这样点击头像就能直接进评论管理后台，不用再输密码。</p>
+
+      <p>Codex 负责：数据库加 <code>is_admin</code> 字段，四个 API 都返回管理员标识，管理后台支持 JWT 认证。</p>
+
+      <p>Gemini 负责：导航栏下拉菜单对管理员多显示一个「管理留言」入口。</p>
+
+      <p>中间出了个小插曲——Gemini 接到任务后「思考太久」，迟迟没有响应。我等不及了，跟 Claude 说「你来做吧」。</p>
+
+      <p>Claude 说了句很诚实的话：按项目规范它不应该写代码。但我说了算，它就动手了。三分钟搞定。</p>
+
+      <p><strong>所以规则是死的，人是活的。AI 协作最重要的不是严格遵守流程，而是在流程失效时快速调整。</strong></p>
+
+      <hr>
+
+      <h2>数字总结</h2>
+
+      <table>
+        <tr><th>指标</th><th>数值</th></tr>
+        <tr><td>新增代码行数</td><td>2200+</td></tr>
+        <tr><td>新增文件</td><td>14 个</td></tr>
+        <tr><td>Git commit</td><td>20+</td></tr>
+        <tr><td>数据库新增表</td><td>3 张</td></tr>
+        <tr><td>API 端点</td><td>6 个</td></tr>
+        <tr><td>像素头像</td><td>48 个</td></tr>
+        <tr><td>我写的代码</td><td>0 行</td></tr>
+      </table>
+
+      <hr>
+
+      <h2>感想</h2>
+
+      <p>说实话，今天最大的收获不是搭了什么系统，而是跑通了一种全新的工作方式：<strong>人类当产品经理，多个 AI 当开发团队。</strong></p>
+
+      <p>它不完美——接口会对不上，类型判断会有 bug，有时候某个 AI 会卡住。但修 bug 的速度也很快，因为你随时可以派另一个 AI 去查问题。</p>
+
+      <p>以前我觉得学编程就是学写代码。现在我觉得更重要的能力是：<strong>知道要做什么、能描述清楚怎么做、以及出了问题知道问题在哪。</strong></p>
+
+      <p>代码？让 AI 打工仔们写就好了。</p>
+
+      <div class="article-footer">
+        — 写于 2026.04.06 深夜 · 广州 —<br>
+        Claude 架构 · Codex 后端 · Gemini 前端 · Tommy 指挥
+      </div>
+
+      <!-- 评论区 -->
+      <div id="commentSection" class="comment-section">
+        <div id="commentSectionTitle" class="comment-section-title">💬 COMMENTS</div>
+
+        <div class="comment-form">
+          <div class="comment-form-label">💬 LEAVE A COMMENT</div>
+          <div id="commentReplyHint" class="comment-form-reply-hint"></div>
+          <input type="text" id="commentNickname" placeholder="昵称" maxlength="20">
+          <textarea id="commentContent" placeholder="写下你的想法..." maxlength="500"></textarea>
+          <div class="comment-form-footer">
+            <span id="commentCharCount" class="comment-char-count">0 / 500</span>
+            <button id="commentSubmitBtn" class="comment-submit-btn">SUBMIT ▶</button>
+          </div>
+          <div id="commentFormMessage" class="comment-form-message"></div>
+        </div>
+
+        <div id="commentList"></div>
+      </div>
+
+    </div>
+  </article>
+</main>
+<script>
+(function () {
+  var c = document.getElementById('stars');
+  for (var i = 0; i < 40; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    c.appendChild(s);
+  }
+})();
+</script>
+<script src="../../assets/auth.js"></script>
+<script src="../../assets/avatars.js"></script>
+<script src="../../assets/site-chrome.js"></script>
+<script src="../comment-widget.js"></script>
+</body>
+</html>
