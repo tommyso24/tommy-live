@@ -431,7 +431,8 @@
   }
 
   async function apiFetch(method, body) {
-    const useJWT = window.TommyAuth && window.TommyAuth.isLoggedIn() && (window.TommyAuth.getUser() || {}).is_admin === 1;
+    const adminVal = (window.TommyAuth && window.TommyAuth.isLoggedIn() && (window.TommyAuth.getUser() || {}).is_admin) || 0;
+    const useJWT = adminVal === 1 || adminVal === '1' || adminVal === true;
     
     const opts = {
       method,
@@ -664,7 +665,7 @@
   (async function autoLogin() {
     if (window.TommyAuth && window.TommyAuth.isLoggedIn()) {
       var user = window.TommyAuth.getUser();
-      if (user && user.is_admin === 1) {
+      if (user && (user.is_admin === 1 || user.is_admin === '1' || user.is_admin === true)) {
         try {
           var res = await window.TommyAuth.fetchWithAuth('/api/admin/comments?status=pending');
           if (res.ok) {

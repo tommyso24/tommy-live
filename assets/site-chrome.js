@@ -75,22 +75,36 @@
       
       // Calculate path to account/index.html
       var accPath = '';
+      var admPath = '';
       var path = location.pathname.toLowerCase();
       if (path.indexOf('/account/') !== -1) {
         accPath = 'index.html';
+        admPath = '../admin/comments/index.html';
       } else if (path.indexOf('/auth/') !== -1 || path.indexOf('/about/') !== -1 || path.indexOf('/changelog/') !== -1) {
         accPath = '../account/index.html';
+        admPath = '../admin/comments/index.html';
       } else if (path.indexOf('/games/') !== -1 || path.indexOf('/blog/') !== -1 || path.indexOf('/admin/') !== -1) {
         // Check if it's a sub-page (has more than one slash after domain)
         var parts = path.split('/').filter(Boolean);
-        if (parts.length >= 2) accPath = '../../account/index.html';
-        else accPath = '../account/index.html';
+        if (parts.length >= 2) {
+          accPath = '../../account/index.html';
+          admPath = '../../admin/comments/index.html';
+        } else {
+          accPath = '../account/index.html';
+          admPath = '../admin/comments/index.html';
+        }
       } else {
         accPath = 'account/index.html';
+        admPath = 'admin/comments/index.html';
       }
 
-      dropdown.innerHTML = '<a href="' + accPath + '">个人资料</a>' +
-                           '<button id="logoutBtn">退出登录</button>';
+      var dropdownHtml = '<a href="' + accPath + '">个人资料</a>';
+      if (user && (user.is_admin === 1 || user.is_admin === '1' || user.is_admin === true)) {
+        dropdownHtml += '<a href="' + admPath + '">管理留言</a>';
+      }
+      dropdownHtml += '<button id="logoutBtn">退出登录</button>';
+
+      dropdown.innerHTML = dropdownHtml;
       
       btn.onclick = function(e) {
         e.stopPropagation();
