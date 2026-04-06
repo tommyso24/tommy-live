@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
   verified      INTEGER NOT NULL DEFAULT 0,
   created_at    TEXT NOT NULL
 );
+-- 用户资料扩展字段（v2）：avatar_id, bio
 
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 
@@ -49,3 +50,7 @@ CREATE TABLE IF NOT EXISTS scores (
 
 CREATE UNIQUE INDEX IF NOT EXISTS idx_scores_user_game ON scores(user_id, game);
 CREATE INDEX IF NOT EXISTS idx_scores_game_time ON scores(game, best_time);
+
+-- 用户资料扩展字段（v2）
+ALTER TABLE users ADD COLUMN avatar_id INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE users ADD COLUMN bio TEXT NOT NULL DEFAULT '';
