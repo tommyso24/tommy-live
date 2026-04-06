@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>个人资料 — Tommy.live</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site-chrome.css">
+<style>
+:root {
+  --bg-dark: #0f0e17;
+  --bg-card: #1a1925;
+  --bg-card-hover: #232136;
+  --pixel-green: #2de2a6;
+  --pixel-pink: #ff6b9d;
+  --pixel-blue: #4cc9f0;
+  --pixel-yellow: #f7d754;
+  --pixel-orange: #ff9e64;
+  --pixel-purple: #c77dff;
+  --text-main: #e8e4f0;
+  --text-dim: #8b8598;
+  --border-color: #2e2b3a;
+  --pixel-size: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.6;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: var(--pixel-size);
+  height: var(--pixel-size);
+  background: #fff;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.1; }
+  100% { opacity: 0.8; }
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(14px, 3.5vw, 18px);
+  color: var(--pixel-pink);
+  text-align: center;
+  margin-bottom: 32px;
+  line-height: 1.8;
+}
+
+.profile-card {
+  background: var(--bg-card);
+  border: 3px solid var(--border-color);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 0 rgba(0,0,0,0.3);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 32px;
+  border-bottom: 2px dashed var(--border-color);
+  padding-bottom: 24px;
+}
+
+.profile-header canvas {
+  border: 4px solid var(--pixel-blue);
+  background: var(--bg-dark);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.profile-info h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  color: var(--pixel-green);
+  margin-bottom: 8px;
+}
+
+.profile-info p { color: var(--text-dim); font-size: 18px; }
+
+/* Avatar Selector */
+.avatar-selector {
+  margin-bottom: 32px;
+}
+
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tab-btn {
+  flex: 1;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  padding: 12px;
+  background: var(--bg-dark);
+  color: var(--text-dim);
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-btn.active {
+  color: var(--pixel-yellow);
+  border-color: var(--pixel-yellow);
+  background: var(--bg-card-hover);
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  display: none;
+}
+
+.avatar-grid.active {
+  display: grid;
+}
+
+.avatar-item {
+  aspect-ratio: 1;
+  background: var(--bg-dark);
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  padding: 4px;
+  transition: all 0.15s;
+}
+
+.avatar-item:hover { transform: scale(1.05); }
+
+.avatar-item.selected {
+  border-color: var(--pixel-green);
+  box-shadow: 0 0 10px rgba(45,226,166,0.3);
+}
+
+.avatar-item canvas {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Fields */
+.field-group {
+  margin-bottom: 20px;
+}
+
+.field-group label {
+  display: block;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--pixel-blue);
+  margin-bottom: 10px;
+}
+
+.field-group input, .field-group textarea {
+  width: 100%;
+  background: var(--bg-dark);
+  border: 2px solid var(--border-color);
+  color: var(--text-main);
+  padding: 12px;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+}
+
+.field-group input:focus, .field-group textarea:focus {
+  outline: none;
+  border-color: var(--pixel-green);
+}
+
+.field-group textarea {
+  height: 100px;
+  resize: none;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 16px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.save-btn {
+  width: 100%;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  padding: 16px;
+  background: var(--pixel-green);
+  color: var(--bg-dark);
+  border: none;
+  border-bottom: 4px solid #1a9d6e;
+  cursor: pointer;
+  transition: transform 0.1s;
+  margin-top: 10px;
+}
+
+.save-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+.save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+#msg {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 18px;
+}
+
+.msg-success { color: var(--pixel-green); }
+.msg-error { color: var(--pixel-pink); }
+</style>
+</head>
+<body class="has-site-chrome">
+<div class="stars" id="stars"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../blog/index.html" data-nav="blog">博客</a></li>
+      <li><a href="../changelog/index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <h1>个人资料</h1>
+
+  <div class="profile-card">
+    <div class="profile-header">
+      <canvas id="currentAvatar" width="64" height="64"></canvas>
+      <div class="profile-info">
+        <h2 id="displayNickname">Player</h2>
+        <p id="displayEmail">---</p>
+      </div>
+    </div>
+
+    <div class="avatar-selector">
+      <div class="tabs">
+        <button class="tab-btn active" id="tabMale">男生头像</button>
+        <button class="tab-btn" id="tabFemale">女生头像</button>
+      </div>
+      
+      <div class="avatar-grid active" id="gridMale"></div>
+      <div class="avatar-grid" id="gridFemale"></div>
+    </div>
+
+    <div class="field-group">
+      <label for="nickname">昵称</label>
+      <input type="text" id="nickname" maxlength="20" placeholder="你的酷炫昵称">
+    </div>
+
+    <div class="field-group">
+      <label for="bio">个性签名</label>
+      <textarea id="bio" maxlength="100" placeholder="介绍一下你自己..."></textarea>
+      <div class="char-count"><span id="bioCount">0</span>/100</div>
+    </div>
+
+    <button class="save-btn" id="btnSave">保存修改</button>
+    <div id="msg"></div>
+  </div>
+</main>
+
+<script src="../assets/auth.js"></script>
+<script src="../assets/avatars.js"></script>
+<script>
+(function() {
+  // Stars animation
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 45; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    starsEl.appendChild(s);
+  }
+
+  // Auth check
+  if (!window.TommyAuth.isLoggedIn()) {
+    window.location.href = '../auth/login.html?return=' + encodeURIComponent(window.location.pathname);
+    return;
+  }
+
+  const currentAvatarCanvas = document.getElementById('currentAvatar');
+  const displayNickname = document.getElementById('displayNickname');
+  const displayEmail = document.getElementById('displayEmail');
+  const nicknameInput = document.getElementById('nickname');
+  const bioInput = document.getElementById('bio');
+  const bioCount = document.getElementById('bioCount');
+  const btnSave = document.getElementById('btnSave');
+  const msgEl = document.getElementById('msg');
+  const gridMale = document.getElementById('gridMale');
+  const gridFemale = document.getElementById('gridFemale');
+  const tabMale = document.getElementById('tabMale');
+  const tabFemale = document.getElementById('tabFemale');
+
+  let selectedAvatarId = 0;
+  let userData = null;
+
+  function renderAvatarItem(id, grid) {
+    const div = document.createElement('div');
+    div.className = 'avatar-item';
+    if (id === selectedAvatarId) div.classList.add('selected');
+    div.dataset.id = id;
+    
+    const canvas = window.TommyAvatars.create(id, 48);
+    div.appendChild(canvas);
+    
+    div.onclick = () => {
+      document.querySelectorAll('.avatar-item').forEach(el => el.classList.remove('selected'));
+      div.classList.add('selected');
+      selectedAvatarId = id;
+      window.TommyAvatars.render(currentAvatarCanvas, id, 64);
+    };
+    
+    grid.appendChild(div);
+  }
+
+  async function loadProfile() {
+    try {
+      const resp = await window.TommyAuth.fetchWithAuth('/api/auth/profile');
+      if (resp.ok) {
+        const data = await resp.json();
+        userData = data.user;
+        
+        displayNickname.textContent = userData.nickname || 'Player';
+        displayEmail.textContent = userData.email;
+        nicknameInput.value = userData.nickname || '';
+        bioInput.value = userData.bio || '';
+        bioCount.textContent = (userData.bio || '').length;
+        
+        selectedAvatarId = typeof userData.avatar_id !== 'undefined' ? userData.avatar_id : 0;
+        window.TommyAvatars.render(currentAvatarCanvas, selectedAvatarId, 64);
+        
+        // Show correct gender tab
+        if (selectedAvatarId >= 24) {
+          tabFemale.click();
+        }
+        
+        // Refresh grids to show selection
+        updateGridsSelection();
+      }
+    } catch (err) {
+      console.error('Failed to load profile', err);
+    }
+  }
+
+  function updateGridsSelection() {
+    document.querySelectorAll('.avatar-item').forEach(el => {
+      if (parseInt(el.dataset.id) === selectedAvatarId) {
+        el.classList.add('selected');
+      } else {
+        el.classList.remove('selected');
+      }
+    });
+  }
+
+  // Populate grids
+  for (let i = 0; i < 24; i++) renderAvatarItem(i, gridMale);
+  for (let i = 24; i < 48; i++) renderAvatarItem(i, gridFemale);
+
+  tabMale.onclick = () => {
+    tabMale.classList.add('active');
+    tabFemale.classList.remove('active');
+    gridMale.classList.add('active');
+    gridFemale.classList.remove('active');
+  };
+
+  tabFemale.onclick = () => {
+    tabFemale.classList.add('active');
+    tabMale.classList.remove('active');
+    gridFemale.classList.add('active');
+    gridMale.classList.remove('active');
+  };
+
+  bioInput.oninput = () => {
+    bioCount.textContent = bioInput.value.length;
+  };
+
+  btnSave.onclick = async () => {
+    btnSave.disabled = true;
+    msgEl.textContent = '保存中...';
+    msgEl.className = '';
+
+    try {
+      const resp = await window.TommyAuth.fetchWithAuth('/api/auth/profile', {
+        method: 'POST',
+        body: JSON.stringify({
+          nickname: nicknameInput.value,
+          avatar_id: selectedAvatarId,
+          bio: bioInput.value
+        })
+      });
+
+      const result = await resp.json();
+      if (resp.ok && result.ok) {
+        msgEl.textContent = '保存成功！';
+        msgEl.className = 'msg-success';
+        displayNickname.textContent = nicknameInput.value;
+        // Update window.TommyAuth.save with new user data if needed
+        const currentUser = window.TommyAuth.getUser();
+        if (currentUser) {
+          currentUser.nickname = nicknameInput.value;
+          currentUser.avatar_id = selectedAvatarId;
+          currentUser.bio = bioInput.value;
+          window.TommyAuth.save(window.TommyAuth.getToken(), currentUser);
+        }
+        // Force site-chrome refresh
+        if (window.renderUserStatus) window.renderUserStatus();
+      } else {
+        msgEl.textContent = result.message || '保存失败';
+        msgEl.className = 'msg-error';
+      }
+    } catch (err) {
+      msgEl.textContent = '网络错误';
+      msgEl.className = 'msg-error';
+    } finally {
+      btnSave.disabled = false;
+    }
+  };
+
+  loadProfile();
+
+})();
+</script>
+<script src="../assets/site-chrome.js"></script>
+</body>
+</html>
