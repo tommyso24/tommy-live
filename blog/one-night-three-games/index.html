@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="一个晚上，三个 AI 打工仔帮我做了三个新游戏：打字大挑战、Emoji 猜猜猜、AA 记账神器。Claude 当项目经理，Codex 写后端，Gemini 写前端。">
+<title>一晚上做三个游戏，AI 流水线有多快 — Tommy.live</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog-common.css">
+<link rel="stylesheet" href="../comment-widget.css">
+<link rel="stylesheet" href="../../assets/site-chrome.css">
+</head>
+<body class="has-site-chrome">
+<div class="stars" id="stars"></div>
+<div class="xp-bar"><div class="xp-bar-fill" id="xpBar"></div></div>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../index.html" data-nav="blog">博客</a></li>
+      <li><a href="../../changelog/index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+  <article class="article-card">
+    <h1>一晚上做三个游戏，AI 流水线有多快</h1>
+    <p class="article-meta">发布于 2026-04-08 · <span class="blog-tag learning">学习笔记</span></p>
+
+    <div class="intro-box">
+      <p>上次搭用户系统花了一整天。这次我想试试极限速度：<strong>一个晚上做三个游戏</strong>。</p>
+      <p>打字大挑战、Emoji 猜猜猜、AA 记账神器——三个完全不同类型的东西，从设计到上线，全部在一个晚上搞定。</p>
+      <p>流水线已经跑熟了。这次的故事不是「能不能做」，而是「能做多快」。</p>
+    </div>
+
+    <div class="article-body">
+
+      <h2>流水线升级了</h2>
+
+      <p>上次做反应力对决，三个 AI 的协作还有点磕磕绊绊——接口字段对不上、Gemini 偶尔卡住。这次我让 Claude 把流程优化了一下：</p>
+
+      <ol>
+        <li><strong>设计阶段</strong>：Claude 跟我确认玩法，一次一个问题，多选题为主。不废话，三四个问题就定稿。</li>
+        <li><strong>并行派发</strong>：后端给 Codex、前端给 Gemini，同时开工。Claude 审核完一个就派下一个。</li>
+        <li><strong>审核即合并</strong>：代码审过就直接推生产。不搞 staging 环境，不搞灰度发布——个人项目，胆子大点。</li>
+      </ol>
+
+      <p>整个过程像极了工厂流水线：<strong>设计 → 派活 → 并行开发 → 审核 → 上线 → 下一个。</strong></p>
+
+      <hr>
+
+      <h2>第一个：打字大挑战</h2>
+
+      <p>30 秒英文打字速度测试。严格模式——打错了必须退格修正，不能跳过。</p>
+
+      <p>设计阶段只花了四个问题：</p>
+
+<pre><code>语言？→ 英文
+模式？→ 固定时长 30 秒
+错误处理？→ 严格模式
+题库？→ 前端内置</code></pre>
+
+      <p>后端改动很小——排行榜原来只支持反应力游戏（时间越短越好），现在打字游戏需要 WPM 越高越好。Codex 加了一个 <code>DESC_GAMES</code> 集合，两分钟搞定。</p>
+
+      <p>Gemini 写前端就快了。40 段英文句子随机拼接，打对变绿、打错闪红、实时显示 WPM。整个页面 827 行，一次过审。</p>
+
+      <p><strong>从设计到上线：大约 20 分钟。</strong></p>
+
+      <hr>
+
+      <h2>第二个：Emoji 猜猜猜</h2>
+
+      <p>用 Emoji 组合猜电影、歌曲、动漫、食物、地名。选择题模式，10 题一局。</p>
+
+      <p>这个的设计稍微复杂一点——排行榜怎么排？答对 8 题用时 30 秒和答对 10 题用时 60 秒，谁该排前面？</p>
+
+      <p>Claude 想了个复合分数：<code>答对数 × 10000 - 用时毫秒</code>。这样答对数优先，同分看速度。排行榜显示的时候再反算回来。</p>
+
+      <p>题库是最花时间的部分——70 道题，每道 4 个选项，要保证 Emoji 组合有辨识度、选项有迷惑性。比如 🧊🚢💑 是泰坦尼克号，选项里放了海上钢琴师和加勒比海盗。</p>
+
+      <p>Gemini 写了 885 行前端代码。15 秒倒计时，5 秒时变红闪烁。选对绿色，选错红色同时高亮正确答案。审核时我发现两道题的 Emoji 用了中文"城堡"而不是 🏰，手动修了。</p>
+
+      <p><strong>从设计到上线：大约 25 分钟。</strong></p>
+
+      <hr>
+
+      <h2>第三个：AA 记账神器</h2>
+
+      <p>这个不是游戏，是工具。朋友聚餐后算清楚谁该转给谁多少钱。</p>
+
+      <p>和前两个最大的区别：<strong>不需要后端</strong>。纯前端计算，用完即走。这意味着 Codex 可以休息了，只需要 Gemini 一个人干。</p>
+
+      <p>三步引导式操作：</p>
+
+      <ol>
+        <li>添加参与人（张三、李四、王五）</li>
+        <li>添加费用（锅底 120 元均分、烤鱼 80 元只有张三李四吃了）</li>
+        <li>选择谁垫付了全部费用 → 自动算出转账方案</li>
+      </ol>
+
+      <p>分账计算看起来简单，但有个经典的坑：<strong>浮点数精度</strong>。100 元三人分，每人 33.33 元，加起来才 99.99 元。</p>
+
+      <p>解决方案是先转成整数分计算，尾差加到第一个人头上。所以某个倒霉蛋要多付 1 分钱。数学上无解，生活中没人在乎。</p>
+
+      <p>结果 Gemini 派出去之后……卡住了。等了三分钟没反应。</p>
+
+      <p>我跟 Claude 说：你来接手。</p>
+
+      <p>Claude 一查，发现 Gemini 其实已经写完了 822 行代码，只是进程卡住没返回结果。所以代码是好的，只需要补上首页的链接更新。三分钟收工。</p>
+
+      <p><strong>从设计到上线：大约 15 分钟（含 3 分钟等 Gemini 卡住）。</strong></p>
+
+      <hr>
+
+      <h2>数字总结</h2>
+
+      <table>
+        <tr><th>指标</th><th>数值</th></tr>
+        <tr><td>新增代码行数</td><td>2500+</td></tr>
+        <tr><td>新增文件</td><td>3 个游戏页面</td></tr>
+        <tr><td>修改文件</td><td>2 个（scores.js + index.html）</td></tr>
+        <tr><td>英文打字句库</td><td>40 段</td></tr>
+        <tr><td>Emoji 题库</td><td>70 道题</td></tr>
+        <tr><td>Codex 任务</td><td>2 个（后端排行榜适配）</td></tr>
+        <tr><td>Gemini 任务</td><td>3 个（三个前端页面）</td></tr>
+        <tr><td>Gemini 卡住次数</td><td>1 次</td></tr>
+        <tr><td>我写的代码</td><td>0 行</td></tr>
+        <tr><td>总耗时</td><td>约 1 小时</td></tr>
+      </table>
+
+      <hr>
+
+      <h2>流水线的感悟</h2>
+
+      <p>做第一个游戏（反应力对决）的时候，光是搭用户系统就花了一整天。</p>
+
+      <p>做这三个游戏，一个小时。</p>
+
+      <p>不是因为这三个更简单——打字游戏的实时渲染、Emoji 的复合分数排行、AA 记账的分步流程，都有各自的复杂度。而是因为<strong>流程跑熟了</strong>。</p>
+
+      <p>AI 协作最难的不是技术问题，是<strong>流程设计</strong>。谁负责什么、什么时候并行什么时候串行、出了问题谁接手——这些搞清楚了，速度就上来了。</p>
+
+      <p>就像工厂一样。第一辆车下线很慢，因为你在调流水线。后面的车一辆比一辆快，因为流水线已经在转了。</p>
+
+      <p>现在首页 6 个游戏卡片，5 个已经上线。就剩一个「谁是卧底」——那个需要 WebSocket 做多人实时对战，是另一个级别的复杂度了。</p>
+
+      <p>但说实话，有了这条流水线，我并不太担心。</p>
+
+      <div class="article-footer">
+        — 写于 2026.04.08 深夜 · 广州 —<br>
+        Claude 架构 · Codex 后端 · Gemini 前端 · Tommy 指挥
+      </div>
+
+      <!-- 评论区 -->
+      <div id="commentSection" class="comment-section">
+        <div id="commentSectionTitle" class="comment-section-title">💬 COMMENTS</div>
+
+        <div class="comment-form">
+          <div class="comment-form-label">💬 LEAVE A COMMENT</div>
+          <div id="commentReplyHint" class="comment-form-reply-hint"></div>
+          <input type="text" id="commentNickname" placeholder="昵称" maxlength="20">
+          <textarea id="commentContent" placeholder="写下你的想法..." maxlength="500"></textarea>
+          <div class="comment-form-footer">
+            <span id="commentCharCount" class="comment-char-count">0 / 500</span>
+            <button id="commentSubmitBtn" class="comment-submit-btn">SUBMIT ▶</button>
+          </div>
+          <div id="commentFormMessage" class="comment-form-message"></div>
+        </div>
+
+        <div id="commentList"></div>
+      </div>
+
+    </div>
+  </article>
+</main>
+<script>
+(function () {
+  var c = document.getElementById('stars');
+  for (var i = 0; i < 40; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    c.appendChild(s);
+  }
+})();
+</script>
+<script src="../../assets/auth.js"></script>
+<script src="../../assets/avatars.js"></script>
+<script src="../../assets/site-chrome.js"></script>
+<script src="../comment-widget.js"></script>
+</body>
+</html>

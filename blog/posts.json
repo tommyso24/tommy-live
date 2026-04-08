@@ -1,5 +1,13 @@
 [
   {
+    "slug": "one-night-three-games",
+    "title": "一晚上做三个游戏，AI 流水线有多快",
+    "excerpt": "打字大挑战、Emoji 猜猜猜、AA 记账神器——三个完全不同类型的东西，从设计到上线，全部在一个晚上搞定。流水线跑熟了，速度就上来了。",
+    "date": "2026-04-08",
+    "updated": "2026-04-08T23:00:00",
+    "tag": "learning"
+  },
+  {
     "slug": "ai-team-reaction-game",
     "title": "三个 AI 打工仔帮我造了个完整的用户系统——从注册登录到像素头像",
     "excerpt": "让 Claude 当项目经理、Codex 写后端、Gemini 写前端，一天搭完邮箱注册、反应力游戏、排行榜、48 个像素头像和管理员系统。我全程没写一行代码。",
