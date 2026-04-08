@@ -5,7 +5,7 @@ import {
   extractUser,
 } from './auth/_helpers.js';
 
-const DESC_GAMES = new Set(['typing']);
+const DESC_GAMES = new Set(['typing', 'emoji']);
 
 void CORS_HEADERS;
 
@@ -115,8 +115,8 @@ export async function onRequestPost(context) {
     const game = typeof body?.game === 'string' ? body.game.trim() : '';
     const parsedTime = Number(body?.time);
     const isDesc = DESC_GAMES.has(game);
-    const minVal = isDesc ? 1 : 50;
-    const maxVal = isDesc ? 300 : 5000;
+    const GAME_RANGES = { typing: [1, 300], emoji: [1, 100000] };
+    const [minVal, maxVal] = GAME_RANGES[game] || (isDesc ? [1, 100000] : [50, 5000]);
 
     if (!game) {
       return jsonResponse({ error: '缺少必填字段 game' }, 400);

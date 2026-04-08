@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Emoji 猜猜猜 — Tommy.live</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site-chrome.css">
+<style>
+:root {
+  --bg-dark: #0f0e17;
+  --bg-card: #1a1925;
+  --bg-card-hover: #232136;
+  --pixel-green: #2de2a6;
+  --pixel-pink: #ff6b9d;
+  --pixel-blue: #4cc9f0;
+  --pixel-yellow: #f7d754;
+  --pixel-orange: #ff9e64;
+  --pixel-purple: #c77dff;
+  --text-main: #e8e4f0;
+  --text-dim: #8b8598;
+  --border-color: #2e2b3a;
+  --pixel-size: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  line-height: 1.6;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect x='4' y='0' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='0' y='4' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='4' y='4' width='4' height='4' fill='%23fff'/%3E%3Crect x='8' y='4' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='4' y='8' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='8' y='8' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='8' y='12' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='12' y='12' width='4' height='4' fill='%234cc9f0'/%3E%3Crect x='12' y='16' width='4' height='4' fill='%234cc9f0'/%3E%3C/svg%3E") 4 4, auto;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: var(--pixel-size);
+  height: var(--pixel-size);
+  background: #fff;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.1; }
+  100% { opacity: 0.8; }
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(14px, 3.5vw, 18px);
+  color: var(--pixel-blue);
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 24px;
+  font-size: clamp(16px, 4vw, 20px);
+}
+
+#userBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+#userBar span { color: var(--pixel-yellow); }
+
+.btn-logout {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-dim);
+  padding: 2px 8px;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-logout:hover { color: var(--pixel-pink); border-color: var(--pixel-pink); }
+
+/* Game Area */
+.game-container {
+  background: var(--bg-card);
+  border: 3px solid var(--border-color);
+  padding: 32px 24px;
+  margin-bottom: 32px;
+  text-align: center;
+  position: relative;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+}
+
+.question-num { color: var(--pixel-blue); }
+.question-timer { color: var(--pixel-yellow); min-width: 48px; text-align: right; }
+.question-timer.urgent { color: var(--pixel-pink); animation: timer-flash 0.5s infinite alternate; }
+
+@keyframes timer-flash {
+  0% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+.emoji-display {
+  font-size: clamp(48px, 12vw, 80px);
+  margin: 24px 0;
+  line-height: 1.4;
+  min-height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-tag {
+  display: inline-block;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  color: var(--text-dim);
+  font-size: 16px;
+  padding: 4px 16px;
+  margin-bottom: 24px;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.option-btn {
+  background: var(--bg-dark);
+  border: 3px solid var(--border-color);
+  color: var(--text-main);
+  font-family: 'VT323', monospace;
+  font-size: 24px;
+  padding: 16px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  word-break: break-all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-btn:hover:not(:disabled) { border-color: var(--pixel-blue); transform: translateY(-2px); }
+.option-btn:disabled { cursor: default; }
+.option-btn.correct { border-color: var(--pixel-green); background: rgba(45,226,166,0.15); color: var(--pixel-green); }
+.option-btn.wrong { border-color: var(--pixel-pink); background: rgba(255,107,157,0.15); color: var(--pixel-pink); }
+
+/* Start screen */
+.start-screen { text-align: center; padding: 20px; }
+.btn-start {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  padding: 20px 32px;
+  background: var(--pixel-green);
+  color: var(--bg-dark);
+  border: none;
+  border-bottom: 4px solid #1a9d6e;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.btn-start:active { transform: translateY(2px); }
+
+/* Results Panel */
+.results-panel {
+  background: var(--bg-card);
+  border: 3px solid var(--pixel-yellow);
+  padding: 32px 24px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.results-panel h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  color: var(--pixel-yellow);
+  margin-bottom: 24px;
+}
+
+.result-big {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(48px, 12vw, 72px);
+  color: var(--pixel-green);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.result-label {
+  color: var(--text-dim);
+  font-size: 20px;
+  margin-bottom: 24px;
+}
+
+.result-details {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 32px;
+}
+
+.detail-item { text-align: center; }
+.detail-value { font-size: 32px; color: var(--pixel-yellow); display: block; line-height: 1; margin-bottom: 4px; }
+.detail-label { color: var(--text-dim); font-size: 18px; }
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.btn-game {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.1s;
+  text-decoration: none;
+}
+
+.btn-game:active { transform: translateY(2px); }
+.btn-primary { background: var(--pixel-green); color: var(--bg-dark); border-bottom: 4px solid #1a9d6e; }
+.btn-secondary { background: var(--pixel-blue); color: var(--bg-dark); border-bottom: 4px solid #36a1c1; }
+
+#submitMsg { text-align: center; margin-top: 16px; font-size: 18px; }
+
+/* Leaderboard */
+.leaderboard {
+  border-top: 2px dashed var(--border-color);
+  padding-top: 32px;
+}
+
+.leaderboard h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--pixel-blue);
+}
+
+.score-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.score-table th {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: var(--text-dim);
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.score-table td { padding: 12px 8px; border-bottom: 1px solid var(--border-color); }
+
+.rank-1 { color: #ffd700; }
+.rank-2 { color: #c0c0c0; }
+.rank-3 { color: var(--pixel-pink); }
+.row-me { background: rgba(76, 201, 240, 0.15); border: 1px solid var(--pixel-blue); }
+
+.my-rank-info {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 18px;
+  color: var(--pixel-blue);
+}
+
+/* Player Card Modal */
+.player-card-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(4px);
+  padding: 20px;
+}
+
+.player-card {
+  background: var(--bg-card);
+  border: 3px solid var(--pixel-blue);
+  width: 100%;
+  max-width: 320px;
+  padding: 24px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(76, 201, 240, 0.2);
+}
+
+.player-card canvas {
+  border: 4px solid var(--pixel-green);
+  background: var(--bg-dark);
+  margin-bottom: 16px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.player-card h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  color: var(--pixel-yellow);
+  margin-bottom: 12px;
+}
+
+.player-card .player-bio {
+  background: var(--bg-dark);
+  border: 2px solid var(--border-color);
+  padding: 12px;
+  font-size: 18px;
+  color: var(--text-main);
+  text-align: left;
+  min-height: 60px;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.btn-close-card {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  padding: 10px 20px;
+  background: var(--pixel-pink);
+  color: var(--bg-dark);
+  border: none;
+  border-bottom: 3px solid #b34a6e;
+  cursor: pointer;
+}
+</style>
+</head>
+<body class="has-site-chrome">
+<div class="stars" id="stars"></div>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html" class="nav-logo"><span class="heart">♥</span> TOMMY.LIVE</a>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../../index.html#games" data-nav="games">游戏</a></li>
+      <li><a href="../../about/index.html" data-nav="about">关于</a></li>
+      <li><a href="../../blog/index.html" data-nav="blog">博客</a></li>
+      <li><a href="../../changelog/index.html" data-nav="changelog">更新日志</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <h1>🎬 Emoji 猜猜猜</h1>
+  <p class="subtitle">看 Emoji 猜答案，10 题挑战</p>
+
+  <div id="userBar" style="display: none;">
+    <span>玩家：<b id="userName"></b></span>
+    <button class="btn-logout" id="btnLogout">退出</button>
+  </div>
+
+  <!-- Start screen -->
+  <div class="game-container" id="startScreen">
+    <div class="start-screen">
+      <p style="font-size: 56px; margin-bottom: 24px;">🎬🎵🍔🌍</p>
+      <p style="color: var(--text-dim); margin-bottom: 32px; font-size: 20px; line-height: 1.8;">从 Emoji 组合猜出电影、歌曲、食物...<br>10 题选择题，比谁答得又快又准！</p>
+      <button class="btn-start" id="btnStart">开始挑战</button>
+    </div>
+  </div>
+
+  <!-- Game area (hidden initially) -->
+  <div class="game-container" id="gameArea" style="display: none;">
+    <div class="question-header">
+      <span class="question-num" id="questionNum">1 / 10</span>
+      <span class="question-timer" id="questionTimer">15s</span>
+    </div>
+    <div class="emoji-display" id="emojiDisplay"></div>
+    <div class="category-tag" id="categoryTag"></div>
+    <div class="options-grid" id="optionsGrid"></div>
+  </div>
+
+  <!-- Results panel (hidden) -->
+  <div class="results-panel" id="resultsPanel" style="display: none;">
+    <h2>挑战结束！</h2>
+    <div class="result-big" id="resultScore">0</div>
+    <p class="result-label">答对题数 / 10</p>
+    <div class="result-details">
+      <div class="detail-item">
+        <span class="detail-value" id="resultTime">0s</span>
+        <span class="detail-label">总用时</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-value" id="resultAccuracy">0%</span>
+        <span class="detail-label">正确率</span>
+      </div>
+    </div>
+    <div class="result-actions">
+      <button class="btn-game btn-primary" id="btnRestart">再来一局</button>
+      <button class="btn-game btn-secondary" id="btnSubmit">提交成绩</button>
+      <a href="../../auth/login.html?return=../games/emoji/index.html" class="btn-game btn-secondary" id="btnLoginToSubmit" style="display: none;">登录后提交</a>
+    </div>
+    <p id="submitMsg"></p>
+  </div>
+
+  <!-- Leaderboard -->
+  <div class="leaderboard">
+    <h2>TOP 10 排行榜</h2>
+    <table class="score-table">
+      <thead>
+        <tr>
+          <th style="width: 50px;">排名</th>
+          <th>玩家</th>
+          <th style="text-align: right;">答对</th>
+          <th style="text-align: right;">用时</th>
+          <th style="text-align: right;">挑战次数</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardBody">
+        <tr><td colspan="5" style="text-align: center; color: var(--text-dim);">加载中...</td></tr>
+      </tbody>
+    </table>
+    <div id="myRankInfo" class="my-rank-info"></div>
+  </div>
+</main>
+
+<script src="../../assets/auth.js"></script>
+<script src="../../assets/avatars.js"></script>
+<script>
+(function() {
+  // Stars animation
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 45; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (1.5 + Math.random() * 2.5) + 's');
+    s.style.animationDelay = Math.random() * 2 + 's';
+    starsEl.appendChild(s);
+  }
+
+  const QUESTIONS = [
+    // === 电影 (20) ===
+    { emoji: "🧊🚢💑", answer: "泰坦尼克号", options: ["泰坦尼克号", "海上钢琴师", "加勒比海盗", "海底总动员"], category: "电影" },
+    { emoji: "🦁👑🌅", answer: "狮子王", options: ["狮子王", "疯狂动物城", "马达加斯加", "丛林大冒险"], category: "电影" },
+    { emoji: "🕷️🧑‍🦱🏙️", answer: "蜘蛛侠", options: ["蜘蛛侠", "蝙蝠侠", "超人", "钢铁侠"], category: "电影" },
+    { emoji: "🧙‍♂️💍🌋", answer: "指环王", options: ["指环王", "哈利波特", "霍比特人", "纳尼亚传奇"], category: "电影" },
+    { emoji: "👻👻👻🔫", answer: "捉鬼敢死队", options: ["捉鬼敢死队", "驱魔人", "鬼影实录", "招魂"], category: "电影" },
+    { emoji: "🦖🏝️🔬", answer: "侏罗纪公园", options: ["侏罗纪公园", "金刚", "哥斯拉", "史前巨鳄"], category: "电影" },
+    { emoji: "🤖👦❤️", answer: "机器人总动员", options: ["机器人总动员", "超能陆战队", "铁甲钢拳", "终结者"], category: "电影" },
+    { emoji: "🧊❄️👸", answer: "冰雪奇缘", options: ["冰雪奇缘", "白雪公主", "灰姑娘", "魔发奇缘"], category: "电影" },
+    { emoji: "🏎️⚡🏆", answer: "速度与激情", options: ["速度与激情", "极品飞车", "赛车总动员", "头文字D"], category: "电影" },
+    { emoji: "🐼🥋🍜", answer: "功夫熊猫", options: ["功夫熊猫", "花木兰", "疯狂动物城", "马达加斯加"], category: "电影" },
+    { emoji: "👨‍🚀🪐🌽", answer: "星际穿越", options: ["星际穿越", "地心引力", "火星救援", "星球大战"], category: "电影" },
+    { emoji: "🃏😈🦇", answer: "蝙蝠侠：黑暗骑士", options: ["蝙蝠侠：黑暗骑士", "蜘蛛侠", "小丑", "自杀小队"], category: "电影" },
+    { emoji: "🐟🔍🌊", answer: "海底总动员", options: ["海底总动员", "鲨鱼故事", "海洋奇缘", "小美人鱼"], category: "电影" },
+    { emoji: "👨‍🍳🐀🇫🇷", answer: "料理鼠王", options: ["料理鼠王", "美食总动员", "朱莉与朱莉娅", "小鼠大厨"], category: "电影" },
+    { emoji: "💀🎸🇲🇽", answer: "寻梦环游记", options: ["寻梦环游记", "僵尸新娘", "鬼妈妈", "养鬼吃人"], category: "电影" },
+    { emoji: "🧹✨🏰", answer: "哈利波特", options: ["哈利波特", "指环王", "纳尼亚传奇", "奇异博士"], category: "电影" },
+    { emoji: "🐒🍌👑", answer: "金刚", options: ["金刚", "猩球崛起", "人猿泰山", "丛林之书"], category: "电影" },
+    { emoji: "👩‍🦰🏹🏔️", answer: "勇敢传说", options: ["勇敢传说", "花木兰", "冰雪奇缘", "魔发奇缘"], category: "电影" },
+    { emoji: "🌹🐻🏰", answer: "美女与野兽", options: ["美女与野兽", "睡美人", "灰姑娘", "白雪公主"], category: "电影" },
+    { emoji: "👴🎈🏠", answer: "飞屋环游记", options: ["飞屋环游记", "机器人总动员", "超人总动员", "心灵奇旅"], category: "电影" },
+    // === 歌曲 (15) ===
+    { emoji: "🌟🌟✨🌙", answer: "小星星", options: ["小星星", "月亮代表我的心", "夜空中最亮的星", "星晴"], category: "歌曲" },
+    { emoji: "🌈🌧️☀️", answer: "彩虹", options: ["彩虹", "晴天", "雨中旋律", "阳光总在风雨后"], category: "歌曲" },
+    { emoji: "🌊🐚👧", answer: "听海", options: ["听海", "海阔天空", "大海", "浪花一朵朵"], category: "歌曲" },
+    { emoji: "🌙💌❤️", answer: "月亮代表我的心", options: ["月亮代表我的心", "甜蜜蜜", "小城故事", "我只在乎你"], category: "歌曲" },
+    { emoji: "🏠🔙🛤️", answer: "回家的路", options: ["回家的路", "故乡的云", "乡间小路", "回到过去"], category: "歌曲" },
+    { emoji: "🦋🌸💃", answer: "蝴蝶", options: ["蝴蝶", "花蝴蝶", "春天里", "兰花草"], category: "歌曲" },
+    { emoji: "☀️⛅😊", answer: "晴天", options: ["晴天", "彩虹", "七里香", "稻香"], category: "歌曲" },
+    { emoji: "🌾🏡🎶", answer: "稻香", options: ["稻香", "晴天", "七里香", "听妈妈的话"], category: "歌曲" },
+    { emoji: "🕐⏪💭", answer: "回到过去", options: ["回到过去", "时间煮雨", "时光机", "倒带"], category: "歌曲" },
+    { emoji: "🌹🥀💔", answer: "玫瑰花的葬礼", options: ["玫瑰花的葬礼", "枯萎", "离歌", "红玫瑰"], category: "歌曲" },
+    { emoji: "🐟🫧🌊", answer: "小幸运", options: ["小幸运", "鱼", "海底", "泡沫"], category: "歌曲" },
+    { emoji: "🌍🎵🤝", answer: "We Are The World", options: ["We Are The World", "Imagine", "Heal The World", "Let It Be"], category: "歌曲" },
+    { emoji: "👸💎🎤", answer: "Diamonds", options: ["Diamonds", "Umbrella", "Firework", "Royals"], category: "歌曲" },
+    { emoji: "🔥👧🎵", answer: "Girl On Fire", options: ["Girl On Fire", "Firework", "Hot N Cold", "Burning"], category: "歌曲" },
+    { emoji: "☂️☂️☂️🎶", answer: "Umbrella", options: ["Umbrella", "Rain On Me", "Singing In The Rain", "Diamonds"], category: "歌曲" },
+    // === 动漫 (10) ===
+    { emoji: "🍊👒🏴‍☠️", answer: "海贼王", options: ["海贼王", "龙珠", "火影忍者", "进击的巨人"], category: "动漫" },
+    { emoji: "🦊🍥🥷", answer: "火影忍者", options: ["火影忍者", "海贼王", "死神", "银魂"], category: "动漫" },
+    { emoji: "🐉🟠⭐", answer: "龙珠", options: ["龙珠", "海贼王", "火影忍者", "圣斗士星矢"], category: "动漫" },
+    { emoji: "👧🌊🐟", answer: "悬崖上的波妞", options: ["悬崖上的波妞", "千与千寻", "小美人鱼", "龙猫"], category: "动漫" },
+    { emoji: "🏰✈️👧", answer: "天空之城", options: ["天空之城", "千与千寻", "哈尔的移动城堡", "龙猫"], category: "动漫" },
+    { emoji: "👻🛁🏚️", answer: "千与千寻", options: ["千与千寻", "龙猫", "幽灵公主", "天空之城"], category: "动漫" },
+    { emoji: "🤖👦🔧", answer: "铁臂阿童木", options: ["铁臂阿童木", "机动战士高达", "新世纪福音战士", "哆啦A梦"], category: "动漫" },
+    { emoji: "🐱🔵🚪", answer: "哆啦A梦", options: ["哆啦A梦", "龙猫", "蜡笔小新", "樱桃小丸子"], category: "动漫" },
+    { emoji: "⚽👦🔥", answer: "足球小将", options: ["足球小将", "灌篮高手", "棒球英豪", "网球王子"], category: "动漫" },
+    { emoji: "🏀🔥💪", answer: "灌篮高手", options: ["灌篮高手", "黑子的篮球", "足球小将", "排球少年"], category: "动漫" },
+    // === 食物/饮品 (10) ===
+    { emoji: "🍕🧀🇮🇹", answer: "披萨", options: ["披萨", "意大利面", "千层面", "焗饭"], category: "食物" },
+    { emoji: "🍣🐟🇯🇵", answer: "寿司", options: ["寿司", "刺身", "天妇罗", "拉面"], category: "食物" },
+    { emoji: "🌶️鸡🥜", answer: "宫保鸡丁", options: ["宫保鸡丁", "辣子鸡", "麻婆豆腐", "水煮鱼"], category: "食物" },
+    { emoji: "🥟💧🔥", answer: "饺子", options: ["饺子", "馄饨", "包子", "小笼包"], category: "食物" },
+    { emoji: "🍜🐄🌿", answer: "牛肉面", options: ["牛肉面", "兰州拉面", "担担面", "阳春面"], category: "食物" },
+    { emoji: "🫖🍃☕", answer: "绿茶", options: ["绿茶", "红茶", "乌龙茶", "普洱茶"], category: "食物" },
+    { emoji: "🥐🧈☕", answer: "羊角面包", options: ["羊角面包", "法棍", "吐司", "贝果"], category: "食物" },
+    { emoji: "🌯🥩🌮", answer: "墨西哥卷饼", options: ["墨西哥卷饼", "沙瓦尔玛", "春卷", "肉夹馍"], category: "食物" },
+    { emoji: "🧋🥤🫧", answer: "珍珠奶茶", options: ["珍珠奶茶", "椰奶", "酸奶", "豆浆"], category: "食物" },
+    { emoji: "🍦🍫🍰", answer: "巧克力蛋糕", options: ["巧克力蛋糕", "提拉米苏", "布朗尼", "冰淇淋"], category: "食物" },
+    // === 地名/国家 (10) ===
+    { emoji: "🗼🥐🇫🇷", answer: "巴黎", options: ["巴黎", "伦敦", "罗马", "马德里"], category: "地名" },
+    { emoji: "🗽🏙️🇺🇸", answer: "纽约", options: ["纽约", "洛杉矶", "芝加哥", "旧金山"], category: "地名" },
+    { emoji: "🏯🌸🇯🇵", answer: "东京", options: ["东京", "京都", "大阪", "首尔"], category: "地名" },
+    { emoji: "🐨🦘🏖️", answer: "澳大利亚", options: ["澳大利亚", "新西兰", "南非", "巴西"], category: "地名" },
+    { emoji: "🏰🎡🇬🇧", answer: "伦敦", options: ["伦敦", "巴黎", "柏林", "阿姆斯特丹"], category: "地名" },
+    { emoji: "🐫🏜️🔺", answer: "埃及", options: ["埃及", "摩洛哥", "迪拜", "土耳其"], category: "地名" },
+    { emoji: "🐉🏮🧧", answer: "中国", options: ["中国", "日本", "越南", "泰国"], category: "地名" },
+    { emoji: "🍝🏟️🇮🇹", answer: "罗马", options: ["罗马", "米兰", "巴黎", "巴塞罗那"], category: "地名" },
+    { emoji: "🎰🌃💰", answer: "拉斯维加斯", options: ["拉斯维加斯", "澳门", "摩纳哥", "迪拜"], category: "地名" },
+    { emoji: "🎭🗽🌉", answer: "旧金山", options: ["旧金山", "纽约", "西雅图", "波特兰"], category: "地名" },
+    // === 其他 (5) ===
+    { emoji: "🎅🎄🎁", answer: "圣诞节", options: ["圣诞节", "新年", "感恩节", "万圣节"], category: "节日" },
+    { emoji: "🎃👻🍬", answer: "万圣节", options: ["万圣节", "圣诞节", "鬼节", "愚人节"], category: "节日" },
+    { emoji: "⚽🏆🌍", answer: "世界杯", options: ["世界杯", "奥运会", "欧洲杯", "亚洲杯"], category: "运动" },
+    { emoji: "🏀🦅🇺🇸", answer: "NBA", options: ["NBA", "CBA", "世锦赛", "奥运会"], category: "运动" },
+    { emoji: "🎮👾🕹️", answer: "电子游戏", options: ["电子游戏", "桌游", "VR", "电竞"], category: "其他" },
+  ];
+
+  const TOTAL_QUESTIONS = 10;
+  const TIME_PER_QUESTION = 15;
+
+  const startScreen = document.getElementById('startScreen');
+  const gameArea = document.getElementById('gameArea');
+  const resultsPanel = document.getElementById('resultsPanel');
+  const btnStart = document.getElementById('btnStart');
+  const btnRestart = document.getElementById('btnRestart');
+  const btnSubmit = document.getElementById('btnSubmit');
+  const btnLoginToSubmit = document.getElementById('btnLoginToSubmit');
+  const submitMsg = document.getElementById('submitMsg');
+  const questionNum = document.getElementById('questionNum');
+  const questionTimer = document.getElementById('questionTimer');
+  const emojiDisplay = document.getElementById('emojiDisplay');
+  const categoryTag = document.getElementById('categoryTag');
+  const optionsGrid = document.getElementById('optionsGrid');
+  const resultScore = document.getElementById('resultScore');
+  const resultTime = document.getElementById('resultTime');
+  const resultAccuracy = document.getElementById('resultAccuracy');
+  const userBar = document.getElementById('userBar');
+  const userNameEl = document.getElementById('userName');
+  const btnLogout = document.getElementById('btnLogout');
+  const leaderboardBody = document.getElementById('leaderboardBody');
+  const myRankInfo = document.getElementById('myRankInfo');
+
+  let currentQuestions = [];
+  let currentIndex = 0;
+  let correctCount = 0;
+  let gameStartTime = 0;
+  let questionTimerId = null;
+
+  function updateAuthUI() {
+    if (window.TommyAuth.isLoggedIn()) {
+      const user = window.TommyAuth.getUser();
+      userBar.style.display = 'flex';
+      userNameEl.textContent = user ? user.nickname : 'Unknown';
+    } else {
+      userBar.style.display = 'none';
+    }
+  }
+
+  btnLogout.addEventListener('click', () => {
+    window.TommyAuth.clear();
+    updateAuthUI();
+    fetchLeaderboard();
+  });
+
+  function shuffleArray(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function startGame() {
+    currentQuestions = shuffleArray(QUESTIONS).slice(0, TOTAL_QUESTIONS);
+    currentIndex = 0;
+    correctCount = 0;
+    gameStartTime = performance.now();
+
+    startScreen.style.display = 'none';
+    resultsPanel.style.display = 'none';
+    gameArea.style.display = 'block';
+
+    showQuestion();
+  }
+
+  function showQuestion() {
+    const q = currentQuestions[currentIndex];
+    questionNum.textContent = `${currentIndex + 1} / ${TOTAL_QUESTIONS}`;
+    emojiDisplay.textContent = q.emoji;
+    categoryTag.textContent = q.category;
+
+    const shuffledOptions = shuffleArray(q.options);
+    optionsGrid.innerHTML = '';
+    shuffledOptions.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.textContent = opt;
+      btn.addEventListener('click', () => handleAnswer(btn, opt, q.answer));
+      optionsGrid.appendChild(btn);
+    });
+
+    let timeLeft = TIME_PER_QUESTION;
+    questionTimer.textContent = timeLeft + 's';
+    questionTimer.classList.remove('urgent');
+
+    clearInterval(questionTimerId);
+    questionTimerId = setInterval(() => {
+      timeLeft--;
+      questionTimer.textContent = timeLeft + 's';
+      if (timeLeft <= 5) questionTimer.classList.add('urgent');
+      if (timeLeft <= 0) {
+        clearInterval(questionTimerId);
+        handleTimeout();
+      }
+    }, 1000);
+  }
+
+  function handleAnswer(selectedBtn, selected, correct) {
+    clearInterval(questionTimerId);
+    const buttons = optionsGrid.querySelectorAll('.option-btn');
+    buttons.forEach(b => b.disabled = true);
+
+    if (selected === correct) {
+      selectedBtn.classList.add('correct');
+      correctCount++;
+      setTimeout(nextQuestion, 800);
+    } else {
+      selectedBtn.classList.add('wrong');
+      buttons.forEach(b => {
+        if (b.textContent === correct) b.classList.add('correct');
+      });
+      setTimeout(nextQuestion, 1500);
+    }
+  }
+
+  function handleTimeout() {
+    const buttons = optionsGrid.querySelectorAll('.option-btn');
+    buttons.forEach(b => {
+      b.disabled = true;
+      const q = currentQuestions[currentIndex];
+      if (b.textContent === q.answer) b.classList.add('correct');
+    });
+    setTimeout(nextQuestion, 1500);
+  }
+
+  function nextQuestion() {
+    currentIndex++;
+    if (currentIndex < TOTAL_QUESTIONS) {
+      showQuestion();
+    } else {
+      endGame();
+    }
+  }
+
+  function endGame() {
+    clearInterval(questionTimerId);
+    const totalTimeMs = Math.round(performance.now() - gameStartTime);
+    const totalTimeSec = (totalTimeMs / 1000).toFixed(1);
+    const compositeScore = correctCount * 10000 - totalTimeMs;
+
+    gameArea.style.display = 'none';
+    resultsPanel.style.display = 'block';
+
+    resultScore.textContent = correctCount;
+    resultScore.dataset.value = Math.max(1, compositeScore);
+    resultTime.textContent = totalTimeSec + 's';
+    resultAccuracy.textContent = Math.round((correctCount / TOTAL_QUESTIONS) * 100) + '%';
+
+    if (window.TommyAuth.isLoggedIn()) {
+      btnSubmit.style.display = 'block';
+      btnLoginToSubmit.style.display = 'none';
+    } else {
+      btnSubmit.style.display = 'none';
+      btnLoginToSubmit.style.display = 'block';
+    }
+    submitMsg.textContent = '';
+    btnSubmit.disabled = false;
+  }
+
+  btnStart.addEventListener('click', startGame);
+  btnRestart.addEventListener('click', startGame);
+
+  btnSubmit.addEventListener('click', async () => {
+    if (!window.TommyAuth.isLoggedIn()) return;
+    btnSubmit.disabled = true;
+    submitMsg.textContent = '提交中...';
+    submitMsg.style.color = 'var(--text-main)';
+
+    try {
+      const score = parseInt(resultScore.dataset.value);
+      const resp = await window.TommyAuth.fetchWithAuth('/api/scores', {
+        method: 'POST',
+        body: JSON.stringify({ game: 'emoji', time: score })
+      });
+      const data = await resp.json();
+      if (resp.ok && data.ok) {
+        submitMsg.textContent = '提交成功！排行榜已更新';
+        submitMsg.style.color = 'var(--pixel-green)';
+        fetchLeaderboard();
+      } else {
+        submitMsg.textContent = '错误: ' + (data.error || '提交失败');
+        submitMsg.style.color = 'var(--pixel-pink)';
+        btnSubmit.disabled = false;
+      }
+    } catch (err) {
+      submitMsg.textContent = '网络错误';
+      submitMsg.style.color = 'var(--pixel-pink)';
+      btnSubmit.disabled = false;
+    }
+  });
+
+  function escapeHTML(str) {
+    const p = document.createElement('p');
+    p.textContent = str;
+    return p.innerHTML;
+  }
+
+  async function fetchLeaderboard() {
+    try {
+      const resp = await window.TommyAuth.fetchWithAuth('/api/scores?game=emoji');
+      if (resp.ok) {
+        const data = await resp.json();
+        renderLeaderboard(data.leaderboard, data.me);
+      }
+    } catch (err) {
+      console.error('Failed to fetch leaderboard', err);
+    }
+  }
+
+  function decodeScore(compositeScore) {
+    const correct = Math.ceil(compositeScore / 10000);
+    const timeMs = correct * 10000 - compositeScore;
+    return { correct, timeMs };
+  }
+
+  function renderLeaderboard(leaderboard, me) {
+    if (!leaderboard || leaderboard.length === 0) {
+      leaderboardBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-dim);">暂无数据</td></tr>';
+      return;
+    }
+
+    leaderboardBody.innerHTML = '';
+    leaderboard.forEach((item, idx) => {
+      const tr = document.createElement('tr');
+      const rank = item.rank || (idx + 1);
+      let rankClass = '';
+      if (rank === 1) rankClass = 'rank-1';
+      else if (rank === 2) rankClass = 'rank-2';
+      else if (rank === 3) rankClass = 'rank-3';
+
+      const avatarId = typeof item.avatar_id !== 'undefined' ? item.avatar_id : 0;
+      const { correct, timeMs } = decodeScore(item.best_time);
+
+      const rankTd = document.createElement('td');
+      rankTd.className = rankClass;
+      rankTd.textContent = rank;
+
+      const nameTd = document.createElement('td');
+      nameTd.style.cursor = 'pointer';
+      nameTd.style.display = 'flex';
+      nameTd.style.alignItems = 'center';
+      nameTd.style.gap = '8px';
+      if (window.TommyAvatars) {
+        nameTd.appendChild(window.TommyAvatars.create(avatarId, 24));
+      }
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = item.nickname;
+      nameTd.appendChild(nameSpan);
+      nameTd.onclick = () => showPlayerCard(item);
+
+      const correctTd = document.createElement('td');
+      correctTd.style.textAlign = 'right';
+      correctTd.textContent = correct + '/10';
+
+      const timeTd = document.createElement('td');
+      timeTd.style.textAlign = 'right';
+      timeTd.textContent = (timeMs / 1000).toFixed(1) + 's';
+
+      const countTd = document.createElement('td');
+      countTd.style.textAlign = 'right';
+      countTd.textContent = item.play_count;
+
+      tr.appendChild(rankTd);
+      tr.appendChild(nameTd);
+      tr.appendChild(correctTd);
+      tr.appendChild(timeTd);
+      tr.appendChild(countTd);
+      leaderboardBody.appendChild(tr);
+    });
+
+    if (me && me.rank > 10) {
+      const { correct, timeMs } = decodeScore(me.best_time);
+      myRankInfo.innerHTML = `你在排行榜中位列第 <b>${me.rank}</b> 名 (${correct}/10, ${(timeMs/1000).toFixed(1)}s)`;
+    } else if (!me && window.TommyAuth.isLoggedIn()) {
+      myRankInfo.textContent = '你还没有提交过成绩，快来挑战吧！';
+    } else {
+      myRankInfo.textContent = '';
+    }
+  }
+
+  function showPlayerCard(item) {
+    const overlay = document.createElement('div');
+    overlay.className = 'player-card-overlay';
+    const card = document.createElement('div');
+    card.className = 'player-card';
+    const avatarId = typeof item.avatar_id !== 'undefined' ? item.avatar_id : 0;
+    const avatarCanvas = window.TommyAvatars ? window.TommyAvatars.create(avatarId, 64) : document.createElement('canvas');
+    const p = document.createElement('p');
+    p.textContent = item.nickname;
+    const nickname = p.innerHTML;
+    p.textContent = item.bio || '这个人很懒，什么都没写';
+    const bio = p.innerHTML;
+    card.innerHTML = `
+      <h3>${nickname}</h3>
+      <div class="player-bio">${bio}</div>
+      <button class="btn-close-card">关闭</button>
+    `;
+    card.prepend(avatarCanvas);
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+    const close = () => document.body.removeChild(overlay);
+    overlay.onclick = e => { if (e.target === overlay) close(); };
+    card.querySelector('.btn-close-card').onclick = close;
+  }
+
+  updateAuthUI();
+  fetchLeaderboard();
+})();
+</script>
+<script src="../../assets/site-chrome.js"></script>
+</body>
+</html>
