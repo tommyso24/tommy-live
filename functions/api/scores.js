@@ -5,6 +5,8 @@ import {
   extractUser,
 } from './auth/_helpers.js';
 
+const DESC_GAMES = new Set(['typing']);
+
 void CORS_HEADERS;
 
 export async function onRequestOptions() {
@@ -17,6 +19,8 @@ export async function onRequestGet(context) {
   try {
     const url = new URL(request.url);
     const game = (url.searchParams.get('game') || '').trim();
+    const isDesc = DESC_GAMES.has(game);
+    const orderDir = isDesc ? 'DESC' : 'ASC';
 
     if (!game) {
       return jsonResponse({ error: '缺少必填参数 game' }, 400);
@@ -27,7 +31,7 @@ export async function onRequestGet(context) {
        FROM scores s
        JOIN users u ON s.user_id = u.id
        WHERE s.game = ?
-       ORDER BY s.best_time ASC
+       ORDER BY s.best_time ${orderDir}
        LIMIT 10`
     )
       .bind(game)
@@ -55,10 +59,11 @@ export async function onRequestGet(context) {
         .first();
 
       if (meScore) {
+        const rankOp = isDesc ? '>' : '<';
         const rankRow = await env.DB.prepare(
           `SELECT COUNT(*) AS count
            FROM scores
-           WHERE game = ? AND best_time < ?`
+           WHERE game = ? AND best_time ${rankOp} ?`
         )
           .bind(game, meScore.best_time)
           .first();
@@ -109,13 +114,16 @@ export async function onRequestPost(context) {
 
     const game = typeof body?.game === 'string' ? body.game.trim() : '';
     const parsedTime = Number(body?.time);
+    const isDesc = DESC_GAMES.has(game);
+    const minVal = isDesc ? 1 : 50;
+    const maxVal = isDesc ? 300 : 5000;
 
     if (!game) {
       return jsonResponse({ error: '缺少必填字段 game' }, 400);
     }
 
-    if (!Number.isFinite(parsedTime) || parsedTime < 50 || parsedTime > 5000) {
-      return jsonResponse({ error: 'time 必须是 50 到 5000 之间的数字' }, 400);
+    if (!Number.isFinite(parsedTime) || parsedTime < minVal || parsedTime > maxVal) {
+      return jsonResponse({ error: `time 必须是 ${minVal} 到 ${maxVal} 之间的数字` }, 400);
     }
 
     const time = Math.round(parsedTime);
@@ -134,7 +142,9 @@ export async function onRequestPost(context) {
     let playCount;
 
     if (existing) {
-      bestTime = Math.min(Number(existing.best_time), time);
+      bestTime = isDesc
+        ? Math.max(Number(existing.best_time), time)
+        : Math.min(Number(existing.best_time), time);
       playCount = Number(existing.play_count) + 1;
 
       await env.DB.prepare(
@@ -156,10 +166,11 @@ export async function onRequestPost(context) {
         .run();
     }
 
+    const rankOp = isDesc ? '>' : '<';
     const rankRow = await env.DB.prepare(
       `SELECT COUNT(*) AS count
        FROM scores
-       WHERE game = ? AND best_time < ?`
+       WHERE game = ? AND best_time ${rankOp} ?`
     )
       .bind(game, bestTime)
       .first();
