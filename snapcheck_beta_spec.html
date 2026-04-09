@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>秒探客 Beta 上线方案 · 业务 + 技术</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f3;
+    --paper: #ffffff;
+    --ink: #1a1814;
+    --ink-light: #5a554c;
+    --ink-mute: #8a8478;
+    --line: #e8e2d4;
+    --accent: #c1440e;
+    --accent-soft: #f4e4d6;
+    --gold: #b8860b;
+    --green: #4a6b3a;
+    --code-bg: #1a1814;
+    --code-ink: #e8e2d4;
+    --warn-bg: #fef5e7;
+    --warn-bd: #d4a02c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans SC", -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.75;
+    font-size: 15px;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(193,68,14,0.03) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(184,134,11,0.04) 0%, transparent 40%);
+  }
+  /* Layout */
+  .layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+  /* Sidebar */
+  aside {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    border-right: 1px solid var(--line);
+    padding: 40px 24px;
+    background: var(--bg);
+  }
+  aside .brand {
+    font-family: "Noto Serif SC", serif;
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  aside .brand-sub {
+    font-size: 11px;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 32px;
+  }
+  aside .nav-section {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-mute);
+    margin-top: 28px;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  aside ul { list-style: none; }
+  aside ul li { margin-bottom: 2px; }
+  aside ul li a {
+    display: block;
+    padding: 6px 12px;
+    color: var(--ink-light);
+    text-decoration: none;
+    font-size: 13px;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  aside ul li a:hover {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: rgba(193,68,14,0.04);
+  }
+  aside ul li a .num {
+    display: inline-block;
+    width: 24px;
+    color: var(--ink-mute);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+  }
+  /* Main content */
+  main {
+    padding: 60px 80px 120px;
+    max-width: 980px;
+  }
+  /* Header */
+  .doc-header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 40px;
+    margin-bottom: 60px;
+  }
+  .doc-header .meta {
+    display: flex;
+    gap: 24px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-mute);
+    margin-bottom: 24px;
+  }
+  .doc-header .meta span::before {
+    content: "◆";
+    color: var(--accent);
+    margin-right: 6px;
+  }
+  .doc-header h1 {
+    font-family: "Noto Serif SC", serif;
+    font-weight: 900;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+  .doc-header h1 .accent { color: var(--accent); }
+  .doc-header .sub {
+    font-size: 18px;
+    color: var(--ink-light);
+    line-height: 1.6;
+    max-width: 720px;
+  }
+  .doc-header .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .doc-header .stats div {
+    border-left: 3px solid var(--accent);
+    padding-left: 14px;
+  }
+  .doc-header .stats .v {
+    font-family: "Noto Serif SC", serif;
+    font-weight: 900;
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .doc-header .stats .l {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-mute);
+  }
+  /* Section */
+  section {
+    margin-bottom: 80px;
+    scroll-margin-top: 20px;
+  }
+  section h2 {
+    font-family: "Noto Serif SC", serif;
+    font-weight: 900;
+    font-size: 38px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 0;
+  }
+  section h2 .num {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 4px 10px;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-right: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  section h2 + .h2-sub {
+    color: var(--ink-mute);
+    font-size: 14px;
+    margin-bottom: 32px;
+    padding-left: 0;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 24px;
+  }
+  section h3 {
+    font-family: "Noto Serif SC", serif;
+    font-weight: 600;
+    font-size: 22px;
+    margin-top: 40px;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  section h4 {
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 24px;
+    margin-bottom: 10px;
+  }
+  p { margin-bottom: 14px; color: var(--ink-light); }
+  p strong { color: var(--ink); font-weight: 600; }
+  ul, ol { margin-left: 20px; margin-bottom: 14px; }
+  ul li, ol li { color: var(--ink-light); margin-bottom: 6px; }
+  ul li strong, ol li strong { color: var(--ink); }
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 13px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+  }
+  table thead {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  table th {
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  table td {
+    padding: 12px 14px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-light);
+    vertical-align: top;
+  }
+  table tbody tr:hover { background: rgba(193,68,14,0.02); }
+  table td strong { color: var(--ink); }
+  table .highlight-row { background: var(--accent-soft); }
+  table .highlight-row td { color: var(--ink); font-weight: 500; }
+  /* Code block */
+  pre {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 20px 24px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 16px 0;
+    border-left: 3px solid var(--accent);
+  }
+  pre .c { color: #8a8478; }
+  pre .k { color: #d4a02c; }
+  pre .s { color: #a8c789; }
+  pre .n { color: #e8a87c; }
+  code {
+    font-family: "JetBrains Mono", monospace;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-size: 0.88em;
+  }
+  /* Callout */
+  .callout {
+    background: var(--paper);
+    border-left: 4px solid var(--accent);
+    padding: 18px 22px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 2px 8px rgba(26,24,20,0.04);
+  }
+  .callout.warn {
+    background: var(--warn-bg);
+    border-left-color: var(--warn-bd);
+  }
+  .callout.gold {
+    background: #fff9eb;
+    border-left-color: var(--gold);
+  }
+  .callout.green {
+    background: #f0f5e8;
+    border-left-color: var(--green);
+  }
+  .callout-title {
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--ink);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .callout p { margin-bottom: 0; font-size: 14px; }
+  /* Cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .card-grid.two { grid-template-columns: repeat(2, 1fr); }
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 22px;
+    border-radius: 4px;
+    position: relative;
+  }
+  .card.featured {
+    border: 2px solid var(--accent);
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--paper) 30%);
+  }
+  .card .tier {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ink-mute);
+    margin-bottom: 4px;
+  }
+  .card .title {
+    font-family: "Noto Serif SC", serif;
+    font-weight: 900;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .card .price {
+    font-family: "Noto Serif SC", serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--accent);
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .card .price small { font-size: 14px; color: var(--ink-mute); font-weight: 400; }
+  .card ul { list-style: none; margin: 14px 0 0 0; }
+  .card ul li {
+    font-size: 13px;
+    padding: 6px 0;
+    border-top: 1px dashed var(--line);
+    color: var(--ink-light);
+  }
+  .card ul li:first-child { border-top: none; }
+  .card .badge {
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    background: var(--accent);
+    color: var(--paper);
+    padding: 4px 10px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 2px;
+  }
+  /* Flow diagram */
+  .flow {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 28px;
+    margin: 20px 0;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: nowrap;
+    min-width: 600px;
+  }
+  .flow-node {
+    flex-shrink: 0;
+    background: var(--accent-soft);
+    border: 2px solid var(--accent);
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    color: var(--ink);
+    min-width: 110px;
+  }
+  .flow-node.start { background: var(--green); color: var(--paper); border-color: var(--green); }
+  .flow-node.end { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .flow-node.decision {
+    background: var(--warn-bg);
+    border-color: var(--warn-bd);
+    transform: rotate(0deg);
+    border-radius: 4px;
+  }
+  .flow-arrow {
+    flex-shrink: 0;
+    color: var(--ink-mute);
+    font-size: 18px;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .flow-label {
+    font-size: 10px;
+    color: var(--ink-mute);
+    margin-top: 4px;
+    text-align: center;
+  }
+  /* Schema box */
+  .schema {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+  .schema-head {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 18px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .schema-head .tag {
+    background: var(--accent);
+    color: var(--paper);
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+  .schema-body {
+    padding: 0;
+  }
+  .schema-body table {
+    margin: 0;
+    border: none;
+  }
+  .schema-body table td {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+  }
+  .schema-body table td:first-child { color: var(--accent); font-weight: 500; }
+  .schema-body table td:nth-child(2) { color: var(--ink-mute); }
+  /* Checklist */
+  .checklist {
+    list-style: none !important;
+    margin-left: 0 !important;
+  }
+  .checklist li {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .checklist li::before {
+    content: "□";
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1;
+    margin-top: 1px;
+  }
+  .checklist li.must { border-left-color: #c1440e; }
+  .checklist li.should { border-left-color: #d4a02c; }
+  .checklist li.nice { border-left-color: #5a554c; }
+  .checklist li .lbl {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--paper);
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-right: 8px;
+    font-weight: 700;
+  }
+  .checklist li.should .lbl { background: #d4a02c; }
+  .checklist li.nice .lbl { background: #8a8478; }
+  /* Footer */
+  footer {
+    margin-top: 100px;
+    padding-top: 40px;
+    border-top: 2px solid var(--ink);
+    text-align: center;
+    color: var(--ink-mute);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  footer .quote {
+    font-family: "Noto Serif SC", serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--ink);
+    text-transform: none;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  /* Responsive (at least don't break on smaller screens) */
+  @media (max-width: 980px) {
+    .layout { grid-template-columns: 1fr; }
+    aside { position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--line); }
+    main { padding: 40px 24px; }
+    .doc-header h1 { font-size: 36px; }
+    .doc-header .stats { grid-template-columns: 1fr 1fr; }
+    .card-grid, .card-grid.two { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ============ SIDEBAR ============ -->
+<aside>
+  <div class="brand">秒探客<br>SnapCheck</div>
+  <div class="brand-sub">Beta · Internal Spec</div>
+
+  <div class="nav-section">业务侧</div>
+  <ul>
+    <li><a href="#s1"><span class="num">01</span>战略与目标</a></li>
+    <li><a href="#s2"><span class="num">02</span>成本与定价模型</a></li>
+    <li><a href="#s3"><span class="num">03</span>Beta 期机制</a></li>
+    <li><a href="#s4"><span class="num">04</span>创始会员体系</a></li>
+    <li><a href="#s5"><span class="num">05</span>14 天运营节奏</a></li>
+  </ul>
+
+  <div class="nav-section">技术侧</div>
+  <ul>
+    <li><a href="#s6"><span class="num">06</span>系统架构</a></li>
+    <li><a href="#s7"><span class="num">07</span>数据库设计</a></li>
+    <li><a href="#s8"><span class="num">08</span>API 端点</a></li>
+    <li><a href="#s9"><span class="num">09</span>Liaobots 接入</a></li>
+    <li><a href="#s10"><span class="num">10</span>前端页面流程</a></li>
+    <li><a href="#s11"><span class="num">11</span>埋点事件清单</a></li>
+  </ul>
+
+  <div class="nav-section">交付</div>
+  <ul>
+    <li><a href="#s12"><span class="num">12</span>明天上线 Checklist</a></li>
+    <li><a href="#s13"><span class="num">13</span>分工建议</a></li>
+  </ul>
+</aside>
+
+<!-- ============ MAIN ============ -->
+<main>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div class="meta">
+    <span>Internal Document</span>
+    <span>v1.0 · 2026.04.09</span>
+    <span>For Engineering</span>
+  </div>
+  <h1>秒探客 Beta<br>上线<span class="accent">方案书</span></h1>
+  <p class="sub">这是一份给产品和技术同事一起看的内部文档。第一部分讲清楚"我们为什么这么做"（业务逻辑、定价模型、运营策略），第二部分讲清楚"具体要做什么"（数据库、API、前端流程、埋点）。请在动手前完整看完一遍。</p>
+
+  <div class="stats">
+    <div>
+      <div class="v">¥0.07</div>
+      <div class="l">不联网背调成本</div>
+    </div>
+    <div>
+      <div class="v">¥0.14</div>
+      <div class="l">联网背调成本</div>
+    </div>
+    <div>
+      <div class="v">14 天</div>
+      <div class="l">Beta 测试期</div>
+    </div>
+    <div>
+      <div class="v">100 人</div>
+      <div class="l">明天活动目标</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 01 战略与目标 ============ -->
+<section id="s1">
+  <h2><span class="num">01</span>战略与目标</h2>
+  <p class="h2-sub">为什么 Beta 期不卖套餐、不直接定价？</p>
+
+  <h3>核心战略：用数据定价，不用拍脑袋</h3>
+  <p>我们之前基于 Aihubmix 做过一份 ¥88/¥228/¥588 的定价方案。但现在切换到 Liaobots 后成本下降了 70%+，而且用户的真实使用习惯（联网 vs 不联网比例、月均次数、功能偏好）我们其实不知道。</p>
+  <p>所以这次 Beta 期的设计是：<strong>15 天内不公布套餐价格</strong>，只开放<strong>免费试用 + 按次加购</strong>两种入口。15 天后我们会拿到三组关键数据，再据此决定正式套餐：</p>
+  <ul>
+    <li><strong>注册转化数据</strong>：明天活动 + 14 天累计能拉到多少注册</li>
+    <li><strong>真实使用数据</strong>：联网/不联网的实际比例、平均使用率</li>
+    <li><strong>付费意愿数据</strong>：加购转化率、加购金额、不联网/联网加购偏好</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-title">Beta 期的第一目标</div>
+    <p>不是赚钱，不是验证套餐价格，是<strong>让尽可能多的人注册账号 + 收集真实使用数据</strong>。所有产品和运营动作都为这个目标服务。</p>
+  </div>
+
+  <h3>三个不做</h3>
+  <ul>
+    <li><strong>不做套餐</strong>：Beta 期完全不出现"月付/年付"概念，避免干扰用户行为</li>
+    <li><strong>不做套包</strong>：加购只有"不联网 ¥0.5/次"和"联网 ¥1.5/次"两个 SKU，不搞买多送多，让加购数据成为最纯净的偏好信号</li>
+    <li><strong>不做 CRM 对接</strong>：永远被动，让客户的 CRM 来对接我们</li>
+  </ul>
+</section>
+
+<!-- ============ 02 成本与定价模型 ============ -->
+<section id="s2">
+  <h2><span class="num">02</span>成本与定价模型</h2>
+  <p class="h2-sub">每一分钱都算清楚</p>
+
+  <h3>单次背调成本（已锁定）</h3>
+  <table>
+    <thead><tr><th>类型</th><th>实现方式</th><th>单次成本</th><th>用途</th></tr></thead>
+    <tbody>
+      <tr><td><strong>不联网背调</strong></td><td>Liaobots / Gemini 3 (无搜索)</td><td>¥0.07</td><td>询盘筛选高频场景</td></tr>
+      <tr><td><strong>联网背调</strong></td><td>智谱搜索 + Liaobots Gemini 3 分析</td><td>¥0.14</td><td>重要客户决策时刻</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <div class="callout-title">⚠️ 联网成本的关键约束</div>
+    <p>联网成本 ¥0.14 是<strong>必须严格控制</strong>的。智谱搜索回来的内容必须做 token 数限制（建议截断到 4000 tokens 以内），否则塞进 Gemini 后输入端会膨胀，单次成本可能翻倍。技术实现时这是必须做的护栏。</p>
+  </div>
+
+  <h3>预案三档套餐（Day 15 才公布，仅作内部参考）</h3>
+  <p>下面这三档是我们目前的预案，但 <strong>Day 15 会根据真实数据再调整</strong>。技术开发不要按这个数字写死，价格和配额都要做成可配置项。</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="tier">Starter</div>
+      <div class="title">入门版</div>
+      <div class="price">¥39<small>/月</small></div>
+      <ul>
+        <li>120 次 不联网背调</li>
+        <li>30 次 联网背调</li>
+        <li>历史记录 30 天</li>
+        <li>单账号</li>
+      </ul>
+    </div>
+    <div class="card featured">
+      <div class="badge">主力档</div>
+      <div class="tier">Pro</div>
+      <div class="title">专业版</div>
+      <div class="price">¥99<small>/月</small></div>
+      <ul>
+        <li>400 次 不联网背调</li>
+        <li>100 次 联网背调</li>
+        <li>批量导入 (50 家)</li>
+        <li>历史记录永久保留</li>
+        <li>报告对比</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="tier">Flagship</div>
+      <div class="title">旗舰版</div>
+      <div class="price">¥299<small>/月</small></div>
+      <ul>
+        <li>1200 次 不联网背调</li>
+        <li>300 次 联网背调</li>
+        <li>5 子账号 + 团队大盘</li>
+        <li>批量导入 (200 家)</li>
+        <li>IM 机器人 + Webhook</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>利润测算（按预案三档 + 三档使用率）</h3>
+  <table>
+    <thead><tr><th>档位</th><th>使用率</th><th>LLM 成本</th><th>其他成本</th><th>总成本</th><th>净利润</th><th>净利率</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="3"><strong>入门 ¥39</strong></td><td>乐观 25%</td><td>¥3.15</td><td>¥4</td><td>¥7.15</td><td>¥31.85</td><td>81.7%</td></tr>
+      <tr><td>谨慎 50%</td><td>¥6.30</td><td>¥4</td><td>¥10.30</td><td>¥28.70</td><td>73.6%</td></tr>
+      <tr><td>最坏 100%</td><td>¥12.60</td><td>¥4</td><td>¥16.60</td><td>¥22.40</td><td>57.4%</td></tr>
+      <tr class="highlight-row"><td rowspan="3"><strong>专业 ¥99</strong></td><td>乐观 25%</td><td>¥10.50</td><td>¥8</td><td>¥18.50</td><td>¥80.50</td><td>81.3%</td></tr>
+      <tr class="highlight-row"><td>谨慎 50%</td><td>¥21.00</td><td>¥8</td><td>¥29.00</td><td>¥70.00</td><td>70.7%</td></tr>
+      <tr class="highlight-row"><td>最坏 100%</td><td>¥42.00</td><td>¥8</td><td>¥50.00</td><td>¥49.00</td><td>49.5%</td></tr>
+      <tr><td rowspan="3"><strong>旗舰 ¥299</strong></td><td>乐观 25%</td><td>¥31.50</td><td>¥25</td><td>¥56.50</td><td>¥242.50</td><td>81.1%</td></tr>
+      <tr><td>谨慎 50%</td><td>¥63.00</td><td>¥25</td><td>¥88.00</td><td>¥211.00</td><td>70.6%</td></tr>
+      <tr><td>最坏 100%</td><td>¥126.00</td><td>¥25</td><td>¥151.00</td><td>¥148.00</td><td>49.5%</td></tr>
+    </tbody>
+  </table>
+  <p>三档套餐在谨慎乐观（50% 真实使用率）下净利率稳定在 70-77%，最坏情况下也保持 49.5% 以上。<strong>这是后续定价的安全边界。</strong></p>
+</section>
+
+<!-- ============ 03 Beta 期机制 ============ -->
+<section id="s3">
+  <h2><span class="num">03</span>Beta 期机制</h2>
+  <p class="h2-sub">免费试用 + 按次加购，简单到极致</p>
+
+  <h3>免费试用配额（双轨）</h3>
+  <p>用<strong>邀请码</strong>区分线下活动和线上常规注册，给出不同配额：</p>
+  <table>
+    <thead><tr><th>渠道</th><th>邀请码示例</th><th>不联网</th><th>联网</th><th>成本</th><th>有效期</th></tr></thead>
+    <tbody>
+      <tr class="highlight-row"><td><strong>线下活动</strong></td><td>EVENT0410</td><td>100 次</td><td>25 次</td><td>¥10.50</td><td>14 天</td></tr>
+      <tr><td><strong>线上常规</strong></td><td>(无 / 默认)</td><td>60 次</td><td>15 次</td><td>¥6.30</td><td>14 天</td></tr>
+    </tbody>
+  </table>
+
+  <h3>加购 SKU（极简两选项）</h3>
+  <p>这是我们 Beta 期收集"用户偏好信号"的核心机制。<strong>不做套包、不做买多送多、不做阶梯折扣</strong>——保持极致简单，让每次加购都成为一次明确的偏好投票。</p>
+  <table>
+    <thead><tr><th>SKU</th><th>单价</th><th>最小起售</th><th>起售价</th><th>毛利率</th></tr></thead>
+    <tbody>
+      <tr><td>不联网背调</td><td>¥0.5/次</td><td>10 次</td><td>¥5</td><td>86%</td></tr>
+      <tr><td>联网背调</td><td>¥1.5/次</td><td>10 次</td><td>¥15</td><td>91%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout green">
+    <div class="callout-title">✓ 为什么这样设计</div>
+    <p>用户每次加购就是一次明确投票——他选了 30 次不联网而不是 30 次联网，就是明确告诉我们"这个用户更倾向不联网场景"。15 天结束我们能拿到一份非常干净的"用户偏好报告"，定价时再不用猜。</p>
+  </div>
+
+  <h3>加购页面用户体验</h3>
+  <p>用户免费额度用完后的引导页要做<strong>温和提示</strong>而不是强推加购，给两个选择：</p>
+  <ul>
+    <li><strong>立即加购</strong> → 跳转到加购页（强付费意愿信号）</li>
+    <li><strong>通知我正式版</strong> → 留邮箱即可（弱意愿但仍是数据）</li>
+  </ul>
+  <p>加购页底部必须显示一行提示："正式版发布后均价将更优惠，您作为创始会员将自动享有最低折扣。" — 这是 Day 15 转化的伏笔，不是阻拦加购。</p>
+</section>
+
+<!-- ============ 04 创始会员 ============ -->
+<section id="s4">
+  <h2><span class="num">04</span>创始会员体系</h2>
+  <p class="h2-sub">让 Beta 期注册变成"早鸟特权"</p>
+
+  <h3>三级身份设计</h3>
+  <table>
+    <thead><tr><th>等级</th><th>编号</th><th>标识颜色</th><th>权益</th></tr></thead>
+    <tbody>
+      <tr><td><strong>🥇 超级创始会员</strong></td><td>No. 0001 – 0100</td><td>金色</td><td>永久 7 折 + 金色标识 + 优先客服</td></tr>
+      <tr><td><strong>🥈 早期创始会员</strong></td><td>No. 0101 – 0500</td><td>银色</td><td>创始最低价 + 银色标识</td></tr>
+      <tr><td><strong>蓝色创始会员</strong></td><td>No. 0501+</td><td>蓝色</td><td>创始最低价 + 蓝色标识</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout gold">
+    <div class="callout-title">关于"创始最低价"</div>
+    <p>具体折扣力度 <strong>Day 15 才公布</strong>，明天文案统一说"享创始最低价"或"自动享有正式版最低折扣"，<strong>不要承诺具体百分比</strong>。这样保留博弈空间，万一 Day 15 数据让我们调整价格，承诺不会崩塌。</p>
+    <p>例外：超级创始会员（前 100 名）的"永久 7 折"是<strong>明确承诺</strong>，可以写出来。</p>
+  </div>
+
+  <h3>编号自动分配规则</h3>
+  <ul>
+    <li>注册时按时间顺序自动递增分配编号，从 0001 开始</li>
+    <li>编号一旦分配不可修改（包括用户主动注销也不释放）</li>
+    <li>编号显示在：账号头像角标、报告 PDF 页脚、用户中心、分享链接</li>
+  </ul>
+
+  <h3>报告 PDF 页脚（所有档位统一）</h3>
+  <pre><span class="c">────────────────────────────────────────────────</span>
+本报告由「秒探客 SnapCheck」AI 背调引擎生成 · snapcheck.com
+创始会员 No. 0042 · 🥇 金色标识                  第 X / Y 页</pre>
+  <p>所有创始会员的报告页脚都带专属编号，让用户在分享报告时<strong>不经意地展示稀缺身份</strong>，也是免费的品牌曝光。</p>
+</section>
+
+<!-- ============ 05 运营节奏 ============ -->
+<section id="s5">
+  <h2><span class="num">05</span>14 天运营节奏</h2>
+  <p class="h2-sub">从明天活动到 Day 15 定价发布</p>
+
+  <table>
+    <thead><tr><th>时间</th><th>核心动作</th><th>关键动作</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Day 1 (明天)</strong></td><td>线下活动注册</td><td>3 分钟话术 + 现场扫码 + 创始会员激活</td></tr>
+      <tr><td>Day 2–3</td><td>线上渠道铺开</td><td>朋友圈 + 外贸群 + 第一批用户教学 EDM</td></tr>
+      <tr><td>Day 4–7</td><td>1v1 用户访谈</td><td>访谈前 20 名高活用户，观察使用率分布</td></tr>
+      <tr><td>Day 8–10</td><td>加购信号收集</td><td>SMS/EDM 召回 + 邀请裂变（送 10 次）</td></tr>
+      <tr><td>Day 11–13</td><td>倒计时冲刺</td><td>"还剩 X 个超级创始名额"</td></tr>
+      <tr><td>Day 14</td><td>数据复盘</td><td>所有埋点数据出炉，定价决策会议</td></tr>
+      <tr class="highlight-row"><td><strong>Day 15</strong></td><td>正式定价发布</td><td>三档套餐上线 + 创始会员折扣激活</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 06 系统架构 ============ -->
+<section id="s6">
+  <h2><span class="num">06</span>系统架构</h2>
+  <p class="h2-sub">明天上线版本的最小系统</p>
+
+  <div class="flow">
+    <div class="flow-row">
+      <div class="flow-node start">用户浏览器</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">前端 SPA</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">后端 API</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">业务数据库</div>
+    </div>
+    <div class="flow-row">
+      <div style="width:120px"></div>
+      <div class="flow-arrow"></div>
+      <div style="width:120px"></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node">背调服务</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Liaobots API</div>
+    </div>
+    <div class="flow-row">
+      <div style="width:120px"></div>
+      <div class="flow-arrow"></div>
+      <div style="width:120px"></div>
+      <div class="flow-arrow"></div>
+      <div style="width:120px"></div>
+      <div class="flow-arrow">↘</div>
+      <div class="flow-node">智谱搜索 API</div>
+    </div>
+    <div class="flow-row">
+      <div style="width:120px"></div>
+      <div class="flow-arrow"></div>
+      <div style="width:120px"></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node">SMS 服务</div>
+      <div class="flow-arrow"></div>
+      <div class="flow-node">支付 (微信/支付宝)</div>
+    </div>
+  </div>
+
+  <h3>外部依赖（必须接入）</h3>
+  <ul>
+    <li><strong>Liaobots API</strong>：所有 LLM 调用走这里。需要先充值，准备 ¥500–1000 用作 Beta 期 buffer</li>
+    <li><strong>智谱 API</strong>：用于联网搜索。详见第 9 节</li>
+    <li><strong>SMS 服务商</strong>：阿里云 / 腾讯云 / 容联云三选一，注册 + 验证码用</li>
+    <li><strong>微信支付 / 支付宝</strong>：至少接入一个，明天加购需要</li>
+  </ul>
+
+  <h3>明天上线版本的简化决策</h3>
+  <ul>
+    <li><strong>不做用户系统的复杂角色权限</strong>：所有用户都是平等账号，没有团队/子账号概念（旗舰版功能 Day 15 后再说）</li>
+    <li><strong>不做异步任务队列</strong>：背调直接同步调用 Liaobots，前端转圈等结果。30 秒内必须返回，否则超时报错</li>
+    <li><strong>不做缓存层</strong>：每次背调都是新的，不复用历史结果（但要存历史记录到数据库）</li>
+    <li><strong>不做微信扫码登录</strong>：只做邮箱 + 手机号 + SMS 验证码。微信绑定 Day 7+ 再说</li>
+  </ul>
+</section>
+
+<!-- ============ 07 数据库设计 ============ -->
+<section id="s7">
+  <h2><span class="num">07</span>数据库设计</h2>
+  <p class="h2-sub">明天上线必需的 7 张表</p>
+
+  <div class="schema">
+    <div class="schema-head">users <span class="tag">核心</span></div>
+    <div class="schema-body">
+      <table>
+        <tr><td>id</td><td>BIGINT, PK, 自增</td><td>用户主键</td></tr>
+        <tr><td>founder_no</td><td>INT, UNIQUE, 自增</td><td>创始会员编号 (1 起)</td></tr>
+        <tr><td>founder_tier</td><td>VARCHAR(16)</td><td>'gold'/'silver'/'blue'</td></tr>
+        <tr><td>email</td><td>VARCHAR(128), UNIQUE</td><td>邮箱</td></tr>
+        <tr><td>phone</td><td>VARCHAR(20), UNIQUE</td><td>手机号</td></tr>
+        <tr><td>password_hash</td><td>VARCHAR(128)</td><td>bcrypt 哈希</td></tr>
+        <tr><td>register_channel</td><td>VARCHAR(32)</td><td>'event_offline' / 'web_organic' / ...</td></tr>
+        <tr><td>invite_code</td><td>VARCHAR(32)</td><td>注册时使用的邀请码</td></tr>
+        <tr><td>created_at</td><td>TIMESTAMP</td><td>注册时间</td></tr>
+        <tr><td>last_login_at</td><td>TIMESTAMP</td><td>最后登录</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="schema">
+    <div class="schema-head">user_quotas <span class="tag">核心</span></div>
+    <div class="schema-body">
+      <table>
+        <tr><td>id</td><td>BIGINT, PK</td><td></td></tr>
+        <tr><td>user_id</td><td>BIGINT, FK</td><td>关联 users</td></tr>
+        <tr><td>quota_type</td><td>VARCHAR(16)</td><td>'trial' / 'purchased'</td></tr>
+        <tr><td>basic_total</td><td>INT</td><td>不联网总额度</td></tr>
+        <tr><td>basic_used</td><td>INT</td><td>不联网已用</td></tr>
+        <tr><td>web_total</td><td>INT</td><td>联网总额度</td></tr>
+        <tr><td>web_used</td><td>INT</td><td>联网已用</td></tr>
+        <tr><td>expires_at</td><td>TIMESTAMP, NULL</td><td>试用 14 天后过期；加购永不过期</td></tr>
+        <tr><td>created_at</td><td>TIMESTAMP</td><td></td></tr>
+      </table>
+    </div>
+    <p style="padding: 10px 18px; font-size: 12px; color: var(--ink-mute); margin: 0;">⚠️ 一个用户可以有多条 quota 记录（一条试用 + 多条加购）。扣次数时<strong>优先扣即将过期的</strong>（试用 → 加购）。</p>
+  </div>
+
+  <div class="schema">
+    <div class="schema-head">background_checks <span class="tag">核心</span></div>
+    <div class="schema-body">
+      <table>
+        <tr><td>id</td><td>BIGINT, PK</td><td></td></tr>
+        <tr><td>user_id</td><td>BIGINT, FK</td><td></td></tr>
+        <tr><td>check_type</td><td>VARCHAR(16)</td><td>'basic' / 'web'</td></tr>
+        <tr><td>company_name</td><td>VARCHAR(256)</td><td>查询的公司名</td></tr>
+        <tr><td>company_country</td><td>VARCHAR(64)</td><td>国家（可选）</td></tr>
+        <tr><td>raw_prompt</td><td>TEXT</td><td>送给 LLM 的完整 prompt</td></tr>
+        <tr><td>raw_output</td><td>TEXT</td><td>LLM 原始输出</td></tr>
+        <tr><td>structured_result</td><td>JSON</td><td>解析后的结构化结果</td></tr>
+        <tr><td>risk_score</td><td>INT</td><td>风险评分 1-100</td></tr>
+        <tr><td>llm_model</td><td>VARCHAR(64)</td><td>使用的模型名</td></tr>
+        <tr><td>input_tokens</td><td>INT</td><td>输入 token 数</td></tr>
+        <tr><td>output_tokens</td><td>INT</td><td>输出 token 数</td></tr>
+        <tr><td>cost_cny</td><td>DECIMAL(10,4)</td><td>本次实际成本</td></tr>
+        <tr><td>duration_ms</td><td>INT</td><td>耗时</td></tr>
+        <tr><td>status</td><td>VARCHAR(16)</td><td>'success' / 'failed'</td></tr>
+        <tr><td>error_msg</td><td>TEXT, NULL</td><td>失败时的错误</td></tr>
+        <tr><td>created_at</td><td>TIMESTAMP</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="schema">
+    <div class="schema-head">report_ratings</div>
+    <div class="schema-body">
+      <table>
+        <tr><td>id</td><td>BIGINT, PK</td><td></td></tr>
+        <tr><td>check_id</td><td>BIGINT, FK</td><td>关联 background_checks</td></tr>
+        <tr><td>user_id</td><td>BIGINT, FK</td><td></td></tr>
+        <tr><td>rating</td><td>INT</td><td>1-5 星</td></tr>
+        <tr><td>improve_text</td><td>TEXT, NULL</td><td>"希望我们改进什么"</td></tr>
+        <tr><td>want_more_text</td><td>TEXT, NULL</td><td>"还想了解什么"</td></tr>
+        <tr><td>created_at</td><td>TIMESTAMP</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="schema">
+    <div class="schema-head">purchases <span class="tag">支付</span></div>
+    <div class="schema-body">
+      <table>
+        <tr><td>id</td><td>BIGINT, PK</td><td></td></tr>
+        <tr><td>user_id</td><td>BIGINT, FK</td><td></td></tr>
+        <tr><td>sku</td><td>VARCHAR(16)</td><td>'basic' / 'web'</td></tr>
+        <tr><td>quantity</td><td>INT</td><td>购买次数</td></tr>
+        <tr><td>unit_price_cny</td><td>DECIMAL(8,2)</td><td>单价 (¥0.5 / ¥1.5)</td></tr>
+        <tr><td>total_cny</td><td>DECIMAL(10,2)</td><td>合计</td></tr>
+        <tr><td>payment_method</td><td>VARCHAR(16)</td><td>'wechat' / 'alipay'</td></tr>
+        <tr><td>payment_status</td><td>VARCHAR(16)</td><td>'pending' / 'paid' / 'refunded'</td></tr>
+        <tr><td>payment_order_id</td><td>VARCHAR(64)</td><td>支付平台订单号</td></tr>
+        <tr><td>created_at</td><td>TIMESTAMP</td><td></td></tr>
+        <tr><td>paid_at</td><td>TIMESTAMP, NULL</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="schema">
+    <div class="schema-head">events <span class="tag">埋点</span></div>
+    <div class="schema-body">
+      <table>
+        <tr><td>id</td><td>BIGINT, PK</td><td></td></tr>
+        <tr><td>user_id</td><td>BIGINT, FK, NULL</td><td>未登录时为 NULL</td></tr>
+        <tr><td>session_id</td><td>VARCHAR(64)</td><td>前端生成的 session</td></tr>
+        <tr><td>event_name</td><td>VARCHAR(64)</td><td>事件名 (见第 11 节)</td></tr>
+        <tr><td>properties</td><td>JSON</td><td>事件属性</td></tr>
+        <tr><td>ip</td><td>VARCHAR(64)</td><td>用户 IP</td></tr>
+        <tr><td>user_agent</td><td>TEXT</td><td>UA</td></tr>
+        <tr><td>created_at</td><td>TIMESTAMP</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="schema">
+    <div class="schema-head">invite_codes</div>
+    <div class="schema-body">
+      <table>
+        <tr><td>code</td><td>VARCHAR(32), PK</td><td>邀请码</td></tr>
+        <tr><td>name</td><td>VARCHAR(64)</td><td>渠道名 ("线下活动0410")</td></tr>
+        <tr><td>basic_quota</td><td>INT</td><td>注册即送不联网次数</td></tr>
+        <tr><td>web_quota</td><td>INT</td><td>注册即送联网次数</td></tr>
+        <tr><td>founder_tier_override</td><td>VARCHAR(16), NULL</td><td>强制等级 (可选)</td></tr>
+        <tr><td>used_count</td><td>INT</td><td>已使用次数</td></tr>
+        <tr><td>max_uses</td><td>INT, NULL</td><td>最大使用次数</td></tr>
+        <tr><td>active</td><td>BOOLEAN</td><td>是否启用</td></tr>
+        <tr><td>created_at</td><td>TIMESTAMP</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-title">⚠️ 上线前必须插入的初始数据</div>
+    <p>1. invite_codes 表插入两条：<code>EVENT0410</code> (100/25) 和 <code>WEB</code> (60/15)<br>
+    2. founder_no 自增序列从 1 开始<br>
+    3. 给开发/测试账号预留 No. 0001–0010</p>
+  </div>
+</section>
+
+<!-- ============ 08 API 端点 ============ -->
+<section id="s8">
+  <h2><span class="num">08</span>API 端点</h2>
+  <p class="h2-sub">明天上线必需的 12 个接口</p>
+
+  <table>
+    <thead><tr><th>方法</th><th>路径</th><th>说明</th><th>认证</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" style="background:var(--accent-soft);font-weight:600;">认证模块</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/auth/sms/send</code></td><td>发送 SMS 验证码</td><td>无</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/auth/register</code></td><td>注册（带邀请码）</td><td>无</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/auth/login</code></td><td>登录（密码 或 SMS）</td><td>无</td></tr>
+      <tr><td><code>GET</code></td><td><code>/api/auth/me</code></td><td>当前用户信息</td><td>JWT</td></tr>
+      <tr><td colspan="4" style="background:var(--accent-soft);font-weight:600;">背调模块</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/check/basic</code></td><td>不联网背调</td><td>JWT</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/check/web</code></td><td>联网背调</td><td>JWT</td></tr>
+      <tr><td><code>GET</code></td><td><code>/api/check/history</code></td><td>历史记录列表</td><td>JWT</td></tr>
+      <tr><td><code>GET</code></td><td><code>/api/check/:id</code></td><td>单条报告详情</td><td>JWT</td></tr>
+      <tr><td><code>GET</code></td><td><code>/api/check/:id/pdf</code></td><td>下载 PDF</td><td>JWT</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/check/:id/rating</code></td><td>提交评分</td><td>JWT</td></tr>
+      <tr><td colspan="4" style="background:var(--accent-soft);font-weight:600;">额度与加购</td></tr>
+      <tr><td><code>GET</code></td><td><code>/api/quota</code></td><td>查询当前剩余额度</td><td>JWT</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/purchase</code></td><td>创建加购订单</td><td>JWT</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/payment/callback</code></td><td>支付回调</td><td>签名</td></tr>
+      <tr><td colspan="4" style="background:var(--accent-soft);font-weight:600;">埋点</td></tr>
+      <tr><td><code>POST</code></td><td><code>/api/track</code></td><td>前端埋点上报</td><td>可选</td></tr>
+    </tbody>
+  </table>
+
+  <h3>关键接口请求/响应示例</h3>
+
+  <h4>注册（含邀请码）</h4>
+  <pre><span class="k">POST</span> /api/auth/register
+<span class="k">Content-Type</span>: application/json
+
+{
+  <span class="s">"email"</span>: <span class="s">"user@example.com"</span>,
+  <span class="s">"phone"</span>: <span class="s">"13800138000"</span>,
+  <span class="s">"sms_code"</span>: <span class="s">"123456"</span>,
+  <span class="s">"password"</span>: <span class="s">"..."</span>,
+  <span class="s">"invite_code"</span>: <span class="s">"EVENT0410"</span>  <span class="c">// 可选，无邀请码默认 "WEB"</span>
+}
+
+<span class="c">// 响应</span>
+{
+  <span class="s">"code"</span>: 0,
+  <span class="s">"data"</span>: {
+    <span class="s">"user_id"</span>: 42,
+    <span class="s">"founder_no"</span>: 42,
+    <span class="s">"founder_tier"</span>: <span class="s">"gold"</span>,  <span class="c">// gold(1-100) / silver(101-500) / blue(501+)</span>
+    <span class="s">"token"</span>: <span class="s">"eyJhbGc..."</span>,
+    <span class="s">"quota"</span>: {
+      <span class="s">"basic_remaining"</span>: 100,
+      <span class="s">"web_remaining"</span>: 25,
+      <span class="s">"expires_at"</span>: <span class="s">"2026-04-23T00:00:00Z"</span>
+    }
+  }
+}</pre>
+
+  <h4>背调（联网）</h4>
+  <pre><span class="k">POST</span> /api/check/web
+<span class="k">Authorization</span>: Bearer eyJhbGc...
+<span class="k">Content-Type</span>: application/json
+
+{
+  <span class="s">"company_name"</span>: <span class="s">"ABC Trading Co., Ltd."</span>,
+  <span class="s">"country"</span>: <span class="s">"UK"</span>  <span class="c">// 可选</span>
+}
+
+<span class="c">// 响应（同步，30 秒内返回）</span>
+{
+  <span class="s">"code"</span>: 0,
+  <span class="s">"data"</span>: {
+    <span class="s">"check_id"</span>: 12345,
+    <span class="s">"company_name"</span>: <span class="s">"ABC Trading Co., Ltd."</span>,
+    <span class="s">"risk_score"</span>: 72,
+    <span class="s">"summary"</span>: <span class="s">"该公司成立于 2015 年..."</span>,
+    <span class="s">"sections"</span>: { <span class="c">/* 结构化字段 */</span> },
+    <span class="s">"quota_remaining"</span>: { <span class="s">"basic"</span>: 100, <span class="s">"web"</span>: 24 }
+  }
+}
+
+<span class="c">// 失败响应（额度不足）</span>
+{
+  <span class="s">"code"</span>: 4001,
+  <span class="s">"message"</span>: <span class="s">"额度不足，请加购或等待正式版发布"</span>,
+  <span class="s">"data"</span>: { <span class="s">"redirect"</span>: <span class="s">"/purchase"</span> }
+}</pre>
+
+  <h4>加购</h4>
+  <pre><span class="k">POST</span> /api/purchase
+<span class="k">Authorization</span>: Bearer eyJhbGc...
+
+{
+  <span class="s">"sku"</span>: <span class="s">"web"</span>,        <span class="c">// "basic" 或 "web"</span>
+  <span class="s">"quantity"</span>: 30,        <span class="c">// 必须 ≥ 10</span>
+  <span class="s">"payment_method"</span>: <span class="s">"wechat"</span>
+}
+
+<span class="c">// 响应：返回支付二维码或跳转 URL</span>
+{
+  <span class="s">"code"</span>: 0,
+  <span class="s">"data"</span>: {
+    <span class="s">"order_id"</span>: <span class="s">"PO20260409001234"</span>,
+    <span class="s">"total_cny"</span>: 45.00,
+    <span class="s">"qr_code_url"</span>: <span class="s">"https://..."</span>,
+    <span class="s">"expires_in"</span>: 600
+  }
+}</pre>
+
+  <div class="callout">
+    <div class="callout-title">额度扣减原子性</div>
+    <p>背调接口必须用<strong>数据库事务</strong>包住"扣额度 + 调用 LLM + 写历史记录"三步。LLM 调用失败时回滚扣减，避免用户付了次数没拿到结果。建议用乐观锁（version 字段）防并发。</p>
+  </div>
+</section>
+
+<!-- ============ 09 Liaobots 接入 ============ -->
+<section id="s9">
+  <h2><span class="num">09</span>Liaobots 接入</h2>
+  <p class="h2-sub">这是明天上线最关键的依赖，必须先打通</p>
+
+  <h3>前置准备</h3>
+  <ol>
+    <li><strong>注册账号</strong>：去 liaobots.com（或他们的中转 API 站点）注册</li>
+    <li><strong>充值</strong>：建议先充 ¥500–1000 作为 Beta 期 buffer</li>
+    <li><strong>获取 API Key</strong>：在控制台生成一个 Key，妥善保管</li>
+    <li><strong>确认可用模型</strong>：登录后查看可用模型列表，确认 <code>gemini-3-pro</code>（或类似名称）可用</li>
+    <li><strong>确认计费模式</strong>：和官方确认是按 token 计费还是按次计费，记录每个模型的实际单价</li>
+  </ol>
+
+  <div class="callout warn">
+    <div class="callout-title">⚠️ 一定要确认的事</div>
+    <p>Liaobots 是中转代理，<strong>API 端点和参数命名可能不完全等同 Google 官方</strong>。明天上线前必须实测一次完整调用，把"模型名 / 端点 URL / 鉴权方式 / 返回结构"全部跑通，不要假设。</p>
+  </div>
+
+  <h3>典型调用结构（OpenAI 兼容协议）</h3>
+  <p>大部分中转 API 都兼容 OpenAI 协议，基本调用方式是：</p>
+  <pre><span class="k">POST</span> https://{liaobots-endpoint}/v1/chat/completions
+<span class="k">Authorization</span>: Bearer {API_KEY}
+<span class="k">Content-Type</span>: application/json
+
+{
+  <span class="s">"model"</span>: <span class="s">"gemini-3-pro"</span>,
+  <span class="s">"messages"</span>: [
+    {<span class="s">"role"</span>: <span class="s">"system"</span>, <span class="s">"content"</span>: <span class="s">"你是一个外贸客户背调助手..."</span>},
+    {<span class="s">"role"</span>: <span class="s">"user"</span>, <span class="s">"content"</span>: <span class="s">"请帮我背调:ABC Trading Co"</span>}
+  ],
+  <span class="s">"temperature"</span>: 0.3,
+  <span class="s">"max_tokens"</span>: 4000,
+  <span class="s">"stream"</span>: false
+}
+
+<span class="c">// 响应</span>
+{
+  <span class="s">"id"</span>: <span class="s">"chatcmpl-..."</span>,
+  <span class="s">"choices"</span>: [{
+    <span class="s">"message"</span>: { <span class="s">"role"</span>: <span class="s">"assistant"</span>, <span class="s">"content"</span>: <span class="s">"..."</span> },
+    <span class="s">"finish_reason"</span>: <span class="s">"stop"</span>
+  }],
+  <span class="s">"usage"</span>: {
+    <span class="s">"prompt_tokens"</span>: 2125,
+    <span class="s">"completion_tokens"</span>: 998,
+    <span class="s">"total_tokens"</span>: 3123
+  }
+}</pre>
+
+  <h3>不联网背调的完整流程</h3>
+  <ol>
+    <li>用户点击"开始背调"，前端 POST /api/check/basic</li>
+    <li>后端校验额度 → 锁定 1 次（事务开始）</li>
+    <li>构造 prompt（system + user，详见下方 prompt 模板）</li>
+    <li>调用 Liaobots gemini-3-pro，<code>max_tokens=4000</code></li>
+    <li>解析返回的 content，提取结构化字段</li>
+    <li>记录 token 数 → 计算成本写入 background_checks 表</li>
+    <li>事务提交，返回结果给前端</li>
+  </ol>
+
+  <h3>联网背调的完整流程（核心控制点）</h3>
+  <ol>
+    <li>用户提交公司名 → POST /api/check/web</li>
+    <li>校验联网额度 → 锁定 1 次</li>
+    <li><strong>第一步：调用智谱搜索 API</strong>，搜索 "{company_name} {country}"
+      <ul>
+        <li>智谱搜索的具体接口需要技术同事去查智谱开放平台文档</li>
+        <li><strong>必须设置返回结果数 ≤ 5 条</strong></li>
+        <li><strong>必须截断每条结果的内容到 800 token 以内</strong></li>
+        <li>整体搜索结果合计不超过 4000 token</li>
+      </ul>
+    </li>
+    <li><strong>第二步：把搜索结果作为 context 拼进 prompt</strong>，调用 Liaobots gemini-3-pro</li>
+    <li>记录两次调用的总成本（智谱 + Liaobots），目标控制在 <code>¥0.14</code> 以内</li>
+    <li>解析、存储、返回</li>
+  </ol>
+
+  <div class="callout warn">
+    <div class="callout-title">⚠️ 成本护栏（必须实现）</div>
+    <p>联网背调的单次成本目标是 <strong>¥0.14</strong>。技术实现上必须做以下硬性约束：</p>
+    <ul>
+      <li>智谱搜索结果 token 总数 ≤ 4000（超出截断）</li>
+      <li>Liaobots 调用 max_tokens ≤ 4000</li>
+      <li>每次调用后实时计算成本，超过 ¥0.30 的请求自动告警（飞书通知）</li>
+      <li>单用户每分钟最多 5 次背调，防止脚本刷量</li>
+    </ul>
+  </div>
+
+  <h3>Prompt 模板（业务方负责，技术只需要 placeholder）</h3>
+  <pre><span class="c"># 不联网背调 Prompt</span>
+你是一个专业的外贸客户背调分析师...
+请基于你已有的知识，为以下公司生成一份背调报告：
+
+公司名称: {company_name}
+所在国家: {country}
+
+请输出 JSON 格式，包含以下字段：
+- summary: 公司简介
+- industry: 行业判断
+- credibility: 可信度分析
+- risk_score: 风险评分(1-100)
+- recommendation: 业务建议
+
+<span class="c"># 联网背调 Prompt（带搜索结果）</span>
+你是一个专业的外贸客户背调分析师...
+以下是关于该公司的最新网络信息：
+
+{search_results}
+
+基于以上信息，为以下公司生成背调报告：
+公司名称: {company_name}
+... (字段同上，但 risk_score 需要结合最新信息调整)</pre>
+
+  <p>具体的 prompt 内容由产品方负责打磨，技术只要把 placeholder 留好即可。建议把 prompt 存在配置文件中（不要硬编码），方便后续优化。</p>
+
+  <h3>错误处理</h3>
+  <table>
+    <thead><tr><th>场景</th><th>处理</th></tr></thead>
+    <tbody>
+      <tr><td>Liaobots 超时（&gt;30s）</td><td>退还额度 + 返回 "服务繁忙请重试"</td></tr>
+      <tr><td>Liaobots 余额不足</td><td>退还额度 + 飞书报警 + 返回 "服务暂时不可用"</td></tr>
+      <tr><td>智谱搜索失败</td><td>退还额度 + 提示用户改用不联网模式</td></tr>
+      <tr><td>LLM 返回内容无法解析</td><td>不退还额度（原始内容已生成），但记录 status='partial'，前端展示原始文本</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 10 前端页面流程 ============ -->
+<section id="s10">
+  <h2><span class="num">10</span>前端页面流程</h2>
+  <p class="h2-sub">明天上线版本的所有页面与跳转</p>
+
+  <h3>页面清单（11 个）</h3>
+  <table>
+    <thead><tr><th>页面</th><th>路径</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>活动激活页</td><td><code>/event/0410</code></td><td>线下活动专属落地页，带活动码 EVENT0410</td></tr>
+      <tr><td>常规注册页</td><td><code>/register</code></td><td>线上常规注册</td></tr>
+      <tr><td>登录页</td><td><code>/login</code></td><td>邮箱/手机 + 密码 或 SMS</td></tr>
+      <tr><td>欢迎页（创始会员）</td><td><code>/welcome</code></td><td>显示编号 + 标识 + 权益</td></tr>
+      <tr><td>主控台</td><td><code>/dashboard</code></td><td>额度展示 + 快速入口</td></tr>
+      <tr><td>背调输入页</td><td><code>/check</code></td><td>选择类型 + 输入公司名</td></tr>
+      <tr><td>背调进行中</td><td><code>/check/loading</code></td><td>转圈等结果（30 秒内）</td></tr>
+      <tr><td>背调报告页</td><td><code>/check/:id</code></td><td>展示结果 + 评分 + 分享</td></tr>
+      <tr><td>历史记录</td><td><code>/history</code></td><td>所有历史报告</td></tr>
+      <tr><td>额度用完页</td><td><code>/quota-exhausted</code></td><td>温和引导 → 加购 或 留邮箱</td></tr>
+      <tr><td>加购页</td><td><code>/purchase</code></td><td>两个 SKU 卡片</td></tr>
+      <tr><td>加购成功页</td><td><code>/purchase/success</code></td><td>感谢页 + 创始会员提示</td></tr>
+    </tbody>
+  </table>
+
+  <h3>主流程：从扫码到完成第一次背调</h3>
+  <div class="flow">
+    <div class="flow-row">
+      <div class="flow-node start">扫码</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">/event/0410</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">填邮箱/手机</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">SMS 验证</div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-node">注册成功</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">/welcome 创始编号</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">/dashboard</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">/check 输入公司</div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-node decision">选择类型</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">/check/loading</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">报告页</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node end">评分 + 分享</div>
+    </div>
+  </div>
+
+  <h3>额度用完后的流程</h3>
+  <div class="flow">
+    <div class="flow-row">
+      <div class="flow-node start">点击新背调</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node decision">额度检查</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">/quota-exhausted</div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-node">两个按钮</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">A: 立即加购</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">/purchase</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node end">支付完成</div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-node">两个按钮</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">B: 留邮箱通知</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">写入 events 表</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node end">感谢页</div>
+    </div>
+  </div>
+
+  <h3>每个页面的关键状态</h3>
+  <ul>
+    <li><strong>/event/0410</strong>：URL 必须带 <code>?code=EVENT0410</code> 或者路径里识别，提交时把邀请码一起带给后端</li>
+    <li><strong>/welcome</strong>：编号 ≤100 显示金色边框，101–500 银色，501+ 蓝色，三种 UI 必须明显不同</li>
+    <li><strong>/dashboard</strong>：顶部常驻显示剩余额度（不联网 X / 联网 X），低于 10% 时变红</li>
+    <li><strong>/check/loading</strong>：明确告诉用户"预计 30 秒"，不要让用户以为卡住了</li>
+    <li><strong>/check/:id</strong>：报告打开 30 秒后自动弹评分模块（只弹一次）</li>
+    <li><strong>/quota-exhausted</strong>：两个按钮样式平等，不要让"加购"按钮明显大于"留邮箱"</li>
+    <li><strong>/purchase</strong>：底部必须显示"15 天后正式版价格更优惠，您将自动享创始会员折扣"</li>
+  </ul>
+</section>
+
+<!-- ============ 11 埋点事件清单 ============ -->
+<section id="s11">
+  <h2><span class="num">11</span>埋点事件清单</h2>
+  <p class="h2-sub">Day 14 拿数据定价的所有依据</p>
+
+  <p>所有埋点统一通过 <code>POST /api/track</code> 上报，event_name 用下划线命名。<strong>明天上线前所有事件必须打通，否则 Day 15 没数据可分析。</strong></p>
+
+  <h3>注册与登录</h3>
+  <table>
+    <thead><tr><th>event_name</th><th>触发时机</th><th>关键属性</th></tr></thead>
+    <tbody>
+      <tr><td><code>page_view</code></td><td>任意页面访问</td><td>page, referrer, utm_*</td></tr>
+      <tr><td><code>register_started</code></td><td>进入注册页</td><td>invite_code, channel</td></tr>
+      <tr><td><code>register_sms_sent</code></td><td>请求验证码</td><td>phone_masked</td></tr>
+      <tr><td><code>register_completed</code></td><td>注册成功</td><td>user_id, founder_no, founder_tier, invite_code</td></tr>
+      <tr><td><code>register_failed</code></td><td>注册失败</td><td>reason</td></tr>
+      <tr><td><code>login_completed</code></td><td>登录成功</td><td>method (password/sms)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>背调使用（最重要）</h3>
+  <table>
+    <thead><tr><th>event_name</th><th>触发时机</th><th>关键属性</th></tr></thead>
+    <tbody>
+      <tr><td><code>check_started</code></td><td>点击开始背调</td><td>check_type (basic/web), company_name_hash</td></tr>
+      <tr><td><code>check_completed</code></td><td>报告生成成功</td><td>check_type, duration_ms, cost_cny, risk_score</td></tr>
+      <tr><td><code>check_failed</code></td><td>背调失败</td><td>check_type, error_code</td></tr>
+      <tr><td><code>report_viewed</code></td><td>打开报告页</td><td>check_id, source (history/new)</td></tr>
+      <tr><td><code>report_view_duration</code></td><td>离开报告页</td><td>check_id, duration_ms</td></tr>
+      <tr><td><code>report_pdf_downloaded</code></td><td>下载 PDF</td><td>check_id</td></tr>
+      <tr><td><code>report_shared</code></td><td>点击分享</td><td>check_id, channel</td></tr>
+      <tr><td><code>rating_submitted</code></td><td>提交评分</td><td>check_id, rating, has_text_feedback</td></tr>
+    </tbody>
+  </table>
+
+  <h3>额度与加购（核心转化漏斗）</h3>
+  <table>
+    <thead><tr><th>event_name</th><th>触发时机</th><th>关键属性</th></tr></thead>
+    <tbody>
+      <tr><td><code>quota_low_warning</code></td><td>剩余 ≤10% 首次触发</td><td>basic_remaining, web_remaining</td></tr>
+      <tr><td><code>quota_exhausted_page_viewed</code></td><td>进入额度用完页</td><td>basic_used, web_used</td></tr>
+      <tr><td><code>quota_email_notify_clicked</code></td><td>点击"通知我"按钮</td><td>—</td></tr>
+      <tr><td><code>purchase_page_viewed</code></td><td>进入加购页</td><td>—</td></tr>
+      <tr><td><code>purchase_sku_selected</code></td><td>选择 SKU</td><td>sku, quantity</td></tr>
+      <tr><td><code>purchase_initiated</code></td><td>点击立即购买</td><td>sku, quantity, total_cny</td></tr>
+      <tr><td><code>purchase_completed</code></td><td>支付成功</td><td>order_id, sku, quantity, total_cny</td></tr>
+      <tr><td><code>purchase_failed</code></td><td>支付失败/取消</td><td>order_id, reason</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Day 15 用这些数据回答的问题</h3>
+  <table>
+    <thead><tr><th>问题</th><th>对应数据</th><th>影响决策</th></tr></thead>
+    <tbody>
+      <tr><td>真实使用率？</td><td>check_completed 的次数 / 用户额度</td><td>套餐配额是否调整</td></tr>
+      <tr><td>不联网 vs 联网比例？</td><td>check_completed 按 check_type 分组</td><td>套餐配额比例（4:1 是否成立）</td></tr>
+      <tr><td>付费意愿强度？</td><td>purchase_completed / quota_exhausted_page_viewed</td><td>套餐价格区间</td></tr>
+      <tr><td>用户更愿意为哪种背调付费？</td><td>purchase_completed 按 sku 分组</td><td>主推什么 + 价格倾斜</td></tr>
+      <tr><td>产品质量过关吗？</td><td>rating_submitted 平均分 + 1-2 星比例</td><td>能否如期发布</td></tr>
+      <tr><td>哪个渠道转化最好？</td><td>register_completed 按 invite_code 分组</td><td>未来运营投入方向</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 12 上线 Checklist ============ -->
+<section id="s12">
+  <h2><span class="num">12</span>明天上线 Checklist</h2>
+  <p class="h2-sub">必做 / 强烈建议 / 可推迟，按优先级</p>
+
+  <h3>🔴 必须做完（缺一不可）</h3>
+  <ul class="checklist">
+    <li class="must"><div><span class="lbl">必</span>注册系统：邮箱 + 手机号 + SMS 验证码 + 邀请码识别</div></li>
+    <li class="must"><div><span class="lbl">必</span>创始会员编号自增 (founder_no) + 等级判断 (gold/silver/blue)</div></li>
+    <li class="must"><div><span class="lbl">必</span>登录系统（密码登录 + JWT）</div></li>
+    <li class="must"><div><span class="lbl">必</span>Liaobots API 联调通过（不联网 + 联网两种调用都验证过）</div></li>
+    <li class="must"><div><span class="lbl">必</span>智谱搜索 API 联调通过 + token 截断逻辑</div></li>
+    <li class="must"><div><span class="lbl">必</span>不联网背调完整链路（接口 + 扣额度 + 写历史 + 返回结果）</div></li>
+    <li class="must"><div><span class="lbl">必</span>联网背调完整链路（含成本护栏）</div></li>
+    <li class="must"><div><span class="lbl">必</span>额度系统：试用 + 加购两种 quota 同时存在，先扣试用</div></li>
+    <li class="must"><div><span class="lbl">必</span>加购页（两个 SKU + 数量选择 + 创建订单）</div></li>
+    <li class="must"><div><span class="lbl">必</span>支付通道（微信或支付宝至少一个，支持 ¥5–¥150 小额支付 + 回调）</div></li>
+    <li class="must"><div><span class="lbl">必</span>PDF 报告生成 + 页脚品牌字 + 创始编号</div></li>
+    <li class="must"><div><span class="lbl">必</span>前端页面：活动激活页、欢迎页、dashboard、背调输入、报告页、加购页</div></li>
+    <li class="must"><div><span class="lbl">必</span>所有核心埋点上报通畅（详见第 11 节）</div></li>
+    <li class="must"><div><span class="lbl">必</span>防刷：单 IP 单日注册上限 5 个、邮箱/手机不可重复</div></li>
+    <li class="must"><div><span class="lbl">必</span>异常告警：Liaobots 失败/余额不足时飞书通知</div></li>
+  </ul>
+
+  <h3>🟡 强烈建议（明天上线前最好做完）</h3>
+  <ul class="checklist">
+    <li class="should"><div><span class="lbl">强</span>评分模块（5 星 + 可选文字反馈）</div></li>
+    <li class="should"><div><span class="lbl">强</span>报告历史记录列表页</div></li>
+    <li class="should"><div><span class="lbl">强</span>额度用完页（含"留邮箱通知"按钮）</div></li>
+    <li class="should"><div><span class="lbl">强</span>1-2 星评价自动飞书通知客服</div></li>
+    <li class="should"><div><span class="lbl">强</span>客服微信号常驻页面右下角</div></li>
+    <li class="should"><div><span class="lbl">强</span>现场扫码海报（含活动二维码 + 权益说明）</div></li>
+  </ul>
+
+  <h3>🟢 可推迟到 Day 2–7</h3>
+  <ul class="checklist">
+    <li class="nice"><div><span class="lbl">可</span>EDM 召回模板（用户教学、加购引导）</div></li>
+    <li class="nice"><div><span class="lbl">可</span>SMS 通知模板（关键节点）</div></li>
+    <li class="nice"><div><span class="lbl">可</span>邀请裂变功能（送 10 次）</div></li>
+    <li class="nice"><div><span class="lbl">可</span>网页版报告分享（H5 链接）</div></li>
+    <li class="nice"><div><span class="lbl">可</span>金/银/蓝标识的精美 UI（明天可以先用简单版）</div></li>
+    <li class="nice"><div><span class="lbl">可</span>批量导入</div></li>
+    <li class="nice"><div><span class="lbl">可</span>数据看板（Day 14 之前做完即可）</div></li>
+  </ul>
+</section>
+
+<!-- ============ 13 分工建议 ============ -->
+<section id="s13">
+  <h2><span class="num">13</span>分工建议</h2>
+  <p class="h2-sub">假设我们有 1 后端 + 1 前端 + 1 产品/运营</p>
+
+  <table>
+    <thead><tr><th>角色</th><th>明天前必做</th><th>Day 2–14</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>后端</strong></td>
+        <td>
+          1. 数据库 7 张表<br>
+          2. 注册/登录/JWT<br>
+          3. <strong>Liaobots + 智谱接入</strong><br>
+          4. 不联网/联网背调接口<br>
+          5. 额度扣减事务<br>
+          6. 加购订单 + 支付回调<br>
+          7. 埋点接口
+        </td>
+        <td>
+          - 报告 PDF 生成优化<br>
+          - 数据看板查询接口<br>
+          - 批量导入接口<br>
+          - 邀请裂变逻辑
+        </td>
+      </tr>
+      <tr>
+        <td><strong>前端</strong></td>
+        <td>
+          1. 活动激活页 + 欢迎页<br>
+          2. dashboard + 额度展示<br>
+          3. 背调输入 + loading + 报告页<br>
+          4. 加购页 + 加购成功页<br>
+          5. 评分弹窗<br>
+          6. 埋点上报封装
+        </td>
+        <td>
+          - 历史记录页优化<br>
+          - 金/银/蓝标识 UI<br>
+          - 分享 H5 页面<br>
+          - 数据看板前端
+        </td>
+      </tr>
+      <tr>
+        <td><strong>产品/运营</strong></td>
+        <td>
+          1. Prompt 模板撰写<br>
+          2. 现场扫码海报设计<br>
+          3. 3 分钟话术准备<br>
+          4. 客服微信号准备<br>
+          5. 创始会员群创建
+        </td>
+        <td>
+          - 1v1 用户访谈<br>
+          - EDM/SMS 文案<br>
+          - 群运营<br>
+          - Day 14 数据复盘<br>
+          - Day 15 定价决策
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout green">
+    <div class="callout-title">⚡ 时间最紧的两件事</div>
+    <p>1. <strong>Liaobots 联调</strong>必须今晚完成，明天才能调通业务流程<br>
+    2. <strong>支付通道</strong>必须今晚完成，明天活动现场没有支付就没有加购数据</p>
+    <p>这两件事如果做不完，宁可推迟一天发布也不要带病上线。</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="quote">"做一个奸商，但要让人离不开。"</div>
+  <div>SnapCheck · Beta Internal Spec · v1.0 · 2026.04.09</div>
+  <div style="margin-top: 8px;">For Engineering Eyes Only</div>
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>
