@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding × Elementor — 工作流可行性分析</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,500;1,9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary-50:#EBF3FB;--primary-400:#4A90D9;--primary-500:#3A78C2;--primary-600:#2D61A5;--primary-700:#214A88;
+  --aurora-1:#4A90D9;--aurora-2:#6FC9E8;--aurora-3:#B4A7E8;--aurora-4:#F0B4D8;
+  --success:#2E7D4F;--warning:#E6A817;--error:#D43B3B;
+  --font-sans:'Geist','PingFang SC','HarmonyOS Sans SC','Microsoft YaHei',sans-serif;
+  --font-display:'Fraunces','PingFang SC',Georgia,serif;
+  --font-mono:'Geist Mono','SF Mono',ui-monospace,monospace;
+  --ease-out:cubic-bezier(0.22,1,0.36,1);
+}
+[data-theme="light"]{
+  --bg-page:#FAFBF9;--bg-card:#fff;--bg-inset:#F4F5F2;
+  --border:#ECEEE8;--border-strong:#DEE0D9;
+  --text-primary:#1A1D20;--text-secondary:#4A5057;--text-tertiary:#8B8F86;
+  --shadow-1:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);
+  --shadow-2:0 4px 8px -2px rgba(16,24,40,.06),0 2px 4px -2px rgba(16,24,40,.04);
+  --shadow-3:0 12px 24px -6px rgba(16,24,40,.10),0 4px 8px -4px rgba(16,24,40,.06);
+  --rule:#E2E4DD;
+}
+[data-theme="dark"]{
+  --bg-page:#0E1114;--bg-card:#171A1E;--bg-inset:#13161A;
+  --border:#242830;--border-strong:#30353E;
+  --text-primary:#EDEFE8;--text-secondary:#B0B4AC;--text-tertiary:#7A7E76;
+  --shadow-1:0 1px 3px rgba(0,0,0,.4);
+  --shadow-2:0 6px 16px rgba(0,0,0,.5);
+  --shadow-3:0 16px 40px rgba(0,0,0,.6);
+  --rule:#2A2E36;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{
+  font-family:var(--font-sans);font-size:15px;line-height:1.6;
+  color:var(--text-primary);background:var(--bg-page);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  font-feature-settings:"cv11","ss01","kern";
+  transition:background 400ms var(--ease-out),color 400ms var(--ease-out);
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;border:none;background:none;cursor:pointer;color:inherit}
+
+.display{font-family:var(--font-display);font-weight:300;letter-spacing:-.035em;line-height:.95}
+.display em{font-style:italic;font-weight:400}
+.section-num{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--text-tertiary)}
+.eyebrow{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--primary-500)}
+.prose{font-size:16px;line-height:1.75;color:var(--text-secondary);max-width:62ch}
+.prose p+p{margin-top:1.2em}
+.prose em{font-family:var(--font-display);font-style:italic;font-weight:500;color:var(--text-primary)}
+.prose strong{font-weight:600;color:var(--text-primary)}
+
+/* TOP NAV */
+.topnav{
+  position:fixed;top:0;left:0;right:0;height:64px;
+  backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+  background:color-mix(in srgb,var(--bg-page) 72%,transparent);
+  border-bottom:1px solid var(--rule);z-index:100;
+  display:flex;align-items:center;padding:0 40px;
+}
+.topnav .mark{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:-.01em}
+.topnav .mark .dot{
+  width:18px;height:18px;border-radius:6px;
+  background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.6),transparent 60%),linear-gradient(135deg,var(--aurora-2),var(--aurora-1),var(--aurora-3));
+  box-shadow:0 2px 8px rgba(74,144,217,.4),inset 0 1px 0 rgba(255,255,255,.3);
+}
+.topnav .meta{margin-left:auto;display:flex;align-items:center;gap:20px;font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);letter-spacing:.04em}
+.topnav .meta .sep{width:1px;height:12px;background:var(--rule)}
+.theme-toggle{width:32px;height:32px;border-radius:8px;color:var(--text-secondary);display:inline-flex;align-items:center;justify-content:center;transition:all 200ms var(--ease-out)}
+.theme-toggle:hover{background:var(--bg-inset);color:var(--text-primary)}
+.theme-toggle svg{width:16px;height:16px;stroke-width:1.75}
+
+/* PAGE */
+.page{max-width:1140px;margin:0 auto;padding:0 40px;position:relative}
+.section{padding:120px 0;position:relative}
+.section+.section{border-top:1px solid var(--rule)}
+.section-header{display:flex;align-items:baseline;gap:24px;margin-bottom:48px}
+.section-header .rule{flex:1;height:1px;background:var(--rule)}
+
+/* COVER */
+.cover{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:140px 0 80px;position:relative}
+.cover .eyebrow{margin-bottom:32px}
+.cover-title{font-size:clamp(56px,9vw,116px);margin-bottom:36px;max-width:14ch}
+.cover-sub{font-family:var(--font-display);font-style:italic;font-weight:300;font-size:clamp(20px,2.4vw,28px);color:var(--text-secondary);max-width:48ch;line-height:1.45}
+.cover-foot{margin-top:80px;display:flex;gap:48px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);letter-spacing:.08em;text-transform:uppercase}
+.cover-foot b{display:block;font-family:var(--font-sans);font-weight:500;font-size:13px;color:var(--text-primary);text-transform:none;letter-spacing:0;margin-top:6px}
+
+/* TLDR */
+.tldr{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:20px;
+  padding:48px 56px;box-shadow:var(--shadow-2);position:relative;overflow:hidden;
+}
+.tldr::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--aurora-1),var(--aurora-2),var(--aurora-3),var(--aurora-4));
+}
+.tldr .label{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--primary-500);margin-bottom:18px}
+.tldr h2{font-family:var(--font-display);font-weight:300;font-size:clamp(32px,4.6vw,52px);line-height:1.05;letter-spacing:-.025em;margin-bottom:24px}
+.tldr h2 em{font-style:italic;color:var(--primary-600)}
+.tldr p{font-size:17px;line-height:1.7;color:var(--text-secondary);max-width:64ch}
+.tldr p+p{margin-top:14px}
+.tldr .tag{display:inline-block;font-family:var(--font-mono);font-size:11px;padding:3px 9px;border-radius:6px;background:rgba(212,59,59,.10);color:var(--error);letter-spacing:.05em;font-weight:500;vertical-align:middle;margin-right:6px}
+
+/* SECTION HEADLINE */
+.headline{font-size:clamp(38px,5.2vw,64px);margin-bottom:28px;max-width:18ch}
+
+/* PATH CARDS */
+.paths{display:grid;grid-template-columns:1fr;gap:28px;margin-top:56px}
+.path{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:18px;
+  padding:44px 48px;box-shadow:var(--shadow-1);
+  display:grid;grid-template-columns:240px 1fr;gap:48px;
+  transition:all 300ms var(--ease-out);position:relative;overflow:hidden;
+}
+.path:hover{border-color:var(--border-strong);box-shadow:var(--shadow-2);transform:translateY(-2px)}
+.path .id{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:12px}
+.path h3{font-family:var(--font-display);font-weight:400;font-size:30px;line-height:1.1;letter-spacing:-.02em;margin-bottom:14px}
+.path h3 em{font-style:italic}
+.path .verdict{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:6px;font-weight:500}
+.path.green .verdict{background:rgba(46,125,79,.10);color:var(--success)}
+.path.amber .verdict{background:rgba(230,168,23,.12);color:var(--warning)}
+.path.red .verdict{background:rgba(212,59,59,.10);color:var(--error)}
+.path .body p{color:var(--text-secondary);font-size:15px;line-height:1.7}
+.path .body p+p{margin-top:12px}
+.path .body strong{color:var(--text-primary);font-weight:600}
+.path .body em{font-family:var(--font-display);font-style:italic;font-weight:500;color:var(--text-primary)}
+.path .meta-row{display:flex;gap:24px;margin-top:24px;padding-top:20px;border-top:1px dashed var(--rule);flex-wrap:wrap}
+.path .meta-row div{font-size:13px;color:var(--text-tertiary)}
+.path .meta-row b{display:block;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:4px;font-weight:500}
+.path .meta-row span{color:var(--text-primary);font-weight:500}
+
+/* RECOMMEND LIST */
+.rec-list{counter-reset:rec;display:grid;gap:20px;margin-top:48px}
+.rec{
+  display:grid;grid-template-columns:64px 1fr;gap:28px;align-items:start;
+  padding:28px 32px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;
+  transition:all 250ms var(--ease-out);
+}
+.rec:hover{border-color:var(--border-strong);box-shadow:var(--shadow-1)}
+.rec::before{
+  counter-increment:rec;content:counter(rec,decimal-leading-zero);
+  font-family:var(--font-display);font-style:italic;font-weight:400;
+  font-size:38px;color:var(--primary-500);line-height:1;
+}
+.rec h4{font-size:17px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
+.rec p{font-size:14.5px;color:var(--text-secondary);line-height:1.65}
+.rec p strong{color:var(--text-primary);font-weight:600}
+
+/* PULLQUOTE */
+.pullquote{
+  margin:80px auto 0;max-width:780px;text-align:center;padding:0 20px;
+}
+.pullquote p{
+  font-family:var(--font-display);font-style:italic;font-weight:300;
+  font-size:clamp(24px,3.2vw,34px);line-height:1.35;color:var(--text-primary);
+  letter-spacing:-.015em;
+}
+.pullquote p::before,.pullquote p::after{color:var(--primary-400);opacity:.6;font-weight:400}
+.pullquote p::before{content:'\201C'}.pullquote p::after{content:'\201D'}
+.pullquote .src{display:block;margin-top:20px;font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-tertiary)}
+
+/* CTA */
+.cta{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:20px;
+  padding:56px;box-shadow:var(--shadow-2);
+  display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;
+}
+.cta h3{font-family:var(--font-display);font-weight:300;font-size:32px;line-height:1.1;letter-spacing:-.02em;margin-bottom:10px}
+.cta h3 em{font-style:italic}
+.cta p{color:var(--text-secondary);font-size:15px;max-width:52ch}
+.cta-actions{display:flex;flex-direction:column;gap:12px;min-width:240px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:14px 22px;border-radius:10px;font-size:14px;font-weight:500;letter-spacing:-.01em;
+  transition:all 200ms var(--ease-out);border:1px solid transparent;
+}
+.btn-primary{background:var(--text-primary);color:var(--bg-page)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:var(--shadow-2)}
+.btn-ghost{background:transparent;border-color:var(--border-strong);color:var(--text-primary)}
+.btn-ghost:hover{background:var(--bg-inset)}
+.btn svg{width:14px;height:14px;stroke-width:2}
+
+/* FOOTER */
+.footer{padding:60px 0 80px;border-top:1px solid var(--rule);margin-top:60px}
+.footer-inner{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary);letter-spacing:.08em;text-transform:uppercase;flex-wrap:wrap;gap:20px}
+
+@media(max-width:780px){
+  .topnav{padding:0 24px}.topnav .meta{display:none}
+  .page{padding:0 24px}.section{padding:80px 0}
+  .tldr,.cta{padding:36px 28px}.cta{grid-template-columns:1fr}
+  .path{grid-template-columns:1fr;gap:24px;padding:32px 28px}
+  .cover{min-height:auto;padding:120px 0 60px}
+  .cover-foot{gap:28px}
+  .rec{padding:24px;grid-template-columns:48px 1fr;gap:20px}
+  .rec::before{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="mark"><span class="dot"></span>慢慢来 · 工作流分析</div>
+  <div class="meta">
+    <span>Memo / 02</span><span class="sep"></span><span>2026.04.11</span><span class="sep"></span>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- COVER -->
+  <header class="cover">
+    <div class="eyebrow">Internal Memo · Workflow R&D</div>
+    <h1 class="display cover-title">Vibe Coding<br>遇上 <em>Elementor</em>。</h1>
+    <p class="cover-sub">能不能让 AI 直接写网页，再"塞回"Elementor 后台让客户继续可视化编辑？<br>一份给交付团队的可行性判断。</p>
+    <div class="cover-foot">
+      <div>Topic<b>建站交付工作流</b></div>
+      <div>Status<b>已论证 · 含落地建议</b></div>
+      <div>For<b>慢慢来 交付/产研团队</b></div>
+    </div>
+  </header>
+
+  <!-- TLDR -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">01 — 短答</span><span class="rule"></span>
+    </div>
+    <div class="tldr">
+      <div class="label">TL;DR</div>
+      <h2><span class="tag">不能</span>把 vibe coding 出来的代码<br>直接<em>"导入"</em>成原生 Elementor 模块。</h2>
+      <p>这不是工具够不够智能的问题，是 Elementor 的<strong>架构性硬限制</strong>。</p>
+      <p>Elementor 的页面不是 HTML，是存在 WordPress 数据库里的一坨 JSON 结构（<code style="font-family:var(--font-mono);font-size:13px;background:var(--bg-inset);padding:1px 6px;border-radius:4px">_elementor_data</code>），每个 widget 都是带特定 schema 的节点。你写的 <code style="font-family:var(--font-mono);font-size:13px;background:var(--bg-inset);padding:1px 6px;border-radius:4px">&lt;div&gt;</code> Elementor 不认识——它只认它自己的 DSL。代码与可视化模块之间，隔着一层目前没有官方 API 的格式翻译。</p>
+    </div>
+  </section>
+
+  <!-- PATHS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">02 — 三条路径</span><span class="rule"></span>
+    </div>
+    <h2 class="display headline">所以，<em>能做</em>什么？</h2>
+    <p class="prose">下面三条路是按"客户后期能否在 Elementor 里继续可视化编辑"排序的，从理想到妥协。</p>
+
+    <div class="paths">
+
+      <article class="path green">
+        <div>
+          <div class="id">Path A</div>
+          <h3>生成 Elementor <em>JSON 模板</em></h3>
+          <span class="verdict">● 客户体验最好</span>
+        </div>
+        <div class="body">
+          <p>让 Claude 直接输出符合 Elementor schema 的 JSON 文件，通过 <strong>Templates → Import</strong> 导入。导入后就是<em>原生 Elementor 组件</em>，客户在后台拖拽改样式完全无感。</p>
+          <p>实操路径：先在 Elementor 里手工做几个标杆模板，导出 JSON，把它们当 few-shot 样本喂给 Claude，让它学会写"Elementor DSL"。</p>
+          <p><strong>难点：</strong>schema 没公开文档，大版本升级会变；Pro widgets 和 Crocoblock、Essential Addons 等第三方插件 schema 各不相同。</p>
+          <div class="meta-row">
+            <div><b>工程量</b><span>★★★ 高</span></div>
+            <div><b>稳定性</b><span>需持续维护</span></div>
+            <div><b>建议</b><span>投 1 周做 PoC</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="path red">
+        <div>
+          <div class="id">Path B</div>
+          <h3><em>HTML Widget</em> 嵌入</h3>
+          <span class="verdict">● 最快 · 客户体验最差</span>
+        </div>
+        <div class="body">
+          <p>Elementor 自带 HTML widget，可以直接粘贴任意 HTML/CSS/JS。Vibe coding 出来的代码丢进去就能渲染。<strong>5 分钟落地。</strong></p>
+          <p><strong>致命缺点：</strong>客户在后台看到的就是一个"代码块"，不能拖、不能可视化改文字图片——彻底违背初衷。</p>
+          <p><em>只适合用在客户基本不会动的特殊交互区块</em>（复杂 hero 动画、自定义图表），主体内容仍由原生 Elementor 拼。这是混合策略，不是替代方案。</p>
+          <div class="meta-row">
+            <div><b>工程量</b><span>0</span></div>
+            <div><b>稳定性</b><span>高</span></div>
+            <div><b>适用面</b><span>极窄</span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="path amber">
+        <div>
+          <div class="id">Path C</div>
+          <h3>MCP × WordPress <em>REST API</em></h3>
+          <span class="verdict">● 中间路线 · 想象空间最大</span>
+        </div>
+        <div class="body">
+          <p>WordPress 有官方 REST API，<code style="font-family:var(--font-mono);font-size:13px;background:var(--bg-inset);padding:1px 6px;border-radius:4px">_elementor_data</code> 字段理论上可读写。社区已有几个开源 WordPress MCP server，可以让 Claude 直接读站点页面、改内容、创建新页面。</p>
+          <p><strong>能做：</strong>改现有页面的某个 widget 的文本/图片，复制模板，批量更新内容。</p>
+          <p><strong>不能做：</strong>从零生成全新复杂布局——绕回 Path A 的 schema 问题。</p>
+          <p><em>真正的杀手场景是"改"而不是"建"。</em>客户提了 20 条修改意见，不用一条条手工点 Elementor 后台，让 Claude 通过 MCP 批改。</p>
+          <div class="meta-row">
+            <div><b>工程量</b><span>★★ 中</span></div>
+            <div><b>用户</b><span>内部交付团队</span></div>
+            <div><b>价值</b><span>降低维护成本</span></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- PULLQUOTE -->
+  <section class="section" style="padding-top:60px;padding-bottom:60px">
+    <div class="pullquote">
+      <p>不要试图用 vibe coding 替代 Elementor，<br>而是用 AI 把 Elementor 工作流压榨到极致。</p>
+      <span class="src">— Working Conclusion</span>
+    </div>
+  </section>
+
+  <!-- RECOMMENDATIONS -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">03 — 落地建议</span><span class="rule"></span>
+    </div>
+    <h2 class="display headline">具体<em>怎么干</em>。</h2>
+    <p class="prose">考虑到 agency 模式、批量交付、客户后期自主修改这三个约束，主力还是 <em>Elementor 原生工作流 + AI 加速设计师</em>。下面五件事按优先级排。</p>
+
+    <div class="rec-list">
+      <div class="rec"><div>
+        <h4>设计与文案环节用 AI 加速</h4>
+        <p>让 Claude 生成文案、信息架构、配色方案、组件清单，<strong>设计师在 Elementor 里组装</strong>。这块你们应该已经在做了。</p>
+      </div></div>
+      <div class="rec"><div>
+        <h4>建一套高质量 Elementor 模板库</h4>
+        <p>按行业切分：机械、医疗、包装、电子……新项目<strong>从模板改而不是从零做</strong>。这是 agency 规模化的真正杠杆，比任何 AI 集成都立竿见影。</p>
+      </div></div>
+      <div class="rec"><div>
+        <h4>Path C 做成内部交付工具</h4>
+        <p>不是给客户用，是给你们交付团队用。<strong>批量改页面 = 大量交付后维护时间被省下来。</strong>1 个工程师 2-3 周可上线 MVP。</p>
+      </div></div>
+      <div class="rec"><div>
+        <h4>Path A 列为 R&D 项目</h4>
+        <p>投 1 个工程师 1-2 周做 PoC。<strong>跑通了对"4 万起建站"的成本结构是杀手级优化；</strong>跑不通也只损失 1-2 周。低风险高回报的赌注。</p>
+      </div></div>
+      <div class="rec"><div>
+        <h4>Path B 严格限定使用边界</h4>
+        <p>仅用于客户不会动的特殊交互区块。<strong>绝不用在主体内容上</strong>，否则交付完就是麻烦的开始。</p>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- REVERSE THINKING -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">04 — 一个反向思路</span><span class="rule"></span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start">
+      <div>
+        <h2 class="display" style="font-size:clamp(34px,4.6vw,52px);max-width:14ch;margin-bottom:24px">如果真的想要<br><em>双向同步</em>……</h2>
+      </div>
+      <div class="prose">
+        <p>Elementor 可能不是终局选择。新一代可视化建站工具——<strong>Webflow、Framer、Plasmic、Builder.io</strong>——原生支持"代码组件 ↔ 可视化编辑"双向同步。开发者写 React 组件，运营人员改 props。</p>
+        <p>但这意味着<em>技术栈迁移</em>。对你们当前客户群（习惯 WordPress + Elementor 生态）是不是合适，要算笔账。短期内还是把 Elementor 工作流压榨到极致更划算。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-bottom:60px">
+    <div class="cta">
+      <div>
+        <div class="eyebrow" style="margin-bottom:12px">Next Step</div>
+        <h3>需要我接着做<em>哪一件</em>？</h3>
+        <p>下一步可以直接产出可执行的工程方案或调研报告，告诉我选哪个就行。</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="#">Path A · PoC 计划 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        <a class="btn btn-ghost" href="#">Path C · MCP server 调研 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>慢慢来 · Internal Memo</span>
+      <span>Workflow R&D / 02</span>
+      <span>2026.04.11</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+function toggleTheme(){
+  const html=document.documentElement;
+  html.dataset.theme=html.dataset.theme==='light'?'dark':'light';
+}
+</script>
+</body>
+</html>
