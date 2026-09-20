@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "include": ["/api/*", "/sz-seo-2026", "/sz-seo-2026/*"],
+  "exclude": []
+}

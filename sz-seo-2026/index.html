@@ -1,0 +1,856 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow,noarchive"><title>深圳 SEO 大会笔记</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>:root{--bg:#F4F5F1;--surface:#FFFFFF;--ink:#18202B;--muted:#5B6472;--rule:#DADDD6;--accent:#2445C7;--accent-soft:#E6EBFB;--amber:#8F540A;--amber-soft:#FBF1DF;--warn:#B4452B;--shadow:0 1px 2px rgba(24,32,43,.06),0 8px 24px rgba(24,32,43,.06);
+--serif:"Noto Serif SC","Songti SC","STSong",serif;--sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11141A;--surface:#181D25;--ink:#E6E8EC;--muted:#9AA3B2;--rule:#2A303B;--accent:#8EA4FF;--accent-soft:#1D2540;--amber:#E3A850;--amber-soft:#2A2114;--warn:#F08A6E;--shadow:none;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#11141A;--surface:#181D25;--ink:#E6E8EC;--muted:#9AA3B2;--rule:#2A303B;--accent:#8EA4FF;--accent-soft:#1D2540;--amber:#E3A850;--amber-soft:#2A2114;--warn:#F08A6E;--shadow:none;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font:16px/1.75 var(--sans);margin:0}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{display:grid;grid-template-columns:240px minmax(0,1fr);gap:48px;max-width:1180px;margin:0 auto;padding-inline:24px;padding-block:32px 64px}
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;max-height:calc(100vh - 32px);overflow:auto;font-size:13.5px;padding-right:8px}
+.toc-home{display:block;font-family:var(--serif);font-weight:900;font-size:18px;color:var(--ink);text-decoration:none;margin-bottom:12px}
+.toc-day{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px;padding-top:10px;border-top:1px solid var(--rule)}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc li a{display:flex;justify-content:space-between;gap:8px;padding:4px 8px;margin-inline:-8px;border-radius:6px;color:var(--ink);text-decoration:none}
+.toc li a:hover{background:var(--accent-soft)}
+.toc li a.active{background:var(--accent-soft);color:var(--accent);font-weight:500}
+.toc small{color:var(--muted);font-family:var(--mono);font-size:10.5px;white-space:nowrap;padding-top:3px}
+main{min-width:0;max-width:820px}
+.hero{padding-bottom:28px;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--accent)}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(34px,5.4vw,54px);line-height:1.18;margin:10px 0 14px;text-wrap:balance;letter-spacing:.01em}
+.dek{color:var(--muted);max-width:40em;margin:0}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0 0}
+.stats div{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:12px 14px}
+.stats dt{font-size:12px;color:var(--muted)}
+.stats dd{margin:0;font-family:var(--serif);font-weight:900;font-size:30px;line-height:1.3;font-variant-numeric:tabular-nums}
+.stats small{color:var(--muted);font-size:12px;line-height:1.4;display:block}
+.ov{padding-block:36px 8px}
+.ov-h{font-family:var(--serif);font-size:26px;margin:0 0 6px}
+.ov-intro{color:var(--muted);margin:0 0 18px}
+.themes{margin:0;padding-left:1.4em}
+.themes li{margin-bottom:22px;padding-left:4px}
+.themes li::marker{font-family:var(--serif);font-weight:900;color:var(--accent)}
+.themes h3{font-size:17.5px;margin:0 0 6px;line-height:1.5}
+.themes p{margin:0 0 6px}
+.src{font-size:13px;color:var(--muted)}
+.table-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.6}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--rule)}
+th{font-size:12px;color:var(--muted);font-weight:500;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+.actions td:first-child{white-space:nowrap}
+.actions td:nth-child(2){min-width:260px}
+.actions td:nth-child(3){min-width:200px;color:var(--muted)}
+.actions td:last-child{white-space:nowrap;font-size:13px}
+.pri{font-family:var(--mono);font-size:11.5px;padding:2px 8px;border-radius:99px;border:1px solid currentColor}
+.p1{color:var(--warn)}.p2{color:var(--amber)}.p3{color:var(--muted)}
+details.agenda{margin-bottom:18px}
+details summary{cursor:pointer;color:var(--accent);font-size:14.5px;padding:6px 0}
+.agenda table td:first-child{font-family:var(--mono);font-size:12.5px;white-space:nowrap;color:var(--muted)}
+.agenda td:nth-child(2){min-width:140px}
+.agenda td:last-child{white-space:nowrap;font-size:13px}
+.agenda .miss{color:var(--muted)}
+.dayrow td{background:var(--accent-soft);color:var(--accent)!important;font-family:var(--mono)!important;font-size:12px!important;letter-spacing:.05em}
+.opening{margin:18px 0 0}
+.opening .ph{max-width:420px}
+.opening figcaption{font-size:12.5px;color:var(--muted);margin-top:6px}
+.fine{font-size:13px;color:var(--muted);margin-top:18px}
+.day-divider{margin:56px 0 0;padding:10px 0;border-top:2px solid var(--ink);font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+.talk{padding-block:40px 32px;border-bottom:1px solid var(--rule)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.meta .type{color:var(--accent)}
+.meta .src{padding:1px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-size:11.5px}
+.meta .src.warn{background:var(--amber-soft);color:var(--amber)}
+.talk h2{font-family:var(--serif);font-weight:900;font-size:clamp(23px,3.2vw,30px);line-height:1.35;margin:10px 0 6px;text-wrap:balance}
+.who{font-size:15px;color:var(--muted)}
+.who strong{color:var(--ink)}
+.lead{font-size:17px;line-height:1.8;margin:16px 0 0;padding-left:14px;border-left:3px solid var(--accent)}
+.lead p{margin:0}
+.bio{margin:22px 0 4px;padding:14px 16px;background:var(--surface);border:1px solid var(--rule);border-radius:10px;font-size:14.5px}
+.bio-label,.tk-label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.bio p{margin:0 0 8px}
+.bio details summary{font-size:13px}
+.bio-en{font-size:13.5px;color:var(--muted);line-height:1.65}
+.bio-en blockquote{margin:0 0 8px;padding-left:12px;border-left:2px solid var(--rule)}
+.bio-links{font-size:12.5px;color:var(--muted);margin-top:4px}
+.body h3{font-size:18px;margin:28px 0 8px;font-family:var(--serif)}
+.body ol,.body ul{padding-left:1.4em}
+.body li{margin-bottom:8px}
+.body li::marker{color:var(--muted)}
+.body blockquote{margin:0;padding-left:14px;border-left:2px solid var(--rule);color:var(--muted)}
+.takeaway{margin:28px 0 8px;padding:16px 18px;background:var(--amber-soft);border-radius:10px}
+.takeaway .tk-label{color:var(--amber)}
+.takeaway ol,.takeaway ul{margin:6px 0 0;padding-left:1.3em}
+.takeaway li{margin-bottom:8px}
+.takeaway li::marker{color:var(--amber);font-weight:700}
+.gallery-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px;margin-top:28px}
+.gallery-head h3{font-family:var(--serif);font-size:18px;margin:0}
+.count{font-size:12.5px;color:var(--muted)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:10px}
+.ph{position:relative;display:block;width:100%;padding:0;border:0;background:var(--rule);border-radius:6px;overflow:hidden;cursor:zoom-in;aspect-ratio:4/3}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+.ph:hover img{transform:scale(1.04)}
+@media (prefers-reduced-motion:reduce){.ph img{transition:none}}
+.ph span{position:absolute;right:4px;bottom:4px;font-family:var(--mono);font-size:10.5px;color:#fff;background:rgba(0,0,0,.55);padding:0 5px;border-radius:3px}
+.nophoto{font-size:13.5px;color:var(--muted);margin-top:24px}
+details.notes{margin-top:22px;font-size:13.5px;color:var(--muted)}
+details.notes summary{font-size:13px;color:var(--muted)}
+details.notes ul{padding-left:1.3em}
+footer{margin-top:48px;font-size:12.5px;color:var(--muted)}
+dialog#lb{padding:0;border:0;background:transparent;max-width:100vw;max-height:100vh;width:100vw;height:100vh}
+dialog#lb::backdrop{background:rgba(8,10,14,.92)}
+#lb-img{position:absolute;inset:0 0 56px 0;margin:auto;max-width:96vw;max-height:calc(100vh - 72px);object-fit:contain}
+.lb-bar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));color:#E6E8EC;font-family:var(--mono);font-size:12.5px}
+#lb-cap{flex:1;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-bar button{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:6px;padding:6px 12px;font-size:15px;cursor:pointer}
+.lb-bar button:hover{background:rgba(255,255,255,.22)}
+@media (max-width:900px){.wrap{grid-template-columns:minmax(0,1fr);gap:0;padding-inline:16px;padding-block:20px 48px}.toc{position:static;max-height:none;border:1px solid var(--rule);border-radius:10px;padding:12px 14px;background:var(--surface);margin-bottom:20px}.toc ul{display:flex;flex-wrap:wrap;gap:2px 6px}.toc li a{margin:0}.toc small{display:none}.stats{grid-template-columns:minmax(0,1fr)}.gallery{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+.quotes{display:grid;gap:10px}
+.quote{margin:0;padding:12px 16px;background:var(--surface);border:1px solid var(--rule);border-radius:10px}
+.quote blockquote{margin:0;font-family:var(--serif);font-size:16px;line-height:1.6;color:var(--ink)}
+.quote figcaption{margin-top:4px;font-size:14px;color:var(--muted)}
+.meta .rec{font-family:var(--sans);font-size:12.5px;font-weight:500}
+.rec-note{font-size:11.5px;color:var(--muted)}
+</style>
+</head><body><div class="wrap">
+<nav class="toc" aria-label="目录"><a class="toc-home" href="#top">总览</a><div class="toc-day">Day 3 · 9 月 16 日（周三）</div><ul><li><a href="#gary"><span>Gary Illyes</span><small>Keynote</small></a></li><li><a href="#sam"><span>Sam Penny</span><small>Lightning</small></a></li><li><a href="#lily"><span>Lily Ray</span><small>Keynote</small></a></li><li><a href="#doug"><span>Doug Pierce</span><small>Field Talk</small></a></li><li><a href="#david"><span>David Carrasco</span><small>Lightning</small></a></li><li><a href="#jp"><span>JP / John Zhang</span><small>Lightning</small></a></li><li><a href="#konstantin"><span>Konstantin Sadekov</span><small>Lightning</small></a></li><li><a href="#wasin"><span>Wasin Mekkit</span><small>Lightning</small></a></li><li><a href="#helen"><span>Helen Han</span><small>Lightning</small></a></li><li><a href="#siquan"><span>Si Quan Ong</span><small>Field Talk</small></a></li></ul><div class="toc-day">Day 4 · 9 月 17 日（周四）</div><ul><li><a href="#eli"><span>Eli Schwartz</span><small>Keynote</small></a></li><li><a href="#josh"><span>Josh Blyskal</span><small>Field Talk</small></a></li><li><a href="#jonathan"><span>Jonathan Kiekbusch</span><small>Lightning</small></a></li><li><a href="#drewe"><span>Nick Drewe</span><small>Field Talk</small></a></li></ul><div class="toc-day">Day 5 · 9 月 18 日（周五 VIP）</div><ul><li><a href="#white"><span>Nick White</span><small>VIP Keynote</small></a></li></ul></nav>
+<main id="top"><header class="hero">
+<div class="eyebrow">Shenzhen SEO Conference 2026 · 9 月 16–18 日 · 听会笔记</div>
+<h1>搜索又变了，<br>但基本功没变</h1>
+<p class="dek">把 Tom 现场录的 10 份录音、拍的 107 张 PPT 照片和大会官网资料，按 agenda 对上号，整理成 15 场演讲的笔记。每场都附讲者背景、要点、金句、对慢慢来的启发，以及对应的 PPT 照片。</p>
+<dl class="stats">
+<div><dt>覆盖演讲</dt><dd>15</dd><small>14 场有录音 · 1 场只有照片</small></div>
+<div><dt>PPT 照片</dt><dd>107</dd><small>已按拍摄时间归到各场</small></div>
+<div><dt>讲者</dt><dd>15</dd><small>背景来自官网 speaker 页</small></div>
+</dl>
+</header>
+
+<section class="ov" id="themes">
+<h2 class="ov-h">跨演讲的五条共识</h2>
+<p class="ov-intro">好几位讲者从不同角度讲到了同一件事。下面按"对慢慢来的影响"排序，每条后面标了出处，点名字可以跳到那一场。</p>
+<ol class="themes">
+<li><h3>GEO 没有魔法，技术 SEO 基本功反而更重要了</h3>
+<p>Gary 提醒大家，"硬件变 → 用户行为变 → 搜索变"的循环已经重复了很多次，每次都有人喊 SEO 已死，但搜索总量一直在涨。Wasin 讲的是 AI crawler 基本不执行 JavaScript，SSR、semantic HTML、写在 raw HTML 里的 schema 这些老办法又成了胜负手。Doug 扫了中国市值前 100 的上市公司，发现 hreflang、多语言站、JS 语言切换这些基础问题连大品牌都做错。</p>
+<p class="src">出处：<a href="#gary">Gary Illyes</a> · <a href="#wasin">Wasin Mekkit</a> · <a href="#doug">Doug Pierce</a> · <a href="#helen">Helen Han</a></p></li>
+<li><h3>GEO 捷径会反噬，而且 Google 和 AI 的曝光会一起掉</h3>
+<p>Lily Ray 拿大量案例说明：自夸式 listicle、AI 批量内容、对比页模板、互换品牌提及，短期确实能拿到 AI 引用，可一旦被 Google 算法或人工处罚盯上，Google 流量和 ChatGPT / AI Overviews 的引用会一起崩，因为 LLM 检索也依赖搜索索引。JP 大删 85% 页面的实验和 Nick Drewe 流量从每月 800 万掉到 100 万以下的经历，从另一面印证了"单一渠道 + 低质量规模化"的风险。</p>
+<p class="src">出处：<a href="#lily">Lily Ray</a> · <a href="#jp">JP / John Zhang</a> · <a href="#drewe">Nick Drewe</a></p></li>
+<li><h3>引用经济：AI 推荐什么，取决于全网证据的分量</h3>
+<p>Josh 的研究显示，ChatGPT 越来越多引用品牌自己的商业页和文档页，Claude 仍然偏好 listicle。Konstantin 的建议是想办法被加进第三方已经有排名的 "best X" 榜单。David 和 Jonathan 都说，AI 给出的答案是从零散素材里"重建"出来的，你改不了答案，只能改素材：先把事情做成真的，再让它在各处被一致地反复提到。</p>
+<p class="src">出处：<a href="#josh">Josh Blyskal</a> · <a href="#konstantin">Konstantin Sadekov</a> · <a href="#david">David Carrasco</a> · <a href="#jonathan">Jonathan Kiekbusch</a> · <a href="#eli">Eli Schwartz</a></p></li>
+<li><h3>AI 应该拿来做以前做不起的事，而不是多产内容</h3>
+<p>Si Quan 用 AI agent 把 Ahrefs 博客的数据更新从每年 40 次提到 144 次，但每一篇仍由人审核后才发布。Helen 用 API 查询代替全站 crawl，6,000 页的 anchor text 20 秒就能拿到。两人的共同点是把 AI 当作提效工具，用来做"以前太贵没人做"的维护工作，而不是"更快、更薄、更多"地产内容。</p>
+<p class="src">出处：<a href="#siquan">Si Quan Ong</a> · <a href="#helen">Helen Han</a></p></li>
+<li><h3>跟客户说生意话：讲 pipeline、价值和风险，别讲排名</h3>
+<p>Sam Penny 用 Byron Sharp 的 mental availability / physical availability 框架，把 SEO 翻译成管理层听得懂的"增长"。Eli 认为目标不一定是点击，而是对 pipeline 的影响，并主动解释 dark attribution。Nick White 的公式是 Value + Trust &gt; Risk：先讲为相似客户做出的结果，挖到痛点再谈价格，少讲自己、多讲客户。</p>
+<p class="src">出处：<a href="#sam">Sam Penny</a> · <a href="#eli">Eli Schwartz</a> · <a href="#white">Nick White</a></p></li>
+</ol>
+</section>
+
+<section class="ov" id="actions">
+<h2 class="ov-h">给慢慢来的行动清单</h2>
+<p class="ov-intro">从各场"启发"里挑出最值得落地的几件事，按优先级排序。细节请看各场笔记。</p>
+<div class="table-scroll"><table class="actions">
+<thead><tr><th>优先级</th><th>动作</th><th>为什么</th><th>出处</th></tr></thead>
+<tbody>
+<tr><td><span class="pri p1">先做</span></td><td><strong>做一套标准化的"AI 可见性体检"</strong>：检查 raw HTML 里有没有正文（JS 渲染问题）、多语言 hreflang 是否双向、用真实买家问题在多个 AI 模型里测试品牌提及率和情感倾向、列出"引用了竞品却没引用我们"的来源</td><td>能当新客户的敲门砖，也能当老客户续约和陪跑的第一个课题；Doug 的"大品牌错误清单"很适合用来降低客户的戒心</td><td><a href="#wasin">Wasin</a> · <a href="#doug">Doug</a> · <a href="#david">David</a> · <a href="#jonathan">Jonathan</a></td></tr>
+<tr><td><span class="pri p1">先做</span></td><td><strong>内部统一内容红线</strong>：不做自夸式 listicle、不批量铺 AI 页面、不做模板化对比页；改成"产品 + 应用场景"落地页、工厂实测和原创数据，并定期更新旧内容</td><td>避免客户网站被 spam update 波及，这类处罚会让 Google 和 AI 的曝光一起掉</td><td><a href="#lily">Lily</a> · <a href="#jp">JP</a> · <a href="#siquan">Si Quan</a> · <a href="#josh">Josh</a></td></tr>
+<tr><td><span class="pri p2">本季度</span></td><td><strong>第三方引用建设</strong>：帮客户进入行业 "top manufacturers / best suppliers" 类第三方榜单、行业目录和行业媒体，保证各处定位一致</td><td>listicle 和第三方来源是 AI 推荐类回答最主要的引用来源</td><td><a href="#konstantin">Konstantin</a> · <a href="#josh">Josh</a></td></tr>
+<tr><td><span class="pri p2">本季度</span></td><td><strong>改造客户月报</strong>：从排名、流量改为品牌搜索量、询盘质量、对 pipeline 的影响，并加一段说明无法归因的价值（dark attribution）</td><td>AI 时代点击会变少，报告不改的话，客户只会看到"流量在跌"</td><td><a href="#eli">Eli</a> · <a href="#sam">Sam</a> · <a href="#drewe">Nick Drewe</a></td></tr>
+<tr><td><span class="pri p2">本季度</span></td><td><strong>用 Nick White 的框架重写销售提案</strong>：开头先讲"我们帮类似工厂解决了哪些痛点、做到了什么结果"，精简数据堆砌，最后用 Value + Trust &gt; Risk 检查一遍</td><td>他明确批评了 SEO agency "靠提案堆数据成交"的思路，这个框架对慢慢来自己销售、对客户卖给海外买家都适用</td><td><a href="#white">Nick White</a></td></tr>
+<tr><td><span class="pri p3">探索</span></td><td><strong>内部 AI 工作流试点</strong>：挑一类重复性的维护工作（旧文章数据更新、hreflang / 内链检查），做成"AI 起草 + 人工审核"的流程</td><td>省下来的人力用在更高价值的事情上，而不是用来多产内容</td><td><a href="#siquan">Si Quan</a> · <a href="#helen">Helen</a></td></tr>
+</tbody></table></div>
+</section>
+
+<section class="ov" id="agenda">
+<h2 class="ov-h">大会 Agenda 对照</h2>
+<p class="ov-intro">用官网 agenda 和照片的拍摄时间来确认每份录音对应哪位讲者。现场实际进度比 agenda 晚 10–20 分钟。</p>
+<details class="agenda"><summary>展开完整 agenda（标出了哪些场次有录音或照片）</summary>
+<div class="table-scroll"><table>
+<thead><tr><th>日期 / 时间</th><th>讲者</th><th>题目</th><th>素材</th></tr></thead><tbody>
+<tr class="dayrow"><td colspan="4">Day 3 · 9/16（周三）</td></tr>
+<tr><td>9:30</td><td>JP / John Zhang</td><td>开场：What is Shenzhen SEO Conference and Why I Restarted It</td><td>照片 1</td></tr>
+<tr><td>9:40</td><td><a href="#gary">Gary Illyes</a></td><td>Don't Panic. Search is Always Changing</td><td>录音 + 照片 7</td></tr>
+<tr><td>10:20</td><td>Nik Ranger</td><td>The Invisible Penalty: Detecting and Recovering from Algorithmic Suppression</td><td class="miss">未覆盖</td></tr>
+<tr><td>10:40</td><td><a href="#sam">Sam Penny</a></td><td>SEO is Marketing</td><td>录音</td></tr>
+<tr><td>10:40</td><td>Jine Wu</td><td>SEO is a Product Outcome, Not an SEO Outcome</td><td class="miss">未覆盖</td></tr>
+<tr><td>11:20</td><td><a href="#lily">Lily Ray</a></td><td>How to Do GEO Without Destroying Your SEO</td><td>录音 + 照片 35</td></tr>
+<tr><td>12:00</td><td><a href="#doug">Doug Pierce</a></td><td>Ranked Nowhere</td><td>录音 + 照片 1</td></tr>
+<tr><td>12:20</td><td><a href="#david">David Carrasco</a></td><td>The Validation Gap</td><td>录音</td></tr>
+<tr><td>12:20</td><td><a href="#jp">JP / John Zhang</a></td><td>Recovering from HCU &amp; MCU within 7 Days</td><td>录音 + 照片 9</td></tr>
+<tr><td>2:00</td><td>Kun Tang</td><td>Cracking the China GEO Code: What DeepSeek, Doubao, and Yuanbao Really Cite</td><td class="miss">未覆盖</td></tr>
+<tr><td>2:20</td><td>Mao Kawana, Polina Kogan</td><td>The Unwritten Rules of Japanese SEO</td><td class="miss">未覆盖</td></tr>
+<tr><td>2:40</td><td>Cristina Song, Jiyoung Lee</td><td>Expand into Korea with Search</td><td class="miss">未覆盖</td></tr>
+<tr><td>3:00</td><td>Andrea Abbondanza / Jodie Chan</td><td>Winning Italy / Decoding China Web Performance</td><td class="miss">未覆盖</td></tr>
+<tr><td>3:50</td><td>Loki Yan</td><td>An Actionable Deep Dive into E-E-A-T</td><td class="miss">未覆盖</td></tr>
+<tr><td>4:10</td><td><a href="#konstantin">Konstantin Sadekov</a></td><td>Strategic Link Building Drives LLM Visibility</td><td>录音（后半段）+ 照片 2</td></tr>
+<tr><td>4:10</td><td>Killian Kostiha</td><td>$5K Digital PR Campaign → $80K Media Coverage</td><td class="miss">未覆盖</td></tr>
+<tr><td>4:10</td><td><a href="#wasin">Wasin Mekkit</a></td><td>AI Search Can't Render Your JavaScript-Heavy Website?</td><td>录音</td></tr>
+<tr><td>4:10</td><td><a href="#helen">Helen Han</a></td><td>Stop Crawling, Start Querying</td><td>录音</td></tr>
+<tr><td>4:50</td><td><a href="#siquan">Si Quan Ong</a></td><td>How I Automated 144 Ahrefs Blog Updates a Year with AI</td><td>录音 + 照片 1</td></tr>
+<tr class="dayrow"><td colspan="4">Day 4 · 9/17（周四）</td></tr>
+<tr><td>9:30</td><td><a href="#eli">Eli Schwartz</a></td><td>The 3 Pillars of AEO</td><td>录音 + 照片 22</td></tr>
+<tr><td>10:10</td><td><a href="#josh">Josh Blyskal</a></td><td>The New Citation Economy</td><td>录音 + 照片 3</td></tr>
+<tr><td>10:30</td><td><a href="#jonathan">Jonathan Kiekbusch</a></td><td>Perception Engineering</td><td>照片 2</td></tr>
+<tr><td>10:30</td><td>Andy Wu / Tupa Lee</td><td>Ecommerce 产品描述 / Product-led Content</td><td class="miss">未覆盖</td></tr>
+<tr><td>11:20</td><td>Sasha Gusain</td><td>Radical Localisation: How Canva Blends Product, Brand, and Local Growth</td><td class="miss">未覆盖</td></tr>
+<tr><td>12:00</td><td><a href="#drewe">Nick Drewe</a></td><td>What Happens When SEO Stops Working</td><td>录音</td></tr>
+<tr><td>12:20</td><td>Max Hobbs / Gabriele Kahlout / Mayi</td><td>Lightning ×3（品牌 IP / 算法更新监测 / Reddit）</td><td class="miss">未覆盖</td></tr>
+<tr><td>2:00 起</td><td>Sebastien Edgar、Victor Huynh、Roger Yin、Henry Dalziel、Owain Lloyd-Williams、Max Kuch、Johann Sathianathen、Ben Fang、Lars Lofgren</td><td>下午 Enterprise SEO / AI 自动化专场 + 闭幕 Keynote</td><td class="miss">未覆盖</td></tr>
+<tr class="dayrow"><td colspan="4">Day 5 · 9/18（周五 · VIP · MGM Shenzhen）</td></tr>
+<tr><td>3:05</td><td><a href="#white">Nick White</a></td><td>VIP Keynote: What Makes Buyers in Any Country Say Yes</td><td>录音 + 照片 24</td></tr>
+<tr><td>4:15</td><td>Marcus Pentzek</td><td>Executive Insight: How Search Is Fragmented in China</td><td class="miss">未覆盖</td></tr>
+<tr><td>5:20</td><td>Tom So、Tanya Van Gastel、Kiana Shen</td><td>Agency Owners Panel: Chinese Manufacturing vs. Silicon Valley SaaS</td><td class="miss">Tom 本人参与</td></tr>
+</tbody></table></div>
+</details>
+<figure class="opening"><button class="ph" data-src="ppt/IMG_3597.webp" data-cap="开场 · IMG_3597 · 9/16 09:34" aria-label="放大开场照片"><img loading="lazy" src="ppt/IMG_3597.webp" alt="9/16 开场会场照片"></button><figcaption>9/16 09:34 开场前的主会场（IMG_3597）</figcaption></figure>
+<p class="fine">录音：每场标题上方的「飞书妙记录音」链接可直接回听，仅限慢慢来飞书内部账号访问。<br>说明：文件夹里「2 light talk and Si Quan ahrefs talk.txt」和「20260916_163031.txt」内容完全相同，按一份处理。录音里的第二场快讲经内容比对是 Helen Han（不是 Killian Kostiha）；Doug Pierce 的录音后半段是 David Carrasco 的快讲，已单独成节。</p>
+</section>
+<div class="day-divider" id="day-9-16">Day 3 · 9 月 16 日</div><section class="talk" id="gary">
+<div class="meta"><span>9/16 · 9:40–10:20</span><span class="type">Keynote</span><span class="src">有录音</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn2xy8behyi8f8963386dp" target="_blank" rel="noopener">飞书妙记录音 ↗</a></div>
+<h2>Don&#x27;t Panic. Search is Always Changing</h2>
+<div class="who"><strong>Gary Illyes</strong> · Google Search</div>
+<div class="lead"><p>Gary 用自己 30 多年的上网与"前 spammer"经历回顾搜索史，指出"硬件/网络变化 → 用户行为变化 → 搜索变化"是一个不断重复的循环，每次都有人喊"SEO 已死"，但搜索总量每次都在增长；AI 时代同样如此，别慌，看清大局、帮助用户。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Gary Illyes 是 Google Search Relations 团队的 Analyst，常驻瑞士，是站长、开发者与 Google 内部工程团队之间的桥梁。他经常代表 Google 在国际技术大会上讲解 crawling、indexing、rendering pipeline 和技术优化的原理。他参与撰写了 RFC 9309，将 Robots Exclusion Protocol 正式确立为 IETF 标准，并推动现代 web crawler 最佳实践的制定。他还是 Search Off the Record 播客的联合主持人。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>Gary Illyes serves as an Analyst on the Google Search Relations team, operating as a bridge between webmasters, developers, and internal engineering groups. Based in Switzerland, he frequently represents Google at international technology conferences, detailing mechanics behind web crawling, indexing, rendering pipelines, and technical optimization.</p>
+<p>Beyond public advocacy, Gary contributes to foundational web standards, notably co-authoring RFC 9309 to formalize the Robots Exclusion Protocol as an IETF standard. He leads efforts to establish modern web crawler best practices, guiding how automated systems navigate, respect, and interact with online infrastructure.</p>
+<p>Through his standardizations work and co-hosting the Search Off the Record podcast, Gary continues shaping technical web protocols while demystifying search architecture for the global developer community.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/garyillyes/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/methode" target="_blank" rel="noopener">X</a> · <a href="https://shenzhenseoconference.com/speakers/gary-illyes" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>搜索演变是一个循环，而不是一次性颠覆</strong>：新硬件或网络（手机、宽带、Transformers）出现 → 用户能力提升、行为改变 → 搜索随之改变 → 又催生新的技术变化。Gary 以此框架串起了从 1992 年到今天的全部演进。</li>
+<li><strong>用户从"说机器语言"走向说自然语言</strong>：早期要输入 "weather Seoul forecast NOT rain" 这种布尔式查询，因为机器理解不了人话；如今是"两个青少年孩子 + 晕车的狗 + 爱开雪山，该去哪买白色 SUV"这类长句。Knowledge Graph（things, not strings）解决了名词/实体理解，BERT 解决了语法与连接词（例如 "traveler from US to Brazil" 去掉 "to" 意思就反了）。</li>
+<li><strong>"发布的边际成本"是守护健康索引的核心经济规律</strong>：人工写页面成本高，本身就是减速带；Perl 脚本批量生成页面让成本骤降，垃圾泛滥；如今 LLM 让成本几乎为零。Gary 强调：用 AI 发布内容本身不是问题，问题在于生成的是低价值页面——这和 2000 年代初的内容农场是同一个循环，当年由 Panda（2011）收拾。</li>
+<li><strong>Programmatic 本身不是问题，产出什么才是问题</strong>：只替换几个词的模板化页面会被 rater 评为 "Needs Met" 最低、页面质量 Lowest；这不是对站点的惩罚，而是作为标签反馈给算法。QRG 里没有"AI 生成就自动差评"这一条。</li>
+<li><strong>Quality Rater Guidelines 值得精读</strong>：约 180 页，rater 做新旧算法的 side-by-side 对比，两个关键维度是 Needs Met（是否以最小摩擦解决问题）和 Page Quality（是否投入努力，比如自有研究数据、定制工具）。Rater 不给站点下惩罚，只提供标签，形成与算法迭代的反馈循环。Gary 认为它包含了"做出用户喜欢的页面"所需的全部信息。</li>
+<li><strong>别依赖 JavaScript 呈现内容</strong>：Google 自 Caffeine 解决索引新鲜度后，又耗巨资实现了全网渲染，但据 Gary 所知 Google 是唯一渲染整个网络的搜索引擎，其他搜索引擎和 AI 系统只渲染一部分。要被索引的内容应直接放进 HTML，至少做 server-side rendering——这也有利于 AI 系统抓取。</li>
+<li><strong>LLM 是强大的预测引擎，但一定会幻觉</strong>：幻觉是当前训练方法的设计属性，grounding 能提升准确度但达不到 100%。AI Overviews 的流程是：把 prompt 拆成子查询 → 搜索 → 基于结果综合 → 附上 claim attribution。它存在的原因是大量复杂长查询没有任何单个网页能回答。</li>
+<li><strong>每次变革都有人喊 "SEO 已死"，但搜索量从未下降</strong>：Universal Search（2007）上线时 Gary 自己也以为 SEO 要完了；实际上每次变革后搜索/prompt 总量都在增长。结论：别慌，看清发生了什么、为什么发生，然后想办法赚钱——"或者说帮助用户，帮助用户更好"。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li>Gary 1992/93 年开始上网，早期在 AltaVista 等引擎上 spam（白底白字）赚钱；Google 的 PageRank 让这些手法失效。</li>
+<li>Google 早期首页极简不是设计选择，而是工程约束：在 56k 调制解调器上页面要在 200 毫秒内加载完，加载不起 CSS。</li>
+<li>2003 年 11 月底的 Florida 更新：无预警、无文档，Gary 的收入一夜之间从每月数千美元归零；他认为 Google 当年沟通做得不好，如今的 QRG 是另一个极端（详尽）。</li>
+<li>Panda 于 2011 年发布；副作用是出现了"3000 字讲奶奶秘方火锅底料"之类的注水文章。</li>
+<li>用户查询里附加 "images/videos" 的比例在 2005 年很少，2006 年底开始大增 → 2007 年 Marissa Mayer 推出 Universal Search。Google 发现这一需求靠的是直接看查询日志，而不是复杂的 ML。</li>
+<li>早期索引每两周用 MapReduce 重建一次，结果可能滞后两周 → 推出 Caffeine（基于 Bigtable 的增量索引，引入 Percolator）。</li>
+<li>Knowledge Graph 约 2012/2013 年；BERT 约 2017–2019 年（Gary 原话年份模糊）；Transformers 2016/17 年。</li>
+<li>AI Overviews 基于常规 Gemini 模型多步执行；另提到 Google Lens / Circle to Search。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;The problem is not that people are using LLMs to generate pages. The problem is that they are generating low-value pages.&quot;</blockquote><figcaption>问题不在于人们用 LLM 生成页面，而在于他们生成的是低价值页面。</figcaption></figure><figure class="quote"><blockquote>&quot;It&#x27;s never the programmatic setup. It&#x27;s what the programmatic setup is generating.&quot;</blockquote><figcaption>问题从来不在 programmatic 的方式，而在它生成出来的东西。</figcaption></figure><figure class="quote"><blockquote>&quot;LLMs are not all-knowing... They are really good predictive engines, but they are not perfect. They will always hallucinate, and that is by design.&quot;</blockquote><figcaption>LLM 并非全知……它们是非常好的预测引擎，但不完美。它们一定会产生幻觉，这是设计使然。</figcaption></figure><figure class="quote"><blockquote>&quot;SEO was dead every year.&quot;</blockquote><figcaption>SEO 每年都&quot;死&quot;一次。</figcaption></figure><figure class="quote"><blockquote>&quot;Please don&#x27;t panic. Look at the big picture... figure out a way to make money off of it. Or help users — yeah, help users is better.&quot;</blockquote><figcaption>请别慌。看清大局……想办法从中赚钱。或者说帮助用户——对，帮助用户更好。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>销售话术可直接引用 Google 官方立场对冲"SEO 已死"焦虑</strong>：客户（外贸工厂老板）被"GEO 取代 SEO"的广告轰炸时，可以用 Gary 的"每次变革搜索总量都在增长"和"SEO 每年都死一次"作为开场，把陪跑/代运营定位为"帮你看清大局、不被割韭菜"的服务。</li>
+<li><strong>对客户站做一次 JavaScript/渲染审计，作为 GEO 入门交付物</strong>：很多制造业外贸站用建站模板、产品参数表或询盘表单靠 JS 加载。Gary 明确说其他搜索引擎和 AI 系统不会完整渲染——把"关键产品信息写进原始 HTML / SSR"包装成 "AI 可读性检查"，是低成本、有官方背书的 GEO 服务项。</li>
+<li><strong>批量产品页/应用页要做"有信息增量"的 programmatic</strong>：MML 常给工厂客户批量铺型号页、行业应用页。按 Gary 的说法，只换型号/城市词的模板页会被判 Lowest；每个页面应带上真实参数、测试数据、工厂实拍、认证证书、定制能力等 Page Quality 要素。建议用 QRG 的 Needs Met / Page Quality 两个维度做内部内容验收清单。</li>
+<li><strong>把 QRG 做成内部培训 + 给客户的"质量体检"工具</strong>：Gary 建议把 QRG 丢进 LLM 去问答。MML 可以用 QRG + 客户页面让 AI 做预评分，产出中文"页面质量评估报告"，既能培训新人，也可作为陪跑客户的月度诊断材料。</li>
+<li><strong>长尾自然语言查询是 B2B 的机会</strong>：Gary 举例的复杂长句正是 AI Overviews 要处理的场景。B2B 采购问题同样复杂（材质 + 工况 + 认证 + MOQ），建议为客户做"采购场景型"内容，覆盖多条件组合问题，而不是只堆短词。</li>
+</ol></aside>
+<div class="gallery-head"><h3>现场 PPT 照片</h3><span class="count">7 张 · 点击放大，键盘 ← → 翻页</span></div><div class="gallery"><button class="ph" data-src="ppt/IMG_3598.webp" data-cap="Gary Illyes · IMG_3598 · 09:16 09:54" aria-label="放大 PPT 照片 IMG_3598"><img loading="lazy" src="ppt/thumb/IMG_3598.webp" alt="Gary Illyes PPT 照片 IMG_3598"><span>09:54</span></button><button class="ph" data-src="ppt/IMG_3599.webp" data-cap="Gary Illyes · IMG_3599 · 09:16 09:56" aria-label="放大 PPT 照片 IMG_3599"><img loading="lazy" src="ppt/thumb/IMG_3599.webp" alt="Gary Illyes PPT 照片 IMG_3599"><span>09:56</span></button><button class="ph" data-src="ppt/IMG_3600.webp" data-cap="Gary Illyes · IMG_3600 · 09:16 10:00" aria-label="放大 PPT 照片 IMG_3600"><img loading="lazy" src="ppt/thumb/IMG_3600.webp" alt="Gary Illyes PPT 照片 IMG_3600"><span>10:00</span></button><button class="ph" data-src="ppt/IMG_3601.webp" data-cap="Gary Illyes · IMG_3601 · 09:16 10:05" aria-label="放大 PPT 照片 IMG_3601"><img loading="lazy" src="ppt/thumb/IMG_3601.webp" alt="Gary Illyes PPT 照片 IMG_3601"><span>10:05</span></button><button class="ph" data-src="ppt/IMG_3603.webp" data-cap="Gary Illyes · IMG_3603 · 09:16 10:27" aria-label="放大 PPT 照片 IMG_3603"><img loading="lazy" src="ppt/thumb/IMG_3603.webp" alt="Gary Illyes PPT 照片 IMG_3603"><span>10:27</span></button><button class="ph" data-src="ppt/IMG_3604.webp" data-cap="Gary Illyes · IMG_3604 · 09:16 10:29" aria-label="放大 PPT 照片 IMG_3604"><img loading="lazy" src="ppt/thumb/IMG_3604.webp" alt="Gary Illyes PPT 照片 IMG_3604"><span>10:29</span></button><button class="ph" data-src="ppt/IMG_3605.webp" data-cap="Gary Illyes · IMG_3605 · 09:16 10:30" aria-label="放大 PPT 照片 IMG_3605"><img loading="lazy" src="ppt/thumb/IMG_3605.webp" alt="Gary Illyes PPT 照片 IMG_3605"><span>10:30</span></button></div>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>开头约 38 秒为主持人介绍（ASR 误标为 Gary Illyes），把 Gary 名字识别为 "Gary Elias"。</li>
+<li>ASR 错误较多，已按上下文纠正：Alta Vista=AltaVista、"big rank / page rank / pay trend"=PageRank、"rulers"=crawlers、"demos"=DMOZ、"P animals"=以 P 开头的动物更新（Panda/Penguin/Pigeon）、"that produce"=MapReduce、"earth"=BERT、"elements"=LLMs、"raiders/creators/rapers"=raters、"scan free"=spam-free、"4 lanes"疑为"几个链接"。</li>
+<li>Gary 说 QRG 先说 170 页后自我更正为 180 页。</li>
+<li>"load this QRG into something like Google plan"——工具名不清，可能指 NotebookLM 或 Gemini，无法确认。</li>
+<li>部分年份 Gary 本人也说得含糊（Knowledge Graph、BERT），已如实保留。录音看起来完整（41 分钟，结尾有致谢）。</li>
+</ul></details>
+</section><section class="talk" id="sam">
+<div class="meta"><span>9/16 · 10:40–11:00</span><span class="type">Lightning</span><span class="src">有录音（从中段开始）</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn2x52pg64p6468r53g91w" target="_blank" rel="noopener">飞书妙记录音 ↗</a></div>
+<h2>SEO is Marketing: A Proven Framework to See the Big Picture &amp; Unlock Growth</h2>
+<div class="who"><strong>Sam Penny</strong> · SEO &amp; Growth Manager</div>
+<div class="lead"><p>SEO 不是一门孤立的技术活，而是营销的一部分：用 Byron Sharp《How Brands Grow》的 mental availability（心智可得性）和 physical availability（购买时可得）框架，把排名、技术问题翻译成管理层听得懂的"增长与营收"语言。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Sam Penny 是专注增长的营销人，帮助品牌利用 organic search 扩大覆盖、建立信任并创造收入。他目前负责澳大利亚最大投资基金之一的 SEO，同时为品牌提供 SEO 与增长咨询。凭借 technical SEO 和内容策略能力，他打造了一系列每年服务超过 100 万人的数字产品。他认为优秀的 SEO 建立在产品、品牌和对用户需求的清晰理解之上。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>Sam Penny is a growth-focused marketer who helps brands utilise organic search to drive reach, establish trust, and generate revenue. He currently leads SEO for one of Australia's largest investment funds and advises brands on SEO and growth. Using his knowledge of technical SEO and content strategy, Sam has developed a portfolio of digital products used by more than 1M people each year. Technically minded, but commercially focused, Sam believes strong SEO is built on the foundations of product, brand, and a clear understanding of your users' needs.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/sam-penny/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/sampennyseo" target="_blank" rel="noopener">X</a> · <a href="https://shenzhenseoconference.com/speakers/sam-penny" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>好的 SEO 必须是"通才型专家"</strong>：要懂 UI/UX、内容、PR 与外链、CRO、数据分析与追踪（Tag Manager）等，这个领域知识量巨大且独特。他本人学新闻出身，后读营销和统计，新闻训练让他懂得如何写出吸引人、切中要点的内容。</li>
+<li><strong>知识太专会导致孤立</strong>：他自嘲在会场也常一个人低头吃午饭；跟 stakeholder 讲 robots.txt、crawl budget、参数化 URL 时，对方眼神放空、只想结束会议。起初他觉得是别人不懂，后来意识到是自己需要改进沟通，并坦承仍在努力。</li>
+<li><strong>回到"为什么有人付钱让我们做 SEO"</strong>：我们谈排名、CWV、上线新功能，但营销的最终目标是营收和增长。内容、PR、技术都很贵，如果不能带来 ROI，那我们在做什么？</li>
+<li><strong>营销科学的两大增长驱动力</strong>：mental availability（客户是否认识、想得起你）和 physical availability（客户准备购买时你是否在场），即 awareness 和 distribution。这是跨行业、东西方都成立的规律。</li>
+<li><strong>搜索/LLM 就是货架</strong>：用户准备购买时去搜索或问 LLM，就像走进超市，你要在货架最上层、与视线齐平的位置。商业词排第一 = 在货架上被看见；内容则帮助建立 mental availability（被认出、被想起）。</li>
+<li><strong>你首先是营销人，其次才是 SEO 专家</strong>：搜索是创造心智与购买可得性的服务，是更大图景的一部分；理解这一点，SEO 才算成熟。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li>推荐书：Byron Sharp（转写为 "Byron Shaw"）的著作（即《How Brands Grow》，出自 Adelaide 的营销科学研究机构），他称之为"营销圣经"，并表示会从 LinkedIn 上随机抽人寄书。</li>
+<li>Coca-Cola 例子：每年约 20 亿美元广告投入，在深圳每家 7-Eleven 都能买到（他说自己专门去看了）；Times Square 广告牌 ROI 难以衡量，但它服务的就是 mental 与 physical availability。</li>
+<li>例：有人搜 "accounting software" 时你排第一，就是"在货架上"。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;Remember, you&#x27;re a marketer. You&#x27;re growing a business, and you specialize in SEO. You&#x27;re a marketer first.&quot;</blockquote><figcaption>记住，你是营销人。你在帮企业增长，只是专长是 SEO。你首先是营销人。</figcaption></figure><figure class="quote"><blockquote>&quot;If you&#x27;re not bringing ROI, then what are we doing with our time?&quot;</blockquote><figcaption>如果带不来 ROI，那我们到底在浪费时间做什么？</figcaption></figure><figure class="quote"><blockquote>&quot;When somebody goes to search or an LLM ready to buy, they&#x27;re walking into a supermarket — you&#x27;ve got to be at the top of the shelf, right at eye level.&quot;</blockquote><figcaption>当有人准备购买、去搜索或问 LLM 时，就像走进超市——你必须在货架最上层、和视线齐平的位置。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>改造客户月报的语言</strong>：给工厂老板的月报少讲 crawl budget、CWV，多讲"采购商搜 [品类] supplier 时我们在不在货架上"（physical availability）和"品牌被认出/被搜的次数"（品牌词搜索量，mental availability），最后落到询盘数量和质量。</li>
+<li><strong>把 GEO 解释为"AI 货架"</strong>：向客户 pitch GEO 时直接用超市货架比喻：采购商问 ChatGPT "reliable [product] manufacturers in China"，AI 给出的名单就是新货架，不在上面就没有机会被询价。</li>
+<li><strong>内部培训"SEO 是营销"</strong>：45 人团队里的 SEO 专员多数偏执行/技术，可把 mental/physical availability 框架纳入新人培训和陪跑课程，训练他们用 ROI 和增长语言与客户老板沟通，降低续费流失。</li>
+<li><strong>陪跑客户的指标体系</strong>：12k/月陪跑可以按两类指标设计：商业词覆盖与排名（货架位置）+ 品牌词搜索、直接访问、LinkedIn/展会曝光（心智可得性），让客户理解为什么内容和品牌建设也属于 SEO 投入。</li>
+</ol></aside>
+<p class="nophoto">本场没有拍到 PPT 照片。</p>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>文件仅包含主持人（MC）介绍 + Sam Penny 一人的演讲（约 9 分钟，时间戳 19:22 起），没有其他讲者；主持人提到茶歇前还有第二场快讲，但未录入本文件。</li>
+<li>演讲中提到 "Nick was saying UI UX…"，指同日较早的一位名为 Nick 的讲者，具体是谁无法从本文件确认。</li>
+<li>"Byron Shaw" 为 Byron Sharp；"LMS / L L M" 为 LLM；"Perl budget" 为 crawl budget；"called web battles / C W V" 为 Core Web Vitals。结尾 "You're already losing" 疑为转写噪音。</li>
+<li>演讲较短、偏观念，无具体 SEO 数据或案例，也无 Q&amp;A。</li>
+</ul></details>
+</section><section class="talk" id="lily">
+<div class="meta"><span>9/16 · 11:20–12:00</span><span class="type">Keynote</span><span class="src">有录音</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn2xv22j9874iu7rbw5n91" target="_blank" rel="noopener">飞书妙记录音 ↗</a></div>
+<h2>How to Do GEO Without Destroying Your SEO: How Google is Cracking Down on GEO Spam</h2>
+<div class="who"><strong>Lily Ray</strong> · Amsive / Algorythmic</div>
+<div class="lead"><p>Lily Ray 用大量案例证明：自夸型 listicle、AI 批量内容、对比/替代页、prompt injection、互换品牌提及等"GEO 技巧"短期能拿到 AI 引用，但一旦触发 Google 算法或人工处罚，Google 流量与 ChatGPT/AI Overviews 引用会一起崩；正确路线是做 LLM 已认识的品牌、少而精的内容和 E-E-A-T，"别追捷径，打持久战"。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Lily Ray 是 Amsive 的 VP of SEO Strategy &amp; Research，负责该 agency SEO 客户项目的战略领导。她出身于软件工程师、网页开发者和技术写作者家庭，具备扎实的技术背景。她 2010 年从创业公司起步做 SEO，随后进入 agency，参与打造了一支获奖的 SEO 部门，服务包括 Fortune 500 在内的知名客户。她专注 retail、e-commerce、B2B 和 CPG 领域，擅长研究算法更新、评估质量问题和排查 technical SEO 难题。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>Lily Ray is the Vice President of SEO Strategy &amp; Research at Amsive, where she provides strategic leadership for the agency's SEO client programs. Born into a family of software engineers, web developers and technical writers, Lily brings a strong technical background, performance-driven habits and forward-thinking creativity to all programs she oversees.</p>
+<p>Lily began her SEO career in 2010 in a fast-paced start-up environment and moved quickly into the agency world, where she helped grow and establish an award-winning SEO department that delivered high impact work for a fast-growing list of notable clients, including Fortune 500 companies.</p>
+<p>Lily has worked across a variety of verticals with a focus on retail, e-commerce, B2B and CPG sites. She loves diving into algorithm updates, assessing quality issues and solving technical SEO mysteries.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/lily-ray-44755615/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/lilyraynyc" target="_blank" rel="noopener">X</a> · <a href="https://www.youtube.com/@lilyray" target="_blank" rel="noopener">YouTube</a> · <a href="https://shenzhenseoconference.com/speakers/lily-ray" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>SEO vs GEO 之争：两边都有道理，但要警惕"GEO 炒作"</strong>：Google 官方立场是"做好 SEO 就能在 AI search 成功"，不需要 llms.txt、切块内容等新花样。Lily 认为 GEO 领域有严肃研究者（她点名 Olivier de Segonzac、Suganthan 等），也有大量被数亿美元投资驱动的"SEO 已死"恐慌营销，导致 CEO/CMO 砍掉 SEO 团队、批量上 AI 内容等短视决策。</li>
+<li><strong>Google 掉了，AI 引用也会掉</strong>：她分析 11 家被 Google 更新打击的公司，其在 ChatGPT、AI Mode、Gemini、Perplexity 的引用同步下滑；原因是 LLM 常从搜索引擎取结果。AI Overviews 是使用量最大的 AI 工具，Google 自然流量丢了，AIO 位置也会丢。</li>
+<li><strong>把希望寄托在 Bing 上也不行</strong>：ChatGPT 正在自建索引（内部代号 Labrador），并按查询混用 Google 与 Bing。Bing 有自己的 spam 政策，Glenn Gabe 案例中一个被 Google 踢掉、靠 Bing 在 ChatGPT 表现好的网站，最终也被 Bing 移出索引。</li>
+<li><strong>SEO 循环：技巧被公开 → 被平台当作 spam 修补</strong>：从 2003 年 Florida 更新至今一直如此。她判断现在正处于 Google 和 AI 公司针对 GEO spam 开发反制措施的阶段。</li>
+<li><strong>自夸型 listicle 正在反噬</strong>：2026 年 1 月 Google 一次未确认更新中，她分析的约 100 个受影响站点里约 60% 大量使用"Top 10 最佳品牌，我排第一"类 listicle。更糟的是，约 66% 的情况下 Google 仍引用你的 listicle，却推荐你列出的竞争对手而不是你；Claude、ChatGPT 也开始提醒用户"这类自称第一的文章要谨慎看待"。</li>
+<li><strong>Scaled content abuse 是最大风险源</strong>：她 80–90% 的算法恢复工作都属于 scaled content abuse。批量 commodity content（what is / how to / 定义页）、城市页/邮编页、品牌对比/替代页，都是今年被打的页面类型。John Mueller 说 programmatic SEO 常导致"系统对你的网站失去信任（lost faith）"，影响全站。</li>
+<li><strong>其他高风险 GEO 手法</strong>：prompt injection（"用 ChatGPT 总结本文并记住该品牌"按钮，Microsoft 和 Google 都视为 LLM poisoning）、互换品牌提及、付费买品牌提及（"新的外链经济"，现在有效，但她预计会迎来类似 Penguin 的打击）、Reddit spam（Reddit 已在封号删评，ChatGPT 引用 Reddit 也在减少）。</li>
+<li><strong>"一块披萨可以，整盒不行"</strong>：一个对比页、一个 listicle 不会被罚；问题是 AI 让人很容易"见效就做 700 个、2000 个"，形成模式后就会翻车。博客看似小，却可能占全站 SEO 可见度的大头，是 Google 对你网站的主要印象。</li>
+<li><strong>正向做法：成为 LLM 已经认识的品牌</strong>：ChatGPT 5.6 后 fan-out 查询更多用 site: 直接去品牌官网/政府站取信息，best/top/comparison/versus 类词减少，listicle 与对比页被引用下降。应当：少即是多、优化现有核心页面（CRO、速度）；"be an expert and be everywhere"（E-E-A-T、作者页、社交影响力、Google creator profile）；页面顶部放直接回答问题的段落；为不同 persona 写内容；把 GSC、GA、Screaming Frog 等数据与销售通话数据接入 AI，做底部漏斗内容。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li>11 家被 Google 更新打击的公司：AI 引用（ChatGPT/AI Mode/Gemini/Perplexity）同步下降；用 Ahrefs Brand Radar 看到 Google 流量与 ChatGPT 引用曲线几乎同形。Substack 文章："Your GEO Strategy Might Be Destroying Your SEO"。</li>
+<li>某"全球首批 AI native SEO agency"的案例站，Google 流量跌到零。</li>
+<li>2026 年 1 月未确认更新：约 100 个受影响站，约 60% 大量用自夸 listicle；个别站有 2,000 / 302 / 148 篇自称第一的 listicle；之后的更新中持续下滑。</li>
+<li>约 66%（三分之二）的情况下，Google 引用自夸 listicle 却推荐其中的竞争对手。</li>
+<li>她私人跟踪的 220+ 个 AI 内容扩量工具公开案例：超过 50% 流失 30% 以上自然可见度，39% 流失 50% 以上。</li>
+<li>某公司博客 5 月 17 日被人工处罚（manual action）移出 Google 后，ChatGPT 与 AI Overview 引用随即下跌。</li>
+<li>一家公司删除 prompt injection 的 WordPress 插件后，几天内自然流量回升。</li>
+<li>做互换品牌提及外联的公司：自然流量与 AI 引用都下滑。</li>
+<li>August 2026 spam update 仍打 programmatic：城市/邮编页、批量定义页、cloaking、doorway、parasite SEO。Google 员工 Rajan Patel 回应"spam 团队仍然活着"。</li>
+<li>Sistrix 看子目录可见度占比：ClickUp 约 85–90% 可见度来自博客；Shopify 博客占一半以上。</li>
+<li>诊断技巧：用 Screaming Frog 抓标题并按字母排序，"10 best…""how to…" 大量重复即为 scaled content 信号，处理方式：删除、noindex、合并、301。</li>
+<li>ChatGPT（$20/月版，7 月观察）在"残障退伍军人法律福利"查询中只用 site:va.gov 等政府站做 fan-out；Peec AI 数据显示 ChatGPT 5.6 后 site: 查询上升，reviews/best/top/comparison/versus 下降，listicle 和对比页被引用下降。</li>
+<li>推荐资源：Peec AI 研究（Tomek Rudzki "ChatGPT built its own search index"）、Suganthan 关于"ChatGPT 在搜索前已知道候选品牌"的文章、Google Discover 可点作者名跳 creator profile（上周新变化）。</li>
+<li>提及工具：Ahrefs、Sistrix、Screaming Frog、Profound、Claude/Claude Cowork、Google Antigravity、MCP。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;Google&#x27;s probably not going to penalize you for having one page... but when you start to create these patterns, this is when things really backfire.&quot;</blockquote><figcaption>Google 大概不会因为你有一个这样的页面就惩罚你……但一旦形成模式，就会真正反噬。</figcaption></figure><figure class="quote"><blockquote>&quot;Your listicle where you recommend yourself No. 1 could actually be helping your competitor more than it helps your own brand.&quot;</blockquote><figcaption>你把自己排第一的 listicle，可能帮竞争对手比帮你自己还多。</figcaption></figure><figure class="quote"><blockquote>&quot;Just because something works for two months does not mean that it&#x27;s going to continue to work.&quot;</blockquote><figcaption>某个东西有效两个月，并不代表它会一直有效。</figcaption></figure><figure class="quote"><blockquote>&quot;Less is more in SEO right now. Even though it&#x27;s counterintuitive, the game has changed.&quot;</blockquote><figcaption>当下的 SEO 少即是多。虽然反直觉，但游戏规则已经变了。</figcaption></figure><figure class="quote"><blockquote>&quot;Stop chasing shortcuts and play the long game.&quot;</blockquote><figcaption>别再追捷径，打持久战。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>给代运营客户做一次"GEO 风险审计"并写进服务 SOP</strong>：用 Lily 的 Screaming Frog 标题排序法，检查客户站是否有批量 "Top 10 XX Manufacturers in China"（把自己排第一）、"XX vs XX"、"What is XX" 类页面。中国制造出口站这类 listicle 极常见，是现成的诊断切入点，也能用来说明"为什么我们不做某些 GEO 捷径"。</li>
+<li><strong>销售话术："Google 掉了，AI 也会掉"</strong>：面对被 GEO 服务商吸引的客户，引用 11 家公司案例、220+ 案例中 39% 流失过半可见度等数据，把 MML 定位为"不烧掉你 SEO 的 GEO"——这正好是 10 年 SEO 老牌代运营相对于新 GEO 公司的差异化卖点。</li>
+<li><strong>把"成为 LLM 认识的品牌"落到 B2B 制造业</strong>：ChatGPT 正越来越多用 site: 直接去品牌官网取信息。建议客户官网的公司介绍、产能、认证、工程师/专家页做扎实，同时推动行业媒体、展会、协会目录上的真实提及（而非买提及），让模型在 fan-out 前就"认识"客户。</li>
+<li><strong>陪跑服务加入"少即是多"模块</strong>：与其按月交付 N 篇博客，不如优化核心产品页/询盘页（直接回答问题的首屏段落、CRO、速度），并清理低质博客。这也可以改变 KPI 叙事：从"发了多少篇"转为"核心页可见度和询盘"。</li>
+<li><strong>用客户真实询盘/销售数据做底部漏斗内容</strong>：Lily 建议把 GSC、GA 与销售通话数据接进 AI。MML 可以把客户的历史询盘邮件、业务员常见问答（MOQ、交期、定制、认证）结构化，产出 buyer-persona 化的 FAQ 与应用页——这是工厂独有、AI 难以复制的非 commodity 内容。</li>
+</ol></aside>
+<div class="gallery-head"><h3>现场 PPT 照片</h3><span class="count">35 张 · 点击放大，键盘 ← → 翻页</span></div><div class="gallery"><button class="ph" data-src="ppt/IMG_3608.webp" data-cap="Lily Ray · IMG_3608 · 09:16 11:36" aria-label="放大 PPT 照片 IMG_3608"><img loading="lazy" src="ppt/thumb/IMG_3608.webp" alt="Lily Ray PPT 照片 IMG_3608"><span>11:36</span></button><button class="ph" data-src="ppt/IMG_3609.webp" data-cap="Lily Ray · IMG_3609 · 09:16 11:37" aria-label="放大 PPT 照片 IMG_3609"><img loading="lazy" src="ppt/thumb/IMG_3609.webp" alt="Lily Ray PPT 照片 IMG_3609"><span>11:37</span></button><button class="ph" data-src="ppt/IMG_3610.webp" data-cap="Lily Ray · IMG_3610 · 09:16 11:37" aria-label="放大 PPT 照片 IMG_3610"><img loading="lazy" src="ppt/thumb/IMG_3610.webp" alt="Lily Ray PPT 照片 IMG_3610"><span>11:37</span></button><button class="ph" data-src="ppt/IMG_3611.webp" data-cap="Lily Ray · IMG_3611 · 09:16 11:38" aria-label="放大 PPT 照片 IMG_3611"><img loading="lazy" src="ppt/thumb/IMG_3611.webp" alt="Lily Ray PPT 照片 IMG_3611"><span>11:38</span></button><button class="ph" data-src="ppt/IMG_3612.webp" data-cap="Lily Ray · IMG_3612 · 09:16 11:39" aria-label="放大 PPT 照片 IMG_3612"><img loading="lazy" src="ppt/thumb/IMG_3612.webp" alt="Lily Ray PPT 照片 IMG_3612"><span>11:39</span></button><button class="ph" data-src="ppt/IMG_3613.webp" data-cap="Lily Ray · IMG_3613 · 09:16 11:41" aria-label="放大 PPT 照片 IMG_3613"><img loading="lazy" src="ppt/thumb/IMG_3613.webp" alt="Lily Ray PPT 照片 IMG_3613"><span>11:41</span></button><button class="ph" data-src="ppt/IMG_3614.webp" data-cap="Lily Ray · IMG_3614 · 09:16 11:43" aria-label="放大 PPT 照片 IMG_3614"><img loading="lazy" src="ppt/thumb/IMG_3614.webp" alt="Lily Ray PPT 照片 IMG_3614"><span>11:43</span></button><button class="ph" data-src="ppt/IMG_3615.webp" data-cap="Lily Ray · IMG_3615 · 09:16 11:43" aria-label="放大 PPT 照片 IMG_3615"><img loading="lazy" src="ppt/thumb/IMG_3615.webp" alt="Lily Ray PPT 照片 IMG_3615"><span>11:43</span></button><button class="ph" data-src="ppt/IMG_3616.webp" data-cap="Lily Ray · IMG_3616 · 09:16 11:44" aria-label="放大 PPT 照片 IMG_3616"><img loading="lazy" src="ppt/thumb/IMG_3616.webp" alt="Lily Ray PPT 照片 IMG_3616"><span>11:44</span></button><button class="ph" data-src="ppt/IMG_3617.webp" data-cap="Lily Ray · IMG_3617 · 09:16 11:47" aria-label="放大 PPT 照片 IMG_3617"><img loading="lazy" src="ppt/thumb/IMG_3617.webp" alt="Lily Ray PPT 照片 IMG_3617"><span>11:47</span></button><button class="ph" data-src="ppt/IMG_3618.webp" data-cap="Lily Ray · IMG_3618 · 09:16 11:49" aria-label="放大 PPT 照片 IMG_3618"><img loading="lazy" src="ppt/thumb/IMG_3618.webp" alt="Lily Ray PPT 照片 IMG_3618"><span>11:49</span></button><button class="ph" data-src="ppt/IMG_3619.webp" data-cap="Lily Ray · IMG_3619 · 09:16 11:50" aria-label="放大 PPT 照片 IMG_3619"><img loading="lazy" src="ppt/thumb/IMG_3619.webp" alt="Lily Ray PPT 照片 IMG_3619"><span>11:50</span></button><button class="ph" data-src="ppt/IMG_3620.webp" data-cap="Lily Ray · IMG_3620 · 09:16 11:52" aria-label="放大 PPT 照片 IMG_3620"><img loading="lazy" src="ppt/thumb/IMG_3620.webp" alt="Lily Ray PPT 照片 IMG_3620"><span>11:52</span></button><button class="ph" data-src="ppt/IMG_3621.webp" data-cap="Lily Ray · IMG_3621 · 09:16 11:53" aria-label="放大 PPT 照片 IMG_3621"><img loading="lazy" src="ppt/thumb/IMG_3621.webp" alt="Lily Ray PPT 照片 IMG_3621"><span>11:53</span></button><button class="ph" data-src="ppt/IMG_3622.webp" data-cap="Lily Ray · IMG_3622 · 09:16 11:55" aria-label="放大 PPT 照片 IMG_3622"><img loading="lazy" src="ppt/thumb/IMG_3622.webp" alt="Lily Ray PPT 照片 IMG_3622"><span>11:55</span></button><button class="ph" data-src="ppt/IMG_3623.webp" data-cap="Lily Ray · IMG_3623 · 09:16 11:55" aria-label="放大 PPT 照片 IMG_3623"><img loading="lazy" src="ppt/thumb/IMG_3623.webp" alt="Lily Ray PPT 照片 IMG_3623"><span>11:55</span></button><button class="ph" data-src="ppt/IMG_3624.webp" data-cap="Lily Ray · IMG_3624 · 09:16 11:56" aria-label="放大 PPT 照片 IMG_3624"><img loading="lazy" src="ppt/thumb/IMG_3624.webp" alt="Lily Ray PPT 照片 IMG_3624"><span>11:56</span></button><button class="ph" data-src="ppt/IMG_3625.webp" data-cap="Lily Ray · IMG_3625 · 09:16 11:56" aria-label="放大 PPT 照片 IMG_3625"><img loading="lazy" src="ppt/thumb/IMG_3625.webp" alt="Lily Ray PPT 照片 IMG_3625"><span>11:56</span></button><button class="ph" data-src="ppt/IMG_3626.webp" data-cap="Lily Ray · IMG_3626 · 09:16 11:57" aria-label="放大 PPT 照片 IMG_3626"><img loading="lazy" src="ppt/thumb/IMG_3626.webp" alt="Lily Ray PPT 照片 IMG_3626"><span>11:57</span></button><button class="ph" data-src="ppt/IMG_3627.webp" data-cap="Lily Ray · IMG_3627 · 09:16 11:58" aria-label="放大 PPT 照片 IMG_3627"><img loading="lazy" src="ppt/thumb/IMG_3627.webp" alt="Lily Ray PPT 照片 IMG_3627"><span>11:58</span></button><button class="ph" data-src="ppt/IMG_3628.webp" data-cap="Lily Ray · IMG_3628 · 09:16 11:59" aria-label="放大 PPT 照片 IMG_3628"><img loading="lazy" src="ppt/thumb/IMG_3628.webp" alt="Lily Ray PPT 照片 IMG_3628"><span>11:59</span></button><button class="ph" data-src="ppt/IMG_3629.webp" data-cap="Lily Ray · IMG_3629 · 09:16 12:00" aria-label="放大 PPT 照片 IMG_3629"><img loading="lazy" src="ppt/thumb/IMG_3629.webp" alt="Lily Ray PPT 照片 IMG_3629"><span>12:00</span></button><button class="ph" data-src="ppt/IMG_3630.webp" data-cap="Lily Ray · IMG_3630 · 09:16 12:01" aria-label="放大 PPT 照片 IMG_3630"><img loading="lazy" src="ppt/thumb/IMG_3630.webp" alt="Lily Ray PPT 照片 IMG_3630"><span>12:01</span></button><button class="ph" data-src="ppt/IMG_3631.webp" data-cap="Lily Ray · IMG_3631 · 09:16 12:03" aria-label="放大 PPT 照片 IMG_3631"><img loading="lazy" src="ppt/thumb/IMG_3631.webp" alt="Lily Ray PPT 照片 IMG_3631"><span>12:03</span></button><button class="ph" data-src="ppt/IMG_3632.webp" data-cap="Lily Ray · IMG_3632 · 09:16 12:03" aria-label="放大 PPT 照片 IMG_3632"><img loading="lazy" src="ppt/thumb/IMG_3632.webp" alt="Lily Ray PPT 照片 IMG_3632"><span>12:03</span></button><button class="ph" data-src="ppt/IMG_3633.webp" data-cap="Lily Ray · IMG_3633 · 09:16 12:05" aria-label="放大 PPT 照片 IMG_3633"><img loading="lazy" src="ppt/thumb/IMG_3633.webp" alt="Lily Ray PPT 照片 IMG_3633"><span>12:05</span></button><button class="ph" data-src="ppt/IMG_3634.webp" data-cap="Lily Ray · IMG_3634 · 09:16 12:06" aria-label="放大 PPT 照片 IMG_3634"><img loading="lazy" src="ppt/thumb/IMG_3634.webp" alt="Lily Ray PPT 照片 IMG_3634"><span>12:06</span></button><button class="ph" data-src="ppt/IMG_3635.webp" data-cap="Lily Ray · IMG_3635 · 09:16 12:07" aria-label="放大 PPT 照片 IMG_3635"><img loading="lazy" src="ppt/thumb/IMG_3635.webp" alt="Lily Ray PPT 照片 IMG_3635"><span>12:07</span></button><button class="ph" data-src="ppt/IMG_3636.webp" data-cap="Lily Ray · IMG_3636 · 09:16 12:08" aria-label="放大 PPT 照片 IMG_3636"><img loading="lazy" src="ppt/thumb/IMG_3636.webp" alt="Lily Ray PPT 照片 IMG_3636"><span>12:08</span></button><button class="ph" data-src="ppt/IMG_3637.webp" data-cap="Lily Ray · IMG_3637 · 09:16 12:09" aria-label="放大 PPT 照片 IMG_3637"><img loading="lazy" src="ppt/thumb/IMG_3637.webp" alt="Lily Ray PPT 照片 IMG_3637"><span>12:09</span></button><button class="ph" data-src="ppt/IMG_3638.webp" data-cap="Lily Ray · IMG_3638 · 09:16 12:09" aria-label="放大 PPT 照片 IMG_3638"><img loading="lazy" src="ppt/thumb/IMG_3638.webp" alt="Lily Ray PPT 照片 IMG_3638"><span>12:09</span></button><button class="ph" data-src="ppt/IMG_3639.webp" data-cap="Lily Ray · IMG_3639 · 09:16 12:10" aria-label="放大 PPT 照片 IMG_3639"><img loading="lazy" src="ppt/thumb/IMG_3639.webp" alt="Lily Ray PPT 照片 IMG_3639"><span>12:10</span></button><button class="ph" data-src="ppt/IMG_3640.webp" data-cap="Lily Ray · IMG_3640 · 09:16 12:11" aria-label="放大 PPT 照片 IMG_3640"><img loading="lazy" src="ppt/thumb/IMG_3640.webp" alt="Lily Ray PPT 照片 IMG_3640"><span>12:11</span></button><button class="ph" data-src="ppt/IMG_3641.webp" data-cap="Lily Ray · IMG_3641 · 09:16 12:11" aria-label="放大 PPT 照片 IMG_3641"><img loading="lazy" src="ppt/thumb/IMG_3641.webp" alt="Lily Ray PPT 照片 IMG_3641"><span>12:11</span></button><button class="ph" data-src="ppt/IMG_3642.webp" data-cap="Lily Ray · IMG_3642 · 09:16 12:12" aria-label="放大 PPT 照片 IMG_3642"><img loading="lazy" src="ppt/thumb/IMG_3642.webp" alt="Lily Ray PPT 照片 IMG_3642"><span>12:12</span></button></div>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>开头从自我介绍中段开始，前面的主持人介绍可能未录入。ASR 纠正："algorithmic"=Algorythmic（Lily 自己的公司）、"amsleeve"=Amsive、"H3 brand radar"=Ahrefs Brand Radar、"Peak AI / Pi Kai"=Peec AI、"Tomek Radski"=Tomek Rudzki、"Dary"=Gary、"cloud co worker"=Claude Cowork、"Ellen's dot text"=llms.txt、"GDO/ado/ATO"=GEO/AEO。</li>
+<li>以下人名/公司名无法确定：</li>
+<li>"Circuit API"：从上下文看应为 SerpApi（Google 起诉的、向 ChatGPT 提供搜索结果的公司）。</li>
+<li>"Maxier Torrado"（西班牙 SEO）：拼写存疑。</li>
+<li>"Nick Ranger"：可能是 Nik Ranger。</li>
+<li>"Gavin Gotra"（澳大利亚 SEO）：可能是 Gagan Ghotra。</li>
+<li>"Raj on Patel"：可能是 Rajan Patel。</li>
+<li>"Lars Loftman"：可能是 Lars Lofgren。</li>
+<li>"Dan Hankley" / "Dan sure" 与其 "all method" 播客：无法确认。</li>
+<li>"Keegan"：工具名无法确认。</li>
+<li>中段约 17–27 分钟为一整段无时间戳的长文本，内容连贯，没有明显缺失。结尾有结束语，录音看起来完整。</li>
+</ul></details>
+</section><section class="talk" id="doug">
+<div class="meta"><span>9/16 · 12:00–12:20</span><span class="type">Field Talk</span><span class="src">有录音</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn2x88344zz6g45s9i2e4s" target="_blank" rel="noopener">飞书妙记录音 ↗</a><span class="rec-note">录音后半段为 David Carrasco</span></div>
+<h2>Ranked Nowhere: The International SEO Mistakes of China&#x27;s Biggest Global Brands</h2>
+<div class="who"><strong>Doug Pierce</strong> · Cogney</div>
+<div class="lead"><p>Doug 用 Ahrefs 扫描中国市值前 100 的上市公司，发现只有约 7 家国际 SEO 做得好，其余大多数连多语言站、hreflang、本地关键词这些基本功都没做好，并逐一点名 BYD、Geely、Moutai、Hisense、Midea 等品牌的具体错误。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Doug Pierce 是香港数字营销咨询公司 Cogney 的创始人，拥有 15 年 B2B、SaaS 和 eCommerce SEO 经验。他已帮助 100 多家公司在行业最具竞争力的关键词上进入 Google 首页，客户包括 Airbnb、China Mobile 和 Huawei。Airbnb 的 Head of SEO 称他为 "an SEO legend"，与他合作过重大调查报道的 The New York Times 称他为 "an expert in online search"。他的研究曾为美国参议院调查和 HBO《Last Week Tonight》的一期节目提供参考。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>Doug Pierce is the founder of Cogney, a digital marketing consultancy in Hong Kong. With 15 years of experience in B2B, SaaS, and eCommerce SEO, he has landed more than 100 companies on page one of Google for their industry's most competitive keywords, with clients including Airbnb, China Mobile, and Huawei. Airbnb's Head of SEO has called him "an SEO legend," and The New York Times - with whom he has collaborated on major investigative pieces - named him "an expert in online search." His research has informed a U.S. Senate inquiry and an episode of HBO's Last Week Tonight.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/douglasapierce/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://shenzhenseoconference.com/speakers/doug-pierce" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>国际 SEO = 国际收入</strong>：Doug 引用 MSCI 数据称，中国公司的海外收入占比在主要市场中最低，约为美国公司的一半；而在 MSCI China Index 中，海外收入高的中国公司股市表现高出约 60%。中国只占世界人口约 1/6，且人口在缩减，国内竞争会越来越激烈，海外市场可能反而没那么卷。</li>
+<li><strong>大品牌 ≠ 做好了 SEO</strong>：Top 7（Lenovo、Alibaba、Huawei、Xiaomi 等）平均覆盖 150+ 市场、几十万关键词；但 BYD、Haier、Hikvision 同样是大品牌，表现却差很多。除去头部，其余有 SEO 足迹的公司平均排名关键词不到 1,000 个。说明品牌力不能替代执行。</li>
+<li><strong>先要有国际版网站，且语言切换器得真能用</strong>：Cambricon（"中国的 Nvidia"）根本没有国际站，而 Nvidia 有大量国家版本；ZTE 有语言切换按钮，点开却没有任何语言选项。</li>
+<li><strong>域名要集中，用子目录而不是多个 ccTLD / 独立域名</strong>：Hisense 买了各国域名分散权重；BYD 把 PR 放在独立的 BYD UK Media 域名上，媒体外链都给了 PR 站，真正卖车的站拿不到权重（另一家车企也有同样问题，Doug 调侃可能用了同一家 PR 公司）。</li>
+<li><strong>hreflang 必须双向正确</strong>：Lenovo 做得对；Geely 只在一个版本上加了 hreflang，其他版本没有回指。后果以 Moutai 为例：在美国搜 Moutai，Google 返回比利时站和澳大利亚站，而它其实有美国站。</li>
+<li><strong>不要用 JavaScript 做语言切换，也不要中英混排</strong>：NAURA（中国半导体公司）的语言切换是 JS 实现，Google 在 /en 目录下只索引到一个 PDF。Moutai 英文页里混杂中文，违反"一页一种语言"。另外，只做"语言"而不做"国家"也不够：Foxconn 按国家做本地化，另一家制造企业只按语言切换，就更难在各国排名。</li>
+<li><strong>在目标市场做关键词研究</strong>：Mindray 卖便携超声，产品页写了能扫胎儿头部，却没有页面针对 "portable ultrasound machine for pregnancy" 这类真实搜索词，"明明有货却丢了这个查询"。</li>
+<li><strong>本地页面与品牌声誉管理</strong>：BYD 在英国没有各城市经销点页面，搜 "BYD + 城市" 出来的是不在乎卖哪个牌子的经销商，而 Tesla 有自己的城市页。品牌搜索量上来后，PAA 和 AI Overviews 会出现 "Is Midea AC safe" + 召回霉变等负面信息；Panasonic 专门做了产品安全页来承接这类查询。</li>
+<li><strong>图片也要本地化</strong>：BYD 英国站直接引用西班牙站的图片，文件名和 alt 写的是西语 "coches eléctricos"，在 Google Images 搜车名找不到它。结尾调侃：TikTok 是中国 SEO 最成功的案例（数百万关键词），但太成功也可能成为靶子。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li>方法：用 Ahrefs 扫描中国 Top 100 上市公司的排名关键词数量和覆盖国家数。</li>
+<li>结果：约 7 家表现好，分为"成功 / 尚可 / 失败"三档，大多数失败；Top 7 平均 150+ 市场、数十万关键词；其余有 SEO 足迹的公司平均排名词不到 1,000 个。</li>
+<li>MSCI 数据：海外收入高的中国公司股价表现高出约 60%；中国公司海外收入占比约为美国公司的一半。</li>
+<li>点名案例：Cambricon vs Nvidia（有无国际站）、ZTE（空的语言切换器）、Hisense（多个 ccTLD）、Lenovo vs Geely（hreflang）、Moutai（hreflang 错误导致美国用户看到比利时/澳洲页；中英混排）、NAURA（JS 语言切换，/en 只索引一个 PDF）、Foxconn vs 另一制造企业（按国家 vs 按语言）、Mindray（缺少关键词落地页）、BYD vs Tesla（城市页）、Midea vs Panasonic（负面 PAA/AIO 与产品安全页）、BYD UK Media 独立 PR 域名、BYD 英国站用西班牙图片与西语 alt、TikTok（SEO 最成功，也成了靶子）。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;International SEO equals international revenue.&quot;</blockquote><figcaption>国际 SEO 就等于国际收入。</figcaption></figure><figure class="quote"><blockquote>&quot;If you want to do international SEO, you have to have an international website.&quot;</blockquote><figcaption>想做国际 SEO，先得有一个国际网站。</figcaption></figure><figure class="quote"><blockquote>&quot;Even though they sell the product, they&#x27;re losing out on that query.&quot;</blockquote><figcaption>明明卖这个产品，却丢掉了这个搜索词。</figcaption></figure><figure class="quote"><blockquote>&quot;You might as well keep control over the brand perception by having a page for each local city you&#x27;re in.&quot;</blockquote><figcaption>不如给你所在的每个本地城市都建一个页面，把品牌认知握在自己手里。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>把这份"大品牌错误清单"做成获客内容和诊断模板</strong>：MML 可以仿照 Doug 的方法，用 Ahrefs 扫描某个细分行业（如五金、照明、机械）的中国出口企业，产出"XX 行业中国出口商国际 SEO 体检报告"做公众号/白皮书引流，并把他的检查项（国际版、切换器、hreflang 双向、JS 切换、单页单语、图片 alt、域名分散）做成标准化站点诊断表。</li>
+<li><strong>销售时用"连 BYD、Moutai 都犯错"降低客户防御</strong>：外贸老板常认为"大公司肯定做得好"。用大品牌的真实错误说明"执行比品牌重要"，让客户接受先从基础技术 SEO 做起，也为陪跑服务提供第一个月的具体课题。</li>
+<li><strong>多语言/多市场客户：主推单域名 + 子目录 + 正确 hreflang</strong>：很多工厂客户有 .com、.de、.ru 等分散域名或 B2B 平台子站，建议在方案中评估合并；小语种站避免 JS 切换和中英混排（中文参数表、中文图片文字很常见）。</li>
+<li><strong>关键词研究要围绕"应用场景型需求"</strong>：参照 Mindray 案例，为客户挖掘"产品 + 用途/行业/场景"类长尾词并建独立落地页，而不是只停留在产品名。这对中国工厂英文站尤其关键，因为它们常用内部叫法命名产品。</li>
+<li><strong>品牌搜索声誉监控纳入 GEO 服务</strong>：定期查客户品牌在 PAA / AI Overviews / ChatGPT 里的问答（"Is XX reliable / safe / legit"），参考 Panasonic 建质量认证、产品安全、工厂审核页面来承接——对 B2B 买家的背调式搜索非常有用。</li>
+</ol></aside>
+<div class="gallery-head"><h3>现场 PPT 照片</h3><span class="count">1 张 · 点击放大，键盘 ← → 翻页</span></div><div class="gallery"><button class="ph" data-src="ppt/IMG_3643.webp" data-cap="Doug Pierce · IMG_3643 · 09:16 12:17" aria-label="放大 PPT 照片 IMG_3643"><img loading="lazy" src="ppt/thumb/IMG_3643.webp" alt="Doug Pierce PPT 照片 IMG_3643"><span>12:17</span></button></div>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>讲者名 ASR 识别为 "jug"，实为 Doug（结尾自称 Doug）；公司 "Kogi" = Cogney（据讲者资料，位于香港）。Doug 提到曾服务 Huawei、China Mobile、Airbnb、Coinbase。</li>
+<li>ASR 纠正："MSI"=MSCI、"a trust"=Ahrefs、"camp account"=Cambricon、"high sense"=Hisense、"eely"=Geely、"H5N1 / extra flame / trifine"=hreflang、"motai"=Moutai、"higher"=Haier、"big vision"=Hikvision、"media"=Midea、"UID"=BYD、"Fox onto"=Foxconn、"coaches electricos"=coches eléctricos。</li>
+<li>待确认的名称：</li>
+<li>"Nora"：推测为 NAURA（北方华创）。</li>
+<li>"mine... Great" 医疗设备公司：推测为 Mindray（迈瑞）。</li>
+<li>"one share"：只按语言切换的那家公司，可能是 Luxshare（立讯），无法确认。</li>
+<li>"Kiwi"：与 BYD 有同样 PR 域名问题的车企，无法确认。</li>
+<li>Doug 的演讲约 16 分钟，结尾道歉说"又一个快速讲完的演讲"（原话含糊）。文件后半段（约 16:31–27:14）是主持人和 David Carrasco 的闪电演讲，ASR 质量很差，部分数字和句子无法还原。文件最后一句是主持人介绍下一场闪电演讲，推测是 JP 的 HCU 恢复演讲。</li>
+</ul></details>
+</section><section class="talk" id="david">
+<div class="meta"><span>9/16 · 12:20–12:40</span><span class="type">Lightning</span><span class="src">有录音（与 Doug 同一文件）</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn2x88344zz6g45s9i2e4s" target="_blank" rel="noopener">飞书妙记录音 ↗</a><span class="rec-note">与 Doug 同一录音，约 16:31 起</span></div>
+<h2>The Validation Gap: Why SEO Doesn&#x27;t End When the User Clicks</h2>
+<div class="who"><strong>David Carrasco</strong> · Magnify</div>
+<div class="lead"><p>AI 给出的品牌答案不是一份固定"档案"，而是从论坛、评测、对比页和你自己网站等零散素材里临时"重建"出来的；SEO 不止于点击，而是止于成交——你改不了答案，只能改答案的素材。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>David Carrasco Pamies 是巴塞罗那战略 SEO 与品牌可见度咨询公司 Magnify 的创始人，专注国际增长。过去十年他服务过多个市场的品牌和初创公司，并曾创办、做大并出售了自己的 PR SaaS 工具。这段经历让他把 SEO 视为商业杠杆而非单纯的流量渠道，把产品、盈利和用户体验置于排名之前。他目前关注品牌可见度与 AI search 的交叉领域，认为能与真实用户建立信任的品牌才会胜出。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>David Carrasco Pamies is the founder of Magnify, a strategic SEO and brand visibility consultancy based in Barcelona, focused on international growth. Over the past decade, he has worked with brands and startups across markets, and founded, scaled, and sold his own PR SaaS tool along the way. That experience shaped how he approaches SEO: less as a traffic channel, more as a business lever. Product, profitability, and user experience come before rankings. His current focus sits between brand visibility and AI search: what happens when search engines stop sending traffic and start replacing the experience entirely. He believes the brands that will thrive are the ones building trust with real users, not optimizing for algorithms. When he's not dissecting Google patents or arguing about structured data, he's probably overthinking a LinkedIn post.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/david-carrasco-pamies/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/davidcarrascop" target="_blank" rel="noopener">X</a> · <a href="https://www.youtube.com/@david_carrasco/" target="_blank" rel="noopener">YouTube</a> · <a href="https://shenzhenseoconference.com/speakers/david-carrasco" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>AI 答案是概率分布，不是档案</strong>：同一个买家问题，买家每次"抽到"的回答都可能不同，甚至互相矛盾。</li>
+<li><strong>验证缺口（Validation Gap）</strong>：买家带着一半由别人写的"承诺"来到你的网站，如果和你自己的承诺对不上，即使你什么都没做错，也会流失。</li>
+<li><strong>模型先做决定，再去搜索</strong>：他引用的研究里，27 个 fan-out 搜索中有 21 个已经带上了品牌名。</li>
+<li><strong>用证据回答买家的下一个问题</strong>：例如"买之前有什么需要知道的？"，并确保各个渠道给出一致的承诺。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li>实验：6 个品牌 × 6 个 AI 模型问同一个买家问题，共 360 个回答；同一模型、同样长度的回答里包含的可验证事实各不相同（ASR 此处数字不清）。</li>
+<li>3·15 案例：今年 3·15 晚会报道了一个虚构的"无创量子血糖传感器"，用 40 元的发稿软件发了少量文章，两小时后 5 个主流 AI 模型就照着文章描述它；约 11 篇文章、3 天后，模型开始向真实用户推荐它。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;Ranking gets you found, clicking gets you checked, but only being understood gets you chosen.&quot;</blockquote><figcaption>排名让你被找到，点击让你被审视，只有被理解才让你被选中。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>用"多模型 × 买家问题"批量测试客户品牌的 AI 答案一致性</strong>，可以做成 GEO 诊断产品，和 Jonathan Kiekbusch 的三步法合并使用。</li>
+<li><strong>3·15 案例适合做客户教育素材</strong>：AI 答案可以被低成本操纵，所以更要主动占住权威素材（认证、案例、第三方报道），也要监控竞争对手的负面操作。</li>
+<li><strong>落地页要承接 AI 给买家的"承诺"</strong>：先查清 AI 怎么描述客户的产品（交期、MOQ、认证、价格区间），再确保官网对应页面给出一致且有证据的说法。</li>
+</ol></aside>
+<p class="nophoto">本场没有拍到 PPT 照片。</p>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>本场录音在「Ranked Nowhere」（Doug Pierce）文件的 16:31 之后，约 8 分钟，ASR 质量较差，部分数字和句子无法还原。</li>
+</ul></details>
+</section><section class="talk" id="jp">
+<div class="meta"><span>9/16 · 12:20–12:40</span><span class="type">Lightning</span><span class="src">有录音</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn2x77d9uno757498da22a" target="_blank" rel="noopener">飞书妙记录音 ↗</a></div>
+<h2>Recovering from HCU &amp; MCU within 7 Days: an SEO Experiment on Aggressive Content Pruning</h2>
+<div class="who"><strong>JP / John Zhang</strong> · Shenzhen SEO Conference 主办人</div>
+<div class="lead"><p>JP 分享了一个被 HCU（2023 年 9 月）和 March 2024 Core Update 打垮的联盟站实验：在一年多的常规修复无效后，他一天之内删除了约 85% 的页面（直接返回 404，不做 301、不改剩余内容），7 天内流量和排名明显回升；但剩余内容质量没有改善，因此不能保证长期效果，需谨慎使用。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>J.P. (John) Zhang 是拥有 16 年搜索行业经验的 SEO 创业者，也是被称为中国最大国际 SEO 活动的 Shenzhen SEO Conference 的主办人。他运营"英文SEO实战派"（SEO Action Blog），在国内拥有超过 25,000 名关注者，并创办了 SEO Connector，帮助出海中国品牌对接经过筛选的西方 SEO agency。他曾在 Whova、Baunfire、Wondershare 担任 SEO 与内容营销相关职位，持有 Hult International Business School 的市场营销管理 MBA。大会始于 2019 年的半天活动（300 人），2025 年重启为 4 天、500 人规模，2026 年扩展至可容纳 600 人的场地。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>J.P. (John) Zhang is an SEO entrepreneur with 16 years of experience in the search industry. He is the host of the Shenzhen SEO Conference, recognized as China's largest international SEO event. As a leading voice in the region's search community, he runs the popular SEO Action Blog (英文SEO实战派), which has over 25,000 followers in China. He is also the founder of SEO Connector, a startup dedicated to pairing global-facing Chinese brands with vetted Western SEO agencies. His professional background spans both the Asian and US tech ecosystems, featuring SEO and content marketing roles at companies like Whova, Baunfire, and Wondershare, and he holds an MBA in Marketing Management from Hult International Business School.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/jiangpengzhang/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/jiangpengzhang" target="_blank" rel="noopener">X</a> · <a href="https://www.youtube.com/@seoactionblog/" target="_blank" rel="noopener">YouTube</a> · <a href="https://shenzhenseoconference.com/speakers/jp-john-zhang" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>HCU 和"MCU"是站点级打击</strong>：HCU 即 Helpful Content Update，已并入核心算法；JP 把 2024 年 3 月的大型核心更新称为 "MCU"（March Core Update）。他强调这类更新作用于整个网站而不是单个页面：站点被判定为低质时，好页面也会被拖累；反过来，好域名上的个别差页面也可能活下来。</li>
+<li><strong>常规修复一年无效</strong>：他 2024 年花了一年尝试各种方法，包括 noindex 低质页、把站改造得更像品牌而不是联盟文章堆、甚至真的买了几款产品来实拍评测，都没有效果，一度准备放弃。</li>
+<li><strong>激进修剪：一天删掉 85% 的页面</strong>：2025 年 6 月，他用插件在一天内批量删除约 85% 的页面，没有更新剩余 15% 的内容，没有 301 重定向，也没有主动返回 410，只让页面 404，等爬虫自然重新抓取、清除缓存。之所以不用 301，是因为灰帽/黑帽圈的朋友告诉他那样有风险，他想避免被算法当作操纵行为。</li>
+<li><strong>结果：约一周内回升，之后回落又意外反弹</strong>：删除一周后，流量和排名曲线回升，单篇文章几乎立刻"复活"；到 2025 年底趋于平稳，部分文章 5–6 个月后下滑但仍好于之前。2026 年流量先是下降（他认为在意料之中，因为剩余内容仍然很差），之后又出乎意料地回升，他也解释不了。</li>
+<li><strong>为什么有效？更可能是"搜索引擎对站点的感知"变了</strong>：他问 Google AI Mode，得到的理由包括改善关键词蚕食、集中链接权重、提升全站质量信号、改善用户体验。他排除了用户体验（7 天内流量很少，页面也没改设计）和关键词蚕食（他不会写同关键词的两个页面），认为最可能的是"全站质量信号提升"，其次是 crawl budget：页面从约 1,000 个降到很少，给 Google 省了抓取资源，也许因此"得到回报"。他还推测站点被打的原因之一是在同一大类下覆盖了多个子细分领域。</li>
+<li><strong>短期回升不等于长期表现</strong>：删页后剩余页面也必须是高质量的，否则算法最终还会抓到你。Google 员工在 Google Search Central Live 上也承认算法会出错，纠正需要时间。结论："要投入，就谨慎地投入"。</li>
+<li><strong>这不是严格的实验</strong>：JP 两次声明：没有对照组，所以严格说不算实验；站点也只是部分恢复，所以标题里的 recovering 打了引号。他之所以敢这么做，是因为这个站"反正已经死了"。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li>站点：JP 自己的一个联盟（affiliate）网站。</li>
+<li>时间线：HCU 2023 年 9 月（JP 说 9 月 17 日），March Core Update 2024 年 3 月 5–6 日。</li>
+<li>2024 年 3 月 5 日下午 2–4 点，他收到 Google 的 10 多封邮件，涉及他的多个站点被 deindex（ASR 原文不清，大意如此），当时觉得"game over"。</li>
+<li>被打后约 1.5 年流量几乎是平线，期间他没有发布任何新文章。</li>
+<li>2025 年 6 月：一天之内删除约 85% 的页面（用插件，找插件花了约半小时），约 7 天后回升，2025 年底趋于平稳。</li>
+<li>页面规模：原约 1,000–1,200 篇（前后说法略有出入）；前后在该站投入约 240k（币种未说明），经营年限 ASR 为 "60 years"，推测是 6 年。</li>
+<li>做过但无效的方法：noindex、品牌化改造、购买实物产品做评测。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;If your site is hit, even if you have a great page with great content, it will still tank with the website.&quot;</blockquote><figcaption>如果整站被打，哪怕你有内容很好的页面，也会跟着一起掉。</figcaption></figure><figure class="quote"><blockquote>&quot;Short-term recovery doesn&#x27;t guarantee long-term performance.&quot;</blockquote><figcaption>短期恢复不保证长期表现。</figcaption></figure><figure class="quote"><blockquote>&quot;The algorithm is not perfect... if you need to invest in this, invest with caution.&quot;</blockquote><figcaption>算法并不完美……如果要投入，就谨慎投入。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>为"历史包袱重"的老客户站设计"内容修剪"服务包</strong>：很多制造业客户站多年来堆了大量低质博客、重复产品页、采集新闻。JP 的案例（加上 Lily Ray 关于站点级质量信号的观点）支持把"内容审计 + 修剪"作为独立项目：先用 GSC 找出零点击、零展现、零询盘的页面，再分级处理。</li>
+<li><strong>修剪要比 JP 更稳健，和客户讲清风险</strong>：JP 的站是已经"死掉"的联盟站，可以一刀切；客户的询盘站不能这样赌。建议分批删除（先删最差的 30–50%），保留有外链或询盘的页面并做 301，同时补强剩余核心产品页，并在合同里写明"没有对照组，效果不保证"。</li>
+<li><strong>销售话术："更少的页面也可能带来更多流量"</strong>：客户常以为"页面越多越好"，并按发文数量考核代运营。可以用 JP 从约 1,000 个页面删到约 15% 后 7 天回升的曲线来改变预期，把陪跑 KPI 从"发文量"转向"全站质量与询盘"。</li>
+<li><strong>被核心更新打击的客户：把"删页后仍需提升内容质量"写进恢复方案</strong>：JP 的 2026 年回落说明，仅靠删页只能带来短期信号改善。恢复方案应分两阶段：第一阶段修剪，第二阶段用工厂一手资料（实拍、测试、案例）提升剩余页面质量。</li>
+</ol></aside>
+<div class="gallery-head"><h3>现场 PPT 照片</h3><span class="count">9 张 · 点击放大，键盘 ← → 翻页</span></div><div class="gallery"><button class="ph" data-src="ppt/IMG_3644.webp" data-cap="JP / John Zhang · IMG_3644 · 09:16 12:43" aria-label="放大 PPT 照片 IMG_3644"><img loading="lazy" src="ppt/thumb/IMG_3644.webp" alt="JP / John Zhang PPT 照片 IMG_3644"><span>12:43</span></button><button class="ph" data-src="ppt/IMG_3645.webp" data-cap="JP / John Zhang · IMG_3645 · 09:16 12:43" aria-label="放大 PPT 照片 IMG_3645"><img loading="lazy" src="ppt/thumb/IMG_3645.webp" alt="JP / John Zhang PPT 照片 IMG_3645"><span>12:43</span></button><button class="ph" data-src="ppt/IMG_3646.webp" data-cap="JP / John Zhang · IMG_3646 · 09:16 12:44" aria-label="放大 PPT 照片 IMG_3646"><img loading="lazy" src="ppt/thumb/IMG_3646.webp" alt="JP / John Zhang PPT 照片 IMG_3646"><span>12:44</span></button><button class="ph" data-src="ppt/IMG_3647.webp" data-cap="JP / John Zhang · IMG_3647 · 09:16 12:44" aria-label="放大 PPT 照片 IMG_3647"><img loading="lazy" src="ppt/thumb/IMG_3647.webp" alt="JP / John Zhang PPT 照片 IMG_3647"><span>12:44</span></button><button class="ph" data-src="ppt/IMG_3648.webp" data-cap="JP / John Zhang · IMG_3648 · 09:16 12:48" aria-label="放大 PPT 照片 IMG_3648"><img loading="lazy" src="ppt/thumb/IMG_3648.webp" alt="JP / John Zhang PPT 照片 IMG_3648"><span>12:48</span></button><button class="ph" data-src="ppt/IMG_3650.webp" data-cap="JP / John Zhang · IMG_3650 · 09:16 12:49" aria-label="放大 PPT 照片 IMG_3650"><img loading="lazy" src="ppt/thumb/IMG_3650.webp" alt="JP / John Zhang PPT 照片 IMG_3650"><span>12:49</span></button><button class="ph" data-src="ppt/IMG_3651.webp" data-cap="JP / John Zhang · IMG_3651 · 09:16 12:50" aria-label="放大 PPT 照片 IMG_3651"><img loading="lazy" src="ppt/thumb/IMG_3651.webp" alt="JP / John Zhang PPT 照片 IMG_3651"><span>12:50</span></button><button class="ph" data-src="ppt/IMG_3652.webp" data-cap="JP / John Zhang · IMG_3652 · 09:16 12:50" aria-label="放大 PPT 照片 IMG_3652"><img loading="lazy" src="ppt/thumb/IMG_3652.webp" alt="JP / John Zhang PPT 照片 IMG_3652"><span>12:50</span></button><button class="ph" data-src="ppt/IMG_3653.webp" data-cap="JP / John Zhang · IMG_3653 · 09:16 12:51" aria-label="放大 PPT 照片 IMG_3653"><img loading="lazy" src="ppt/thumb/IMG_3653.webp" alt="JP / John Zhang PPT 照片 IMG_3653"><span>12:51</span></button></div>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>开头约 20 秒是主持人介绍，ASR 把主持人和 JP 分别标为"说话人 1 / 说话人 2"，其中"Spark a recovery in just seven days"一句仍属于主持人的介绍。</li>
+<li>JP 自称"3 号替补讲者"，同时也是大会主办方/主持人之一；时长约 10.5 分钟，结尾完整。</li>
+<li>ASR 质量较差，以下内容不确定：</li>
+<li>"10+ on my side for the E index"：推测为 10 多个站点收到 deindex 通知。</li>
+<li>"Data we have 20 some saving Google"：原文不清，可能是删页后剩余页面数或抓取量的描述。</li>
+<li>"60 years"：推测为 6 年。</li>
+<li>240k：币种未说明。</li>
+<li>"FCU" 应为 HCU；"send it to be 4,10" 推测指返回 410；"swear when we directed / swear 1,1" 推测指 301 重定向。</li>
+<li>讲者资料显示 JP 即 John Zhang（大会创办人）。本演讲中没有提到"John"这个名字，身份判断依据 bios.md。</li>
+</ul></details>
+</section><section class="talk" id="konstantin">
+<div class="meta"><span>9/16 · 4:10–4:50 PM</span><span class="type">Lightning</span><span class="src">有录音（仅后 8 分钟）</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn5uy9ex2jk3ua69g87cua" target="_blank" rel="noopener">飞书妙记录音 ↗</a></div>
+<h2>B2B SaaS Case Study: How Strategic Link Building Drives LLM Visibility</h2>
+<div class="who"><strong>Konstantin Sadekov</strong> · Ethical SEO</div>
+<div class="lead"><p>Listicle（"Best X for Y" 类榜单文章）是 AI 回答推荐类问题时最主要的引用来源之一；B2B SaaS 与其买便宜 guest post 或在自家站刷 listicle，不如想办法被加进已经有排名的第三方 listicle、或在第三方站发高质量 listicle guest post，并保持全网一致的品牌定位。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Konstantin Sadekov 是 AI SEO agency EthicalSEO 的创始人兼 CEO，帮助美国和欧洲的企业及 SaaS 初创公司提升在传统搜索引擎和 LLM 中的曝光。他常驻爱沙尼亚。他曾与 Remofirst、Ondato、Messente、Younium、Droppe 等公司合作，构建适应 AI 时代的可持续搜索策略。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>Konstantin Sadekov is the Founder and CEO of EthicalSEO, an AI SEO agency helping companies and SaaS startups across the US and Europe increase online visibility in both traditional search engines and LLMs. Based in Estonia - Konstantin has worked with startups and enterprises including Remofirst, Ondato, Messente, Younium and Droppe to build modern, sustainable search strategies that level the playing field in the AI era.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/konstantin-sadekov/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://shenzhenseoconference.com/speakers/konstantin-sadekov" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>Listicle 是客户和 AI 了解你的"房间"</strong>：买家在 AI 里问"最好的 XX 软件是什么"时，AI 需要从某处抓信息，listicle 是最佳来源之一。他以开场故事类比：自己能站上讲台，是因为"在对的时间出现在对的房间"；品牌也要出现在 AI 会去看的房间里。</li>
+<li><strong>Listicle 有效不是巧合，但平台在调整</strong>：根据 Ahrefs 研究，约 50% 的 AI 引用来自 listicle（转写不清，疑为 AI Overviews），其他 AI 平台数字相近；但 ChatGPT 等已意识到这是一种操纵手段，比例在变化。</li>
+<li><strong>正在失效的做法①：从 link farm 市场买便宜 guest post</strong>：这些大多是低质量站，对某些高风险行业还有用，但多数很快失效，是无效投资。</li>
+<li><strong>正在失效的做法②：在自家网站批量发 listicle</strong>：适度、聪明地做仍有效，但别每篇都把自己排第一；过度自我推广会被 Google 发现。</li>
+<li><strong>有效策略 A：挤进已有排名的 listicle</strong>：先穷举品类的所有查询组合，不只 "top 10 XX apps"，还要按使用人群/persona、行业、use case、竞品 alternatives 扩展；找到已经为目标词排名的页面（最好是竞品出现的），找到能改稿的人（SEO/内容负责人或网站所有者），带着交换条件去谈——link exchange（如 ABC 三方交换）、免费试用，甚至直接付费，因为"没人在乎你的产品"。</li>
+<li><strong>有效策略 B：在第三方网站发 listicle guest post</strong>：内容要有 information gain——独特事实、数据，不要填充，因为文章必须能排名，品牌才会出现在 AI 里；外联时展示过往作品、带着价值去谈。</li>
+<li><strong>SEO 更"整体化"，本质是产品营销问题</strong>：LLM 看重 consensus（共识），全网对你这个实体的描述要一致；不要每半年换一次产品定位，否则 AI 会搞不清你是谁。</li>
+<li><strong>规模化 + 争取前 5 名</strong>：不可能拿下所有 listicle，但规模化去做总有一些带来好结果；被收录时尽量进前 5，排在后面的基本不被 LLM 优先采用。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li>约 50% 的 AI 引用来源于 listicle（引用 Ahrefs 研究，具体平台因转写不清未能确认）。</li>
+<li><strong>Wallester（欧洲发 Visa 卡的公司，转写为 "wallister feed"）</strong>：LLM referral traffic 增长近 <strong>800%</strong>，品牌搜索也有增长（转写不清）。</li>
+<li><strong>某案例</strong>：约三年前（listicle 还没成为热门话题时）发布的一篇 listicle guest post，每月带来 <strong>12</strong> 个 organic 转化/线索（转写为 "12 organic pieces per month"，具体指标不确定）。</li>
+<li>另一家瑞典 SaaS 公司可直接归因到这类工作的成果（转写残缺，细节不可辨）。</li>
+<li>工具：Ahrefs Site Explorer、Content Explorer（转写为 "Asia's Explore, Counter explore"）用于找已排名的 listicle 页面。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;No one cares about your product. You need to offer them something valuable.&quot;</blockquote><figcaption>没人在乎你的产品，你得给对方有价值的东西。</figcaption></figure><figure class="quote"><blockquote>&quot;If you don&#x27;t want to confuse the LLMs, you need to have a consistent description of your entity across the web.&quot;</blockquote><figcaption>如果不想让 LLM 困惑，你需要在全网对你的实体有一致的描述。</figcaption></figure><figure class="quote"><blockquote>&quot;I was in the right room at the right time. Now you need to build your own room, so that customers will find you and AI can learn from it.&quot;</blockquote><figcaption>我是在对的时间出现在了对的房间。现在你要打造自己的房间，让客户找到你，让 AI 从中学习。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>为制造业客户建"B2B listicle 查询清单"</strong>：制造业同样存在 "top 10 [product] manufacturers in China"、"best [product] suppliers for [industry]"、"[competitor] alternatives" 这类榜单页，也是 AI 回答"推荐供应商"时的主要来源。可按 品类 × 应用行业 × 买家类型 × 竞品替代 穷举查询，用 Ahrefs 找已有排名的榜单页，作为 GEO 外链方案的目标清单。</li>
+<li><strong>外链策略从"买 guest post"转向"进榜单"</strong>：MML 若仍有依赖外链平台批量采购的做法，应评估替换比例；对已有排名的行业榜单/B2B 目录类文章，准备好交换条件（样品、行业数据、案例、互链、付费收录），并争取进前 5。</li>
+<li><strong>统一客户实体描述是低成本 GEO 动作</strong>：出口工厂常见问题是官网、阿里巴巴国际站、LinkedIn、Made-in-China、展会名录上的公司介绍、成立年份、产能、主营品类不一致。把"全网实体信息一致化"做成 GEO 服务的标准第一步。</li>
+<li><strong>客户自家站的 "Top X manufacturers" 文章要克制</strong>：很多中国工厂站喜欢发 "top 10 XX manufacturers" 并把自己放第一。可以做，但需加入真实对比数据、别篇篇自排第一，避免被判定为自我推广。</li>
+<li><strong>pitch 素材</strong>：用"AI 推荐供应商时约一半引用来自榜单文章"的逻辑向客户解释为什么 GEO 需要站外工作，而不只是改官网。</li>
+</ol></aside>
+<div class="gallery-head"><h3>现场 PPT 照片</h3><span class="count">2 张 · 点击放大，键盘 ← → 翻页</span></div><div class="gallery"><button class="ph" data-src="ppt/IMG_3654.webp" data-cap="Konstantin Sadekov · IMG_3654 · 09:16 16:14" aria-label="放大 PPT 照片 IMG_3654"><img loading="lazy" src="ppt/thumb/IMG_3654.webp" alt="Konstantin Sadekov PPT 照片 IMG_3654"><span>16:14</span></button><button class="ph" data-src="ppt/IMG_3655.webp" data-cap="Konstantin Sadekov · IMG_3655 · 09:16 16:15" aria-label="放大 PPT 照片 IMG_3655"><img loading="lazy" src="ppt/thumb/IMG_3655.webp" alt="Konstantin Sadekov PPT 照片 IMG_3655"><span>16:15</span></button></div>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li><strong>录音不完整</strong>：仅约 8 分钟，从演讲中途开始（开场故事后半段），前面部分（含自我介绍和开场故事前半）缺失；结尾含主持人衔接语。</li>
+<li>ASR 错误较多："yes, goals/yes balls" 为 guest posts，"sauce" 为 SaaS，"whole center app" 疑为 call center app，"information game" 为 information gain，"Ellen referral" 为 LLM referral。</li>
+<li>50% 统计对应的具体 AI 平台、Wallester 案例后半句、"12 organic pieces" 的指标、瑞典 SaaS 案例均转写不清，未作补充。</li>
+</ul></details>
+</section><section class="talk" id="wasin">
+<div class="meta"><span>9/16 · 4:10–4:50 PM</span><span class="type">Lightning</span><span class="src">有录音</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn5u515z819sek1mq7ac7i" target="_blank" rel="noopener">飞书妙记录音 ↗</a><span class="rec-note">合并录音，本场从头开始</span></div>
+<h2>AI Search Can&#x27;t Render Your JavaScript-Heavy Website? SEO Can Fix That</h2>
+<div class="who"><strong>Wasin Mekkit</strong> · Statrys</div>
+<div class="lead"><p>AI crawler 基本不执行 JavaScript，内容藏在 JS 里就等于对 AI 隐形；解决办法不是新东西，而是 server-side rendering、semantic HTML、raw HTML 里的 schema 等 JS SEO 老基本功——Statrys 改版后 AI 访问、转化都翻倍。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Wasin Mekkit 是 Statrys 的 Data &amp; Growth Analyst，自称 Analytics &amp; Digital Growth Expert，将代码、数据、设计和策略结合起来推动可衡量的增长。他兼具 web development 和数据分析能力，专注于"用户看到的内容"与"搜索引擎（包括 AI）实际读取的内容"之间的差距。他认为在 AI 搜索中胜出的品牌并没有做什么新鲜事，只是把基本功做对了。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>Wasin is an Analytics &amp; Digital Growth Expert who connects code, data, design, and strategy to drive measurable growth and impactful digital success. With expertise in both web development and data analytics, his work lives in the gap between what users see and what search engines, including AI, actually read, turning that into real growth for brands. Because the brands winning in AI search today aren't doing anything new. They're just getting the fundamentals right.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/wasin-mekkit/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://shenzhenseoconference.com/speakers/wasin-mekkit" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>大多数网站对 AI 是"隐形"的</strong>：演讲开场引用了一份 2026 年、覆盖超百万数据点的研究，称 73% 的网站存在这个问题（转写不清，大意是 AI 看不到内容）。很多在传统 SEO 上"做对了一切"的站，在 AI 眼里仍然是空白，而且大多数人根本不知道。</li>
+<li><strong>用户看到的 ≠ AI 看到的</strong>：浏览器会执行 JS、渲染出完整页面；AI crawler 只读原始 HTML，不跑 JavaScript、不等加载。内容如果只存在于 JS 渲染之后，AI 看到的就是"什么都没有"。</li>
+<li><strong>不需要学新东西，只要把基本功做对</strong>：SSR、semantic HTML、正确的 robots.txt 配置，这些 JavaScript SEO 的老方法，正好也是让网站对 AI 可见的方法。</li>
+<li><strong>AI 渠道来的访客意图更强、转化更快</strong>：用户在 AI 里已经问过一轮、拿到答案，进站时已经知道自己要什么，是"带着意图准备合作"来的，所以转化时间更短、转化率在各渠道中最高（转写原文不清，大意如此）。</li>
+<li><strong>CDN/Hosting 是"沉默杀手"</strong>：很多 CDN 和主机服务的默认设置会拦截 AI bot，这是大多数人最容易忽略的一步，应该第一个检查。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li><strong>Statrys 官网改版对比</strong>：旧站大量 JavaScript + 动态内容，传统 SEO 表现不错但 AI citation 很少；新站做了 server-side rendering、schema markup、给 agent 的 markdown 版本，"同一公司、同一内容，结果完全不同"。</li>
+<li>改版后（对比前一周期）：</li>
+<li>AI bot 对网站/服务器的请求 <strong>+106%</strong></li>
+<li>AI "live request"（真实用户在 AI 里提问触发的实时抓取，非训练爬虫）<strong>+124%</strong></li>
+<li>organic + AI 合并转化 <strong>+115%</strong></li>
+<li>organic + AI 用户的转化时间 <strong>快 2 倍以上</strong></li>
+<li><strong>AI 可见性检查清单</strong>：
+  1. 先查 CDN 和 hosting 的默认设置是否屏蔽 AI crawler
+  2. robots.txt：确认主流 AI crawler 都能访问
+  3. 内容尽量直接出现在 raw HTML，不依赖 JS 执行后才出现
+  4. semantic HTML（heading、article、section 等标签）帮 AI 理解页面
+  5. schema markup 必须存在于 raw HTML，不能靠 JS / Google Tag Manager 注入
+  6. 最后一项（转写为 "our own page"，推测为 llms.txt）——演讲者认为是加分项、nice to have，不必太重视</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;If the content lives inside JavaScript, AI sees nothing at all.&quot;</blockquote><figcaption>如果内容藏在 JavaScript 里，AI 什么都看不到。</figcaption></figure><figure class="quote"><blockquote>&quot;You don&#x27;t need to learn anything new — just get the basics right.&quot;</blockquote><figcaption>你不需要学任何新东西，把基本功做对就行。</figcaption></figure><figure class="quote"><blockquote>&quot;Check your CDN and hosting first. This is a silent killer that most people miss.&quot;</blockquote><figcaption>先检查 CDN 和主机设置，这是大多数人忽略的沉默杀手。</figcaption></figure><figure class="quote"><blockquote>&quot;Get the fundamentals right, and you will win in both search and AI.&quot;</blockquote><figcaption>把基本功做对，你在搜索和 AI 两边都会赢。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>把"AI 可渲染性"加进现有技术审计 SOP</strong>：很多制造业客户独立站用的是 WordPress + Elementor/页面构建器、或 Shopify/建站平台的 JS 模板，产品参数表、Tab 切换内容、询盘表单经常是 JS 渲染的。审计时用"禁用 JS / curl 原始 HTML"方式逐一检查产品页核心参数是否在 raw HTML 里，这是 GEO 服务最容易落地、最容易给客户演示"前后对比"的切入点。</li>
+<li><strong>Cloudflare 等 CDN 的 AI bot 拦截要列为必查项</strong>：不少出口客户站套了 Cloudflare（或国内建站商自带的防火墙/海外加速），默认可能拦 GPTBot、PerplexityBot 等。这一项检查成本极低，适合作为 GEO 诊断报告的"第一发现"。</li>
+<li><strong>Schema 必须写在 HTML 里，不要靠 GTM 注入</strong>：团队如果有用 GTM 或插件动态加 Product/Organization schema 的做法，需要逐站排查，改为服务端输出。</li>
+<li><strong>销售话术：把 GEO 讲成"基本功升级"而不是新玄学</strong>：对工厂老板可以直接用 Wasin 的逻辑——"不是要您另花一笔钱做新东西，而是把网站底层修好，Google 和 AI 都能读懂"，降低决策门槛；同时引用"AI 来的询盘意图更强、转化更快"作为价值点，并建议在客户 GA4 里单独拆出 AI referral 渠道来验证。</li>
+<li><strong>给陪跑客户出一份可自查的 checklist</strong>：上面 6 条清单可直接改写成中文自查表，作为 12k/月陪跑服务的第一周作业。</li>
+</ol></aside>
+<p class="nophoto">本场没有拍到 PPT 照片。</p>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>录音完整覆盖该 Lightning Talk，但 ASR 质量较差：主持人把名字读成 "Wasim Mekin"，结尾 "Was seen naked" 为 "Wasin Mekkit" 的误识别；"status" 为公司名 Statrys。</li>
+<li>开场"73% 的网站"那句转写残缺，研究来源和具体指标（"对 AI 不可见"的定义）无法确认。</li>
+<li>"commission rate of AI visitor is one place" 推测为"AI 访客转化率在所有渠道中排第一"，未能 100% 确认。</li>
+<li>清单最后一项 "our own page" 推测为 llms.txt，仅为推断。</li>
+</ul></details>
+</section><section class="talk" id="helen">
+<div class="meta"><span>9/16 · 4:10–4:50 PM</span><span class="type">Lightning</span><span class="src">有录音</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn5u515z819sek1mq7ac7i" target="_blank" rel="noopener">飞书妙记录音 ↗</a><span class="rec-note">合并录音，约 09:41 起</span></div>
+<h2>Stop Crawling, Start Querying: A New Way to Do Technical SEO at Scale</h2>
+<div class="who"><strong>Helen Han</strong> · Easygo</div>
+<div class="lead"><p>与其一次次跑耗时的全站 crawl，不如直接用 API + 查询语言（Sanity CMS 的 GROQ）从 CMS 数据源里"查"出问题并批量修复——6,000 页的 anchor text 20 秒拿到、hreflang 从 15 分钟变 5 秒，而且每个 query 都能复用。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Helen Han 是常驻墨尔本的 Technical SEO Executive（Easygo），擅长把复杂 SEO 问题转化为可规模化的自动化方案。她有商科与营销背景，利用 Sanity、GROQ 和数据驱动的工作流推动全球市场的自然增长。她开发了一个"全球首创"的 GROQ 查询，可在数秒内提取 anchor text 及对应 URL，处理超过 200,000 个 URL。她获得 B&amp;T 30 Under 30（Tech 类）奖项，入围 Women Leading Tech Awards 2026，并是 WTSFest Melbourne 2025 最年轻的演讲者。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>Helen Han is a Melbourne-based Technical SEO Executive known for transforming complex SEO challenges into scalable, automated solutions. With a background in business and marketing, she blends strategic thinking with hands-on execution, leveraging tools like Sanity, GROQ, and data-driven workflows to drive organic growth across global markets. She engineered a world-first GROQ query that extracts anchor text and paired URLs in seconds, processing over 200,000 URLs with exceptional speed and precision. Helen is a winner of the B&amp;T 30 Under 30 Award (Tech category), a finalist for the Women Leading Tech Awards 2026, and the youngest speaker at WTSFest Melbourne 2025. She is passionate about pushing the boundaries of automation in SEO and sharing innovative, scalable approaches with the industry.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/helenhanau/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://shenzhenseoconference.com/speakers/helen-han" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>Crawler 好用，但单靠 crawler 不够</strong>：Screaming Frog 等工具擅长全站扫描（broken links、redirects、duplicate content）、on-page 检查、checklist audit 以及 custom extraction（她团队用它抓返回 200 的 soft 404 页面）。但它慢、耗资源，一旦开始就被"锁住"，配置错一项可能浪费一整天。</li>
+<li><strong>Crawler 做不到的事</strong>：比如 5 分钟内列出 10 万、20 万甚至上百万 URL 大站的全部页面和问题；另外还带来大量手工活——导出 CSV、清洗、文件大到没法分享。她强调这不是大站独有的问题，各种规模的团队都会遇到。</li>
+<li><strong>高产内容团队需要自动化，而不是更长的 crawl</strong>：内容产量大时，刷新数据、修复 broken content 成为头号优先级，手工工作流撑不住。</li>
+<li><strong>Headless CMS（Sanity）把内容当结构化数据</strong>：Sanity 前后端分离、可自定义 studio、有强大 API，不像其他 CMS 把人锁在模板里，因此可以直接对内容"下查询"。（她声明不是 Sanity 赞助。）</li>
+<li><strong>GROQ 让人工搜索变成自动查询</strong>：GROQ 是 Sanity 的查询语言，只取需要的数据、实时拿到最新内容和链接，一个 query 就能完成原来要 crawl + 导出 + 清洗的工作；切换多语言只需改一行过滤条件。</li>
+<li><strong>Query 可复用 = 问题解决一次，永久解决</strong>：每个写好的 query 都是资产，同样的问题再出现时一键运行。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li><strong>案例 1：导出某语言全部 URL</strong>——在 SEO blog 文件夹中只取英文 URL，一键返回 live URL、CMS URL 和 metadata；改一行即可切到中文、西班牙语。</li>
+<li><strong>案例 2：全站 slug + anchor text 映射</strong>——她称为"世界首个"从 Sanity CMS 抓取 anchor text 与内链的 GROQ query：<strong>6,000+ 页面，20 秒，一个 query</strong>；输出每个 URL（slug）及所有指向它的 anchor text。</li>
+<li><strong>案例 3：多市场 hreflang 工具</strong>——面对 10 个市场、不同域名/语言/CMS，她用 GROQ 做引擎搭了工具：粘贴 URL → 抓取所有市场里已有的 hreflang tags → 按站点和语言匹配校验生成 hreflang 列表 → 通过 API 推回 CMS 作为 draft 供人工审核。<strong>人工 15 分钟 → 5 秒</strong>。</li>
+<li><strong>案例 4：Bulk update 工具（演讲一周前刚做）</strong>——一次扫描 <strong>22,000 个文档</strong>，找出 <strong>400+ 个人为错误</strong>（错误 URL、非 HTTPS URL、重复 URL），附 anchor text 和回到 CMS 的修复链接；支持批量改 URL、改 slug、改 anchor text，<strong>人工减少 95%，4-5 小时替代数百小时工作</strong>。</li>
+<li>工具：Screaming Frog（custom extraction）、Sanity CMS、GROQ、Sanity API。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;I&#x27;m not against crawlers — I&#x27;m a big fan of Screaming Frog. But crawlers alone can&#x27;t solve every problem.&quot;</blockquote><figcaption>我不反对 crawler，我是 Screaming Frog 的铁粉，但只靠 crawler 解决不了所有问题。</figcaption></figure><figure class="quote"><blockquote>&quot;Once you can figure it out, you can automate everything.&quot;</blockquote><figcaption>一旦你想清楚了，一切都能自动化。</figcaption></figure><figure class="quote"><blockquote>&quot;Every query I write is reusable. You solve the problem once, you solve it forever.&quot;</blockquote><figcaption>我写的每一个 query 都可复用：问题解决一次，就永久解决。</figcaption></figure><figure class="quote"><blockquote>&quot;Stop crawling, start querying.&quot;</blockquote><figcaption>别再爬了，开始查询吧。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>"查数据源"思路套到 WordPress 客户站</strong>：MML 绝大多数制造业客户站应是 WordPress，同样可以绕开 crawl，直接用 WP REST API / 数据库 SQL 查询导出全部产品页 URL、title、meta、内链 anchor text。建议技术组把最常用的 5-10 个查询（如：全站内链 anchor 映射、缺 meta 的产品页、非 HTTPS 链接、指向 404 的内链）写成固定脚本，跨客户复用。</li>
+<li><strong>批量修"人为错误"做成标准交付项</strong>：客户自己或建站商上传产品时经常留下 http 链接、错误 URL、重复 URL；参考 Helen 的 bulk update 思路，做一个"一次扫描 + 批量替换 + 人工审核"的工具，可以把每个客户的月度技术维护工时大幅压缩，释放 SEO 专员人力给内容和外链。</li>
+<li><strong>多语种站 hreflang 自动化</strong>：部分出口客户有西语、俄语、阿语等小语种站（常见是翻译插件或子目录），hreflang 出错率高。可用"抓现有标签 → 按语言匹配校验 → 生成 draft 人审"的流程做成工具，作为多语种客户的增值服务。</li>
+<li><strong>把可复用脚本当公司资产沉淀</strong>：45 人团队里，每个专员各自跑 Screaming Frog、各自清洗 CSV 是重复劳动。建立内部"query/脚本库"，新员工也能一键跑，是提升 代运营 人效的直接抓手。</li>
+</ol></aside>
+<p class="nophoto">本场没有拍到 PPT 照片。</p>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>录音完整覆盖该 Lightning Talk。主持人介绍时名字被识别为 "Helen Pan"，公司 "Easy Go" 即 Easygo；"Sally/Sandy/stream at CMS" 均为 Sanity CMS；"grok/rock" 为 GROQ；"Spring Frog" 为 Screaming Frog；"page 1 tags" 为 hreflang tags。</li>
+<li>该段的第 2 位讲者通过内容（Sanity CMS、GROQ、hreflang 自动化、Easygo）与议程/简介匹配确认为 Helen Han，而非 Killian Kostiha 或 Konstantin Sadekov；本文件中未出现 Killian 的演讲。</li>
+<li>结尾 "Stop crawling, stop querying" 为口误/转写错误，应为 "start querying"。</li>
+<li>部分细节（如 "I have 70. Disclaimer" 一句）转写不清，已略去。</li>
+</ul></details>
+</section><section class="talk" id="siquan">
+<div class="meta"><span>9/16 · 4:50–5:10 PM</span><span class="type">Field Talk</span><span class="src">有录音</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn5u515z819sek1mq7ac7i" target="_blank" rel="noopener">飞书妙记录音 ↗</a><span class="rec-note">合并录音，约 20:02 起</span></div>
+<h2>How I Automated 144 Ahrefs Blog Updates a Year with AI</h2>
+<div class="who"><strong>Si Quan Ong</strong> · Ahrefs</div>
+<div class="lead"><p>内容更新对 Google 和 AI 引用都重要，但没人愿意做；SQ 用 AI agent 把数据型博客的更新流程自动化（取数、清洗、排版、推 WordPress 草稿），从每年 40 次更新提升到 144 次，但始终坚持由人来审核和发布——用 AI 省下时间去做更好的事，而不是生产更多内容。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Si Quan Ong（SQ）是 Ahrefs 的 Senior Content Marketer，Ahrefs 是基于大数据的 AI 营销平台。他专注于发布能帮助营销人员更好完成工作或激发新想法的内容。他还是 Ahrefs 每周行业精选 newsletter "Ahrefs' Digest" 的主要编辑。他的演讲将分享如何用 AI 每年自动更新 144 篇 Ahrefs 博客文章。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>Si Quan (SQ) is a senior content marketer at Ahrefs, the AI marketing platform powered by big data. He focuses on publishing content that'll help other marketers do their job better or spark new ideas. He's also the main curator of Ahrefs' Digest, the company's weekly newsletter featuring the best content in the industry.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/si-quan-ong/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/siquanong" target="_blank" rel="noopener">X</a> · <a href="https://shenzhenseoconference.com/speakers/si-quan-ong" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>内容新鲜度对 AI 引用同样关键</strong>：Ahrefs 研究显示 AI 引用的内容比传统搜索结果更新；各平台偏好不同，ChatGPT 最偏爱新内容，Google AI Overviews 反而偏好较老内容。所以更新内容不只为 Google，也为 AI citations 和 mentions。</li>
+<li><strong>更新不是一次性的，所以没人做</strong>：更新后流量会跳升，但过一段时间又会衰减，必须反复做。博客有几百篇文章时，新内容和旧内容更新互相挤占时间，团队只能在"能持续负担"的范围内做。</li>
+<li><strong>"简单更新"其实是一长串枯燥流程</strong>：数据型文章要从 Brand Radar、Keywords Explorer、内部工具分别导出数据，清洗垃圾词和 NSFW 词、把问题反馈给数据团队、重排表格、找设计团队重做配图、审核再发布。没人因为做这件事被加薪或升职，老板看过去"页面好像没变"。</li>
+<li><strong>从你已经懂的、重复发生的工作开始自动化</strong>：好的起点是：会反复出现、流程基本稳定、对业务有明确价值（Ahrefs 用 business potential 3/2/1/0 打分，这些数据文章约为 2）、结果好坏你一眼能判断。不需要会写代码，但需要有"品味"，知道什么是好、什么是错。</li>
+<li><strong>先定义"好"，再写 brief，让 AI 先出计划</strong>：写清触发条件、输入、AI 要做的动作、需要人判断的环节和交付节点；给出字段、格式、排除规则和示例。他不喜欢直接开 auto mode，而是先让 AI 给出计划，因为"改计划比推倒重来容易"。</li>
+<li><strong>分阶段搭建，先 pilot 再扩展</strong>：先把 "top Google searches" 一篇跑通，再扩到其他文章；流程中设检查点，出错时回到上一阶段修，而不必从头开始（这是从内容营销总监 Ryan 那学到的）。</li>
+<li><strong>AI 一定会犯错，人要持续"训练"它</strong>：即使 brief 里写明排除《How to Train Your Dragon》这类片名，它仍会犯；它也不知道某些韩剧名，还会把 "interview questions""trivia questions" 这类"含 questions 的类目词"当成问题。需要反复纠正。</li>
+<li><strong>AI slop 的定义：人放弃了责任</strong>：用 AI 做东西不等于 slop，slop 是人把一切甩给 AI、不再负责。他坚持从不让 AI 直接发布，自己审核、自己点发布，"为我发布的东西背书"。</li>
+<li><strong>AI 应该省时间，而不只是省成本</strong>：Ahrefs 的 Ryan 已做出从关键词到可发布草稿（含配图）的全自动 pipeline，但 Ahrefs 仍只每周发 1-2 篇，因为互联网已充斥 slop；省下的时间应用来做更好、更大、从没做过的、更有创意的东西。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li><strong>Ahrefs AI 引用新鲜度研究</strong>：分析 1,700 万条 AI citations；AI 引用内容比常规 Google 结果新 <strong>25.7%</strong>；AI 助手引用页面平均约 <strong>2.9 年</strong>，organic 结果平均约 <strong>3.9 年</strong>；ChatGPT 引用内容平均年龄约 <strong>958 天</strong>，Google AI Overviews 偏好更老的内容。</li>
+<li><strong>Link reclamation 文章案例</strong>：长期几乎无流量，2024 年更新后跳到约 <strong>1,885</strong> 月访问峰值（转写为 "thousand eight hundred eighty five"），之后受 AI Overviews 影响及内容再次变旧，现已较峰值下降 <strong>67%</strong>。</li>
+<li><strong>需持续更新的数据型文章</strong>：top Google searches、top Google questions、most expensive keywords、most searched people、trending topics，以及 Brand Radar 中 7 个 AI 索引的 most cited domains。"Top Google searches" 每次更新流量就冲高，1-2 个月后回落。</li>
+<li><strong>自动化前后</strong>：原本想月更但只能季更，每年约 <strong>40 次</strong>更新 → 自动化后月更，每年 <strong>144 次</strong>。</li>
+<li><strong>自动化流程</strong>：每月自动从 Keywords Explorer、Brand Radar、内部服务拉数据 → 用 LLM 清洗、识别实体（如"most searched people"要判断哪些是真实人物）并交叉核对 → 排版表格 → 列出被删除的条目供复核 → 直接更新 WordPress 草稿 → 每月初发邮件通知"草稿已就绪待审" → 人审核后点发布。工具为 Ahrefs 自家 AI agent（转写不清），他表示用 Codex 或 Claude Code 之类连上数据源同样可以做。</li>
+<li><strong>团队扩散</strong>：同事 Louise 用同法自动更新"各行业增长最快公司"系列数据文章；Ryan 也受启发。</li>
+<li><strong>可自动化的其他场景</strong>：给老板的月度绩效报告；每周网站审计（Ahrefs 自己的周审计会自动给开发提 GitHub PR）；content decay 监测工具；本周丢失的 backlinks；开始为你关键词排名的 Reddit 帖子；每天早上汇总竞品新文章发到邮箱（Ryan 的做法）；内链建议工具（输入链接，告诉你该在哪里加内链、怎么写）；监测品牌在 ChatGPT、Perplexity、Gemini 等中的出现情况及描述好坏——他们曾借此发现 AI Overview 给出错误的 Ahrefs 定价并修正。</li>
+<li><strong>推荐书</strong>：Eliyahu Goldratt《The Goal》（theory of constraints：任何时刻只有一个瓶颈，修非瓶颈的地方都是浪费）。他还提到某内容营销 agency（转写为 "animals"，疑为 Animalz）的人为避免被 AI 影响回归纸笔构思。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;Everyone knows content updating is important, but nobody wants to do it.&quot;</blockquote><figcaption>人人都知道更新内容重要，但没人想做。</figcaption></figure><figure class="quote"><blockquote>&quot;It&#x27;s easier to fix the plan than to restart again.&quot;</blockquote><figcaption>改计划比推倒重来容易。</figcaption></figure><figure class="quote"><blockquote>&quot;AI slop doesn&#x27;t mean you used AI to make something. AI slop means the human abdicates responsibility.&quot;</blockquote><figcaption>AI slop 不是指用了 AI，而是指人放弃了责任。</figcaption></figure><figure class="quote"><blockquote>&quot;I never let AI publish for me. I want to be the one publishing — I can stand behind what I publish.&quot;</blockquote><figcaption>我从不让 AI 替我发布。我要亲自发布，为我发布的东西负责。</figcaption></figure><figure class="quote"><blockquote>&quot;We want to use AI to save time, so that we can use the time we saved to make something better, bigger.&quot;</blockquote><figcaption>我们用 AI 是为了省时间，再用省下的时间做更好、更大的东西。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>为客户做"数据型/参数型"常青页并自动月更</strong>：制造业客户有天然可持续更新的数据：原材料价格走势、行业出口数据、产品规格对照表、认证标准清单、FAQ。挑 1-2 个客户试点一个"月度更新型"页面（如某品类 price trend / buying guide），用 AI agent 自动拉数据、更新 WordPress 草稿、专员审核发布，既服务 Google 也提高 AI citation 的新鲜度。</li>
+<li><strong>按 SQ 的 5 要素给内部重复工作写 brief</strong>：MML 月报、周度技术巡检、客户外链丢失提醒、竞品新内容监测、内链建议，都是"重复、稳定、结果好坏一眼可判"的工作。建议每个部门先挑一个，写清 触发/输入/动作/人工判断/交付，先 pilot 一个客户跑通再推广全部客户，直接提升 代运营 人效。</li>
+<li><strong>"人审核、人发布"写进内容 SOP 和对客承诺</strong>：AI 批量生产内容风险高，MML 可以对外明确"AI 提效，但每篇由专员审核发布、对内容负责"，这恰好是对抗低价 AI 批量写文竞争者的差异化卖点。</li>
+<li><strong>AI 可见性监测作为 GEO 服务的切入产品</strong>：参考 Ahrefs 发现 AI Overview 报错定价的案例，定期监测客户品牌/产品在 ChatGPT、Perplexity、Gemini、AI Overviews 中的描述是否准确（如产能、认证、MOQ、所在地），发现错误就修正源头页面——很适合向工厂老板演示"AI 在怎么介绍你"。</li>
+<li><strong>用"省时间做更好的事"而非"降成本多发文"来定位陪跑服务</strong>：给陪跑客户讲 AI 内容时，引导他们少发、发好，把省下的时间用在案例、工厂实拍、工程师观点等 AI 做不出的内容上。</li>
+</ol></aside>
+<div class="gallery-head"><h3>现场 PPT 照片</h3><span class="count">1 张 · 点击放大，键盘 ← → 翻页</span></div><div class="gallery"><button class="ph" data-src="ppt/IMG_3656.webp" data-cap="Si Quan Ong · IMG_3656 · 09:16 17:10" aria-label="放大 PPT 照片 IMG_3656"><img loading="lazy" src="ppt/thumb/IMG_3656.webp" alt="Si Quan Ong PPT 照片 IMG_3656"><span>17:10</span></button></div>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>演讲部分完整（约 20 分钟），ASR 把 Ahrefs 识别成 "hress/HR's/address/H rest/interest"，把 Brand Radar 识别成 "Brand Raider"，人名 SQ 的中文名被识别为 "Si Chun"。</li>
+<li>他使用的 AI agent 名称转写为 "the data / let AI do / little I do"，无法确认具体产品名。</li>
+<li>1,885 月访问、"animals" agency 等个别细节基于转写推断。</li>
+<li>录音结尾有主持人简短收尾，无 Q&amp;A。</li>
+</ul></details>
+</section><div class="day-divider" id="day-9-17">Day 4 · 9 月 17 日</div><section class="talk" id="eli">
+<div class="meta"><span>9/17 · 9:30–10:10</span><span class="type">Keynote</span><span class="src">有录音</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn5u6u612579y1bq9ge62o" target="_blank" rel="noopener">飞书妙记录音 ↗</a><span class="rec-note">合并录音，本场从头开始</span></div>
+<h2>The 3 Pillars of AEO</h2>
+<div class="who"><strong>Eli Schwartz</strong> · Product-Led SEO 作者</div>
+<div class="lead"><p>AI 没有改变人类需求，只改变了发现路径：别再盯排名和 prompt，而是用「用户同理心 → 做真正解决痛点的资产 → 积累真实 citations」的闭环来做 AEO，并主动讲清楚无法归因的价值。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Eli Schwartz 是数字营销思想领袖和营销顾问，著有畅销书《Product-Led SEO》，新书《Customer Intelligence》将由 Wiley 出版。他有十多年经验，帮助 LinkedIn、Tinder、Wordpress、Quora、Coinbase 等公司从传统自然流量打法转向以产品为中心的增长模式。他经常在全球大型行业会议演讲，包括多次在 Google 园区，以及 Stanford、Duke 和五大洲的技术峰会，分享构建可持续自然流量渠道的实操框架。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>Eli Schwartz is a renowned digital marketing thought leader, marketing consultant, author of the best-selling book Product-Led SEO, and an upcoming book to be published with Wiley: Customer Intelligence. With over a decade of experience helping companies like LinkedIn, Tinder, Wordpress, Quora, Coinbase and more transition from traditional organic marketing tactics to strategic, product-centric growth models. He is a frequent speaker at major industry conferences globally, including at Google's campus on multiple occasions, Stanford, Duke, and various technology summits on five continents, where he shares actionable frameworks for building sustainable organic channels.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/schwartze/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/5le" target="_blank" rel="noopener">X</a> · <a href="https://shenzhenseoconference.com/speakers/eli-schwartz" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>别问"2027 年搜索还在不在"</strong>：搜索存在是因为用户需求，不是因为搜索框。移动端取代桌面时没人说 SEO 已死，AI 只是又一次界面变化，旅程和布局变了，但不是根本性转变。</li>
+<li><strong>流量下降≠价值下降</strong>：他的客户流量普遍下降 40% 到 60% 以上，但 AI 在前面筛掉了"tire kickers"（只看不买的人），到站用户更合格、转化更高。电商总购买量并没有因 AI 增加，只是路径变了，所以流量、排名本来就不是好的成功指标。</li>
+<li><strong>Prompt 追踪是伪命题</strong>：prompt 不代表你的买家，且 LLM 会按用户上下文和历史个性化回答。Google 仍是主战场，份额约 90%，他认为最坏也在 80% 左右，重点仍应放在 Google。</li>
+<li><strong>支柱一：像用户一样思考（jobs to be done）</strong>：关键是 "why" 而不是 "what"。例如搜 "Chinese SEO agency" 的人，是因为在海外需要懂中国的人，还是因为身在中国？手段包括小样本问卷、访谈、旁听销售通话、看客服记录、Google Suggest、Reddit，以及画用户旅程找 friction。如果用户旅程里根本没有搜索这一步，就不该在这个渠道砸钱。</li>
+<li><strong>支柱二：做资产，不做"内容"</strong>：要做的是能解决用户问题的产品或资产（工具、图片、目录等），不是为排名堆出来的文章。不要靠 hack 做 AEO，LLM 会越来越聪明，窗口会关上。为 AEO 做的东西如果伤害 SEO（例如低质 programmatic 页面、为 prompt 改写长文），得不偿失。</li>
+<li><strong>支柱三：citations 不是 backlinks</strong>：citation 是全网对你是谁、你做什么的共识，无法伪造。如果你其实不是最好的，却硬造"最好"的提及，模型会看到其他反面信息。比喻：做 SEO 的"最佳披萨店"只会给店名和外链都塞上 best pizza，真正的最佳披萨店靠的是做出最好的披萨。</li>
+<li><strong>三个支柱是一个循环</strong>：empathy → asset → reputation → feedback，然后不断迭代。大多数营销计划死在做完一轮就停下。</li>
+<li><strong>归因：主动认领，讲好故事</strong>：AI 带来的旅程多是"暗"的（Slack 转发、口碑传播）。SEO/AEO 团队应主动认领 direct 流量、品牌搜索和 pipeline 增长的一部分，用有逻辑的故事说服老板。品牌团队同样无法追踪每个看到广告的人，照样能拿到预算。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li>客户流量下降 40% 到 60% 以上；Google 份额约 90%，最坏估计约 80%。</li>
+<li>约会网站（化名）：原博客写"第一次约会""怎么说我爱你"，但搜这些的人不是会转化的用户。他下载 app，访谈销售、客服和品牌团队后发现，新用户最主要的触发点是搬到新城市（永久或临时），SEO 围绕这个痛点重建后效果显著（未披露数字）。</li>
+<li>汽车内容网站：零件类内容被 AI 冲击后，转而把二手车 listing 做成分类信息目录资产。</li>
+<li>软件点评平台：成功指标不是点击，而是"被提及为好的评测来源"的次数，因为这对销售有帮助。</li>
+<li>车险比价公司（Q&amp;A）：一开始说"所有有车的人都是用户"，追问后发现 40% 的转化来自 30 到 40 多岁的女性。</li>
+<li>他称曾问过 John Mueller，Google 是否会用街景类图像作为判断信号（转写不清），对方表示会用但没解释怎么用。</li>
+<li>他服务过的公司（转写模糊）包括 LinkedIn、Coinbase 等。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;Search exists because of users, not because of the search box.&quot;</blockquote><figcaption>搜索因用户而存在，而不是因为那个搜索框。</figcaption></figure><figure class="quote"><blockquote>&quot;There&#x27;s so much more impact in the why than the what.&quot;</blockquote><figcaption>搞懂&quot;为什么搜&quot;，远比搞懂&quot;搜什么&quot;重要。</figcaption></figure><figure class="quote"><blockquote>&quot;User needs don&#x27;t change as frequently as technology does.&quot;</blockquote><figcaption>用户需求变得没有技术那么快。</figcaption></figure><figure class="quote"><blockquote>&quot;If you want to be the best pizza shop in town, you serve the best pizza.&quot;</blockquote><figcaption>想当城里最好的披萨店，就去做最好的披萨。</figcaption></figure><figure class="quote"><blockquote>&quot;Attribution will always be a problem. We solve it with better storytelling, with better logic.&quot;</blockquote><figcaption>归因永远是难题，要靠更好的故事和逻辑来解决。</figcaption></figure></div><h3>Q&amp;A</h3><ul>
+<li>Q1（转写严重不清）：小团队有多个软件产品或用例，应该先做哪个？答：以车险比价公司为例，找出转化最集中的人群和产品，把精力集中在投入产出最高的地方，并和销售实际主推的一两个卖点保持一致。</li>
+<li>Q2：能否用"你从哪里听说我们"这类自报归因？答：可以用，但似乎提醒不要设为必填，否则会损失转化（转写不清）。归因始终是难题，应靠讲清楚的故事和逻辑来说服客户或老板。</li>
+</ul></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>把"why"访谈做成标准动作</strong>：新客户启动时，旁听客户外贸业务员 2 到 3 通买家电话，并整理过去一年的询盘原文，提炼买家的触发场景（例如换供应商、原供应商交期出问题、新产品线认证需求），再倒推页面和内容，而不是先拉关键词表。这可以直接放进 12k/月 陪跑课程作为第一课。</li>
+<li><strong>销售前先画买家旅程</strong>：像 Eli 在咨询中那样，先问客户"你的海外买家是怎么找到你的"。如果主要靠展会或老客户介绍，就诚实说明 SEO 在这里不是第一优先，这反而能建立信任，也能避免签下注定续不了约的客户。</li>
+<li><strong>月报从"流量排名"改成"询盘质量 + 品牌搜索 + direct"</strong>：提前告诉客户，AI 时代流量可能下降但询盘质量会上升，并在报告里主动认领品牌词搜索和 direct 流量的增长，用一套讲得通的逻辑来说明价值，防止客户因流量曲线下滑而流失。</li>
+<li><strong>GEO 服务不卖"prompt 排名"</strong>：Eli 明确说 prompt 追踪是伪命题。GEO 产品应围绕工厂的真实能力（认证、产能、案例）做资产，并在行业媒体、目录、展会报道中积累真实提及，而不是卖假 citation 或低质 programmatic 页面。</li>
+<li><strong>咨询里用"资产"思维</strong>：帮制造业客户做选型工具、规格对比表、应用场景图库等，作为可以被 AI 和买家反复引用的资产。</li>
+</ol></aside>
+<div class="gallery-head"><h3>现场 PPT 照片</h3><span class="count">22 张 · 点击放大，键盘 ← → 翻页</span></div><div class="gallery"><button class="ph" data-src="ppt/IMG_3662.webp" data-cap="Eli Schwartz · IMG_3662 · 09:17 09:32" aria-label="放大 PPT 照片 IMG_3662"><img loading="lazy" src="ppt/thumb/IMG_3662.webp" alt="Eli Schwartz PPT 照片 IMG_3662"><span>09:32</span></button><button class="ph" data-src="ppt/IMG_3664.webp" data-cap="Eli Schwartz · IMG_3664 · 09:17 09:37" aria-label="放大 PPT 照片 IMG_3664"><img loading="lazy" src="ppt/thumb/IMG_3664.webp" alt="Eli Schwartz PPT 照片 IMG_3664"><span>09:37</span></button><button class="ph" data-src="ppt/IMG_3665.webp" data-cap="Eli Schwartz · IMG_3665 · 09:17 09:38" aria-label="放大 PPT 照片 IMG_3665"><img loading="lazy" src="ppt/thumb/IMG_3665.webp" alt="Eli Schwartz PPT 照片 IMG_3665"><span>09:38</span></button><button class="ph" data-src="ppt/IMG_3666.webp" data-cap="Eli Schwartz · IMG_3666 · 09:17 09:39" aria-label="放大 PPT 照片 IMG_3666"><img loading="lazy" src="ppt/thumb/IMG_3666.webp" alt="Eli Schwartz PPT 照片 IMG_3666"><span>09:39</span></button><button class="ph" data-src="ppt/IMG_3667.webp" data-cap="Eli Schwartz · IMG_3667 · 09:17 09:39" aria-label="放大 PPT 照片 IMG_3667"><img loading="lazy" src="ppt/thumb/IMG_3667.webp" alt="Eli Schwartz PPT 照片 IMG_3667"><span>09:39</span></button><button class="ph" data-src="ppt/IMG_3668.webp" data-cap="Eli Schwartz · IMG_3668 · 09:17 09:40" aria-label="放大 PPT 照片 IMG_3668"><img loading="lazy" src="ppt/thumb/IMG_3668.webp" alt="Eli Schwartz PPT 照片 IMG_3668"><span>09:40</span></button><button class="ph" data-src="ppt/IMG_3670.webp" data-cap="Eli Schwartz · IMG_3670 · 09:17 09:41" aria-label="放大 PPT 照片 IMG_3670"><img loading="lazy" src="ppt/thumb/IMG_3670.webp" alt="Eli Schwartz PPT 照片 IMG_3670"><span>09:41</span></button><button class="ph" data-src="ppt/IMG_3671.webp" data-cap="Eli Schwartz · IMG_3671 · 09:17 09:42" aria-label="放大 PPT 照片 IMG_3671"><img loading="lazy" src="ppt/thumb/IMG_3671.webp" alt="Eli Schwartz PPT 照片 IMG_3671"><span>09:42</span></button><button class="ph" data-src="ppt/IMG_3672.webp" data-cap="Eli Schwartz · IMG_3672 · 09:17 09:43" aria-label="放大 PPT 照片 IMG_3672"><img loading="lazy" src="ppt/thumb/IMG_3672.webp" alt="Eli Schwartz PPT 照片 IMG_3672"><span>09:43</span></button><button class="ph" data-src="ppt/IMG_3673.webp" data-cap="Eli Schwartz · IMG_3673 · 09:17 09:44" aria-label="放大 PPT 照片 IMG_3673"><img loading="lazy" src="ppt/thumb/IMG_3673.webp" alt="Eli Schwartz PPT 照片 IMG_3673"><span>09:44</span></button><button class="ph" data-src="ppt/IMG_3675.webp" data-cap="Eli Schwartz · IMG_3675 · 09:17 09:45" aria-label="放大 PPT 照片 IMG_3675"><img loading="lazy" src="ppt/thumb/IMG_3675.webp" alt="Eli Schwartz PPT 照片 IMG_3675"><span>09:45</span></button><button class="ph" data-src="ppt/IMG_3676.webp" data-cap="Eli Schwartz · IMG_3676 · 09:17 09:47" aria-label="放大 PPT 照片 IMG_3676"><img loading="lazy" src="ppt/thumb/IMG_3676.webp" alt="Eli Schwartz PPT 照片 IMG_3676"><span>09:47</span></button><button class="ph" data-src="ppt/IMG_3677.webp" data-cap="Eli Schwartz · IMG_3677 · 09:17 09:48" aria-label="放大 PPT 照片 IMG_3677"><img loading="lazy" src="ppt/thumb/IMG_3677.webp" alt="Eli Schwartz PPT 照片 IMG_3677"><span>09:48</span></button><button class="ph" data-src="ppt/IMG_3678.webp" data-cap="Eli Schwartz · IMG_3678 · 09:17 09:49" aria-label="放大 PPT 照片 IMG_3678"><img loading="lazy" src="ppt/thumb/IMG_3678.webp" alt="Eli Schwartz PPT 照片 IMG_3678"><span>09:49</span></button><button class="ph" data-src="ppt/IMG_3679.webp" data-cap="Eli Schwartz · IMG_3679 · 09:17 09:55" aria-label="放大 PPT 照片 IMG_3679"><img loading="lazy" src="ppt/thumb/IMG_3679.webp" alt="Eli Schwartz PPT 照片 IMG_3679"><span>09:55</span></button><button class="ph" data-src="ppt/IMG_3680.webp" data-cap="Eli Schwartz · IMG_3680 · 09:17 09:58" aria-label="放大 PPT 照片 IMG_3680"><img loading="lazy" src="ppt/thumb/IMG_3680.webp" alt="Eli Schwartz PPT 照片 IMG_3680"><span>09:58</span></button><button class="ph" data-src="ppt/IMG_3681.webp" data-cap="Eli Schwartz · IMG_3681 · 09:17 09:59" aria-label="放大 PPT 照片 IMG_3681"><img loading="lazy" src="ppt/thumb/IMG_3681.webp" alt="Eli Schwartz PPT 照片 IMG_3681"><span>09:59</span></button><button class="ph" data-src="ppt/IMG_3683.webp" data-cap="Eli Schwartz · IMG_3683 · 09:17 10:01" aria-label="放大 PPT 照片 IMG_3683"><img loading="lazy" src="ppt/thumb/IMG_3683.webp" alt="Eli Schwartz PPT 照片 IMG_3683"><span>10:01</span></button><button class="ph" data-src="ppt/IMG_3684.webp" data-cap="Eli Schwartz · IMG_3684 · 09:17 10:02" aria-label="放大 PPT 照片 IMG_3684"><img loading="lazy" src="ppt/thumb/IMG_3684.webp" alt="Eli Schwartz PPT 照片 IMG_3684"><span>10:02</span></button><button class="ph" data-src="ppt/IMG_3685.webp" data-cap="Eli Schwartz · IMG_3685 · 09:17 10:06" aria-label="放大 PPT 照片 IMG_3685"><img loading="lazy" src="ppt/thumb/IMG_3685.webp" alt="Eli Schwartz PPT 照片 IMG_3685"><span>10:06</span></button><button class="ph" data-src="ppt/IMG_3686.webp" data-cap="Eli Schwartz · IMG_3686 · 09:17 10:07" aria-label="放大 PPT 照片 IMG_3686"><img loading="lazy" src="ppt/thumb/IMG_3686.webp" alt="Eli Schwartz PPT 照片 IMG_3686"><span>10:07</span></button><button class="ph" data-src="ppt/IMG_3688.webp" data-cap="Eli Schwartz · IMG_3688 · 09:17 10:09" aria-label="放大 PPT 照片 IMG_3688"><img loading="lazy" src="ppt/thumb/IMG_3688.webp" alt="Eli Schwartz PPT 照片 IMG_3688"><span>10:09</span></button></div>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>标题"2 Pillars"与内容不符，实际讲了三个支柱。演讲主体（00:31–40:04）完整，但 13:00–25:46 这一段是一整块不分段的长文本，ASR 错误很多（例如 "LMS/Ellen/L a" 应为 LLM，"AO/a" 应为 AEO，"Shanzan" 应为 Shenzhen）。</li>
+<li>Q&amp;A 部分提问者被错误标注为 "Josh Blyskal"（40:51、43:36），实际是现场观众；40:04 那句 "this is perfect" 也可能是主持人说的。</li>
+<li>中间有一段现场互动，他让全场起立合影；"trillions of dollars" 那一句数据含义不清，未采用。</li>
+</ul></details>
+</section><section class="talk" id="josh">
+<div class="meta"><span>9/17 · 10:10–10:30</span><span class="type">Field Talk</span><span class="src">有录音</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn5u6u612579y1bq9ge62o" target="_blank" rel="noopener">飞书妙记录音 ↗</a><span class="rec-note">合并录音，接在 Eli 之后</span></div>
+<h2>The New Citation Economy: How ChatGPT, Google AI Mode, and Claude Pick Sources</h2>
+<div class="who"><strong>Josh Blyskal</strong> · Profound</div>
+<div class="lead"><p>基于约 100 万条 AI 回答、300 万条 citations 的研究：ChatGPT 正从"转述别人的答案"转向"自己做评估"，第一方的商业页面和文档页大幅上升；Claude 仍然偏爱 listicle，且高度依赖 Brave 搜索；Google AI Mode 先给每个页面做语义摘要，再聚合成主题。要被引用，就要有原创、具体、新鲜、带明确实体名称的第一方内容。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Josh Blyskal 在 Answer Engine Optimization（AEO）这一概念出现之前就已开始相关工作，现负责 Profound 的 AI Strategy &amp; Research。他分析了超过 2.5 亿条来自 ChatGPT、Perplexity 等主流 answer engine 的 AI 搜索结果，是目前已发表的规模最大的 AI 搜索实证研究之一。他打造了 AI Search Grader，是最早让营销人员查看品牌在 AI 中曝光情况的工具之一。他的研究影响了 Ramp、Indeed、US Bank 等品牌的 AI visibility 策略，常驻纽约，曾在 BrightonSEO、TechSEO Connect、Zero Click 等大会演讲。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>Josh Blyskal was working on Answer Engine Optimization before the category had a name. He leads AI Strategy &amp; Research at Profound, where he has analyzed more than 250 million AI search responses across ChatGPT, Perplexity, and the major answer engines. The body of work behind it is among the largest empirical studies of AI search anyone has published. He built the AI Search Grader, one of the first tools to let marketers see how they show up in AI, and has been studying the space since the week ChatGPT launched. His research shapes how Fortune 500 brands like Ramp, Indeed, and US Bank approach AI visibility, and his work is frequently cited by other researchers and operators in the field. Based in NYC, Josh speaks at BrightonSEO, TechSEO Connect, and Zero Click, among others.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/joshua-blyskal/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://x.com/JBlyskal" target="_blank" rel="noopener">X</a> · <a href="https://shenzhenseoconference.com/speakers/josh-blyskal" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>没有通用答案</strong>：各个模型选择来源的方式差异很大，大部分结论只适用于特定模型。</li>
+<li><strong>ChatGPT 8 月中旬的变化</strong>：8 月 14 日左右之后，Reddit 引用骤降，query fan-out 数量增加约 60% 到 70%，但检索的 URL 数量和最终被引用的数量基本不变。他的解读是，ChatGPT 不再用 fan-out 搜得更广，而是用来挖得更深。证据是 64% 的第二轮 fan-out 会延续第一轮 fan-out 中的两个或以上概念。</li>
+<li><strong>从 "answer" 走向 "evaluation"</strong>：过去 ChatGPT 直接搬运 Reddit、对比文章、listicle 里的现成观点。现在它愿意翻看 150 个页面，从产品页和文档中自己做第一性判断，例如鞋底泡棉有多少毫米。因此商业页面和文档页大涨，第三方 listicle 和 UGC 大跌。</li>
+<li><strong>品牌必须拥有第一方答案</strong>：但不要去批量生成薄产品页。产品页要真正值得存在于网站上；重要产品可以扩展出功能、限制、条款、配置等页面。</li>
+<li><strong>Claude 被严重低估</strong>：按 Ramp 的企业支出数据，付费使用 Claude 的企业已多于 ChatGPT，但只看网页流量是看不到这一点的。Claude 的搜索来自 Brave，79.2% 的 Claude citations 能在 Brave 前 10 名结果中找到，所以直接去 Brave 搜一下，就能判断自己有没有机会被引用。</li>
+<li><strong>Claude 仍处于"answer"阶段</strong>：Claude 横向搜索、不深挖，listicle 仍占其引用的约 30%。它依然"欢迎"品牌帮它梳理上下文。可以利用这一点，但要谨慎，因为规则会变。</li>
+<li><strong>Google AI Mode：语义摘要 + 主题</strong>：每个回答读取 80 到 100 个页面，每页提取 2 到 3 条语义摘要，再按提及频率聚合成主题，这些主题就是答案中的 H1/H2。所以正文里要写出具体实体名称（品牌名、产品名），不要写"这家店很棒"这类没有主语的句子。网站上的内容要对应这些主题，不要有"失业"页面。</li>
+<li><strong>未来属于 agent</strong>：他引用 Cloudflare CEO Matthew Prince 的观点，bot 将成为网页的主要用户，评估、交易、售后都会由 agent 完成。agent 无法亲自试穿鞋、坐飞机座椅，只能依赖你提供的具体数据，所以需要原创、非同质化（non-commodity）、新鲜、具体的内容。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li>研究样本：约 300 万条 citations、约 100 万条独立回答（与其 bio 中的"2.5 亿条回答"口径不同）。</li>
+<li>ChatGPT 8 月后的变化：商业页面约 +30%，文档/技术页约 +84%，第三方 listicle −38%，社交 −91%，第一方内容 +30%，机构/政府类 +58%，第三方教程 −36%，UGC −71%（转写中的数字较乱，仅供参考）。arXiv 类学术来源"基本消失"，Microsoft 文档大幅上升。</li>
+<li>被检索 URL 中约 1/4 被丢弃，最终未被引用（89% 与 76% 两个数字的对应关系不清）。</li>
+<li>51% 的 citations 指向第一方页面；第一方 citations 中，产品/服务页和文档页占 68.8%；产品页中 95%、文档页中 85% 由品牌自己掌握（转写不清）。</li>
+<li>79.2% 的 Claude citations 出现在 Brave 前 10 名结果中；Claude 与 ChatGPT 的引用重合度约 8%（推测）。</li>
+<li>约 50% 的高引用内容发布时间不到 13 个月（转写为"13 years"，推测为月）。</li>
+<li>案例：RunRepeat（转写为 "Robert.com / Runner Pete"）把跑鞋切成两半做测评，记录每一毫米、每一个能量回弹百分比，发布当天就出评测，因此成为 AI 搜索中跑鞋类引用最多的来源。</li>
+<li>Q&amp;A：在 Google AI Mode 中补充实体名称的测试，带来约 7% 到 12% 的提升。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;ChatGPT is evolving… it&#x27;s now moving into evaluating.&quot;</blockquote><figcaption>ChatGPT 正在从给答案进化到做评估。</figcaption></figure><figure class="quote"><blockquote>&quot;Your brand has to own these answers.&quot;</blockquote><figcaption>这些答案必须由你的品牌自己掌握。</figcaption></figure><figure class="quote"><blockquote>&quot;The answer can&#x27;t sit in the airplane seat, the answer can&#x27;t try your new shoes on.&quot;</blockquote><figcaption>AI 不能亲自坐座椅、试穿鞋子，只能依赖你给的数据。</figcaption></figure><figure class="quote"><blockquote>&quot;Specific data, specific information, specific facts always win.&quot;</blockquote><figcaption>具体的数据、信息和事实永远会赢。</figcaption></figure><figure class="quote"><blockquote>&quot;The mandate is to make the machine say your name.&quot;</blockquote><figcaption>任务就是让机器说出你的名字。</figcaption></figure></div><h3>Q&amp;A</h3><ul>
+<li>问：AI Mode 语境下的"entity"是什么意思？答：AI Mode 每次读取 80 到 100 个页面，人们写的内容往往不提具体名称（"这家餐厅很棒"）。摘要被剥离原文后，模型就不知道说的是谁。所以要在关键内容中写明专有名称，但不要写得像 spam。测试效果约提升 7% 到 12%。</li>
+</ul></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>把工厂的"参数"变成 GEO 资产</strong>：制造业客户最不缺的恰恰是 agent 需要的具体事实，例如材质、公差、测试报告、认证编号、MOQ、交期、产能。应为核心产品建立规格页、应用页、FAQ 和限制说明，替代泛泛的"company profile"式页面。这可以作为 GEO 服务的核心交付物。</li>
+<li><strong>把 Brave 检查加入 GEO 诊断流程</strong>：给客户做 GEO 体检时，同时在 Brave 上搜索核心产品词，看是否进入前 10。这是低成本、可以演示给客户看的 Claude 可见度指标。</li>
+<li><strong>内容写作规范加上"实体化"</strong>：要求英文文案中每个关键段落都写出公司名、产品型号、应用行业，避免只写 "our product / this machine"，以适配 AI Mode 的摘要机制。</li>
+<li><strong>新鲜度机制</strong>：大约一半的高引用内容发布不到一年。建议在陪跑中推动客户每季度更新产品页数据和发布新的测试或案例内容。</li>
+<li><strong>谨慎对待 listicle 打法</strong>：给 Claude 做"Top 10 China XX manufacturers"这类 listicle 目前可能仍然有效，但 ChatGPT 已在降权。不应作为主力卖点，最多作为补充。</li>
+</ol></aside>
+<div class="gallery-head"><h3>现场 PPT 照片</h3><span class="count">3 张 · 点击放大，键盘 ← → 翻页</span></div><div class="gallery"><button class="ph" data-src="ppt/IMG_3691.webp" data-cap="Josh Blyskal · IMG_3691 · 09:17 10:25" aria-label="放大 PPT 照片 IMG_3691"><img loading="lazy" src="ppt/thumb/IMG_3691.webp" alt="Josh Blyskal PPT 照片 IMG_3691"><span>10:25</span></button><button class="ph" data-src="ppt/IMG_3692.webp" data-cap="Josh Blyskal · IMG_3692 · 09:17 10:25" aria-label="放大 PPT 照片 IMG_3692"><img loading="lazy" src="ppt/thumb/IMG_3692.webp" alt="Josh Blyskal PPT 照片 IMG_3692"><span>10:25</span></button><button class="ph" data-src="ppt/IMG_3693.webp" data-cap="Josh Blyskal · IMG_3693 · 09:17 10:34" aria-label="放大 PPT 照片 IMG_3693"><img loading="lazy" src="ppt/thumb/IMG_3693.webp" alt="Josh Blyskal PPT 照片 IMG_3693"><span>10:34</span></button></div>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>与 Eli 的演讲在同一个文件中，自 46:10 起。ASR 质量较差，大量专名被误识，例如 "chat busy/chatty" 应为 ChatGPT，"plot/claw" 应为 Claude，"very.com" 应为 Brave，"RAM tracks" 应为 Ramp，"Google iPhone" 应为 Google AI Mode，"Josh Plussell" 即 Josh Blyskal。</li>
+<li>多处统计数字归属不清，已标注"推测/不清"，引用前建议核对幻灯片。01:01:01 之后是一整块长段落，结尾不完整。</li>
+</ul></details>
+</section><section class="talk" id="jonathan">
+<div class="meta"><span>9/17 · 10:30–11:00</span><span class="type">Lightning</span><span class="src warn">无录音 · 仅照片</span></div>
+<h2>Perception Engineering: How to Change What AI Says About Your Brand</h2>
+<div class="who"><strong>Jonathan Kiekbusch</strong> · SwishDM</div>
+<div class="lead"><p>（本场无录音，以下根据现场拍到的 2 页 PPT + 官网资料整理）AI 对你品牌的描述不是天注定的，而是由全网"证据"的分量决定的——你可以主动"工程化"这种认知：让真实的新叙事在证据上压过旧叙事，AI 就会复述你想让它说的话。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Jonathan Kiekbusch 是 SwishDM 的创始人，曾经营 eCommerce 业务，现帮助中大型品牌通过战略性 SEO 和 GEO 提升自然收入。他自称"建过、做大过、也卖过"公司，因此清楚什么真正有效。据播客访谈，他 2014 年入行，先后创办 Article Writing Ninja、PBN Butler 和 SEO Butler（2022 年底被收购），随后创立专注 e-commerce SEO 的 SwishDM（补充来源）。</p>
+<details><summary>官网英文原文 + 补充资料</summary><div class="bio-en"><blockquote>
+<p>Founder of SwishDM and former eCommerce business owner. I help mid-to-enterprise brands grow organic revenue through strategic SEO and GEO. I've built, scaled, and sold, so I know what actually moves the needle.</p>
+</blockquote><ul>
+<li>他于 2014 年进入数字营销，首个产品是菲律宾写手文章服务 Article Writing Ninja，随后转型为 PBN Butler，再发展为 SEO Butler，后者于 2022 年底被收购；之后创办 SwishDM，定位为专注技术迁移的定制化 e-commerce SEO agency，节目录制时团队 11 人，远程分布于 UK、US 和 Vietnam，客户主要在美国。(补充来源: https://www.theseoshow.co/episode/092)</li>
+</ul></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/jonathan-kiekbusch-65a84914/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.youtube.com/user/johnkiek" target="_blank" rel="noopener">YouTube</a> · <a href="https://shenzhenseoconference.com/speakers/jonathan-kiekbusch" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>三种结局由你决定</strong>：PPT 标题 "You decide which of these three happens"——证据分量压过旧叙事 → AI 复述你（AI repeats you）；压不过 → 旧叙事胜出（the old story wins）；目前网上还没有关于你的内容 → 需要更多证据，而不是更少（it takes more evidence, not less）。</li>
+<li><strong>先做真，再让它被反复提及</strong>：结论页红字 "Make it true. Then make it repeated." ——不是靠话术包装，而是先把产品/服务的事实做实，再让这些事实在第三方来源里被反复、一致地出现。</li>
+<li><strong>今天就能开始的三步（"Start Today!"）</strong>：① 查出你的 AI Performance 数据，看各类工具——真实的 prompts 其实已经在那里了；② 根据从各个 AI 回答中收集到的内容判断品牌情感倾向（sentiment）；③ 找出"引用了竞争对手却没引用你"的来源，想办法被提及。</li>
+<li><strong>口号</strong>："Engineer your perception before it engineers you."——在 AI 替你定义品牌之前，先主动塑造它。</li>
+</ol></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>把"AI 品牌认知诊断"做成 GEO 服务的第一步</strong>：按他的三步法，为客户跑一轮"真实买家 prompt × 多个 AI 模型"测试，记录提及率、情感倾向、被引用来源，形成基线报告——这与 David Carrasco 的"验证缺口"、Josh Blyskal 的引用研究思路一致，可合并成一个标准化产品。</li>
+<li><strong>"竞品被引、我方未被引"的来源清单</strong>是最直接的外链/PR 工作清单：对制造业客户而言，通常是行业目录、B2B 平台榜单、"top manufacturers in China" 类文章和行业媒体。</li>
+<li><strong>对于在 AI 里"查无此人"的中小工厂</strong>，要跟客户讲清楚：需要持续积累证据（案例、认证、第三方报道），这是长期工作，正好对应 SEO 代运营 / 陪跑的持续服务逻辑。</li>
+</ol></aside>
+<div class="gallery-head"><h3>现场 PPT 照片</h3><span class="count">2 张 · 点击放大，键盘 ← → 翻页</span></div><div class="gallery"><button class="ph" data-src="ppt/IMG_3695.webp" data-cap="Jonathan Kiekbusch · IMG_3695 · 09:17 10:47" aria-label="放大 PPT 照片 IMG_3695"><img loading="lazy" src="ppt/thumb/IMG_3695.webp" alt="Jonathan Kiekbusch PPT 照片 IMG_3695"><span>10:47</span></button><button class="ph" data-src="ppt/IMG_3696.webp" data-cap="Jonathan Kiekbusch · IMG_3696 · 09:17 10:47" aria-label="放大 PPT 照片 IMG_3696"><img loading="lazy" src="ppt/thumb/IMG_3696.webp" alt="Jonathan Kiekbusch PPT 照片 IMG_3696"><span>10:47</span></button></div>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>本场未录音，仅有 2 张 PPT 照片（9/17 10:47，SwishDM 品牌页），内容据照片文字整理，未包含演讲者口头展开的案例。</li>
+</ul></details>
+</section><section class="talk" id="drewe">
+<div class="meta"><span>9/17 · 12:00–12:20</span><span class="type">Field Talk</span><span class="src">有录音</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn5u3m7g2j2bv259g48i44" target="_blank" rel="noopener">飞书妙记录音 ↗</a></div>
+<h2>What Happens When SEO Stops Working — Lessons from Gaining and Losing 80 Million Visitors</h2>
+<div class="who"><strong>Nick Drewe</strong> · Wethrift</div>
+<div class="lead"><p>一个几乎全靠 SEO 流量的网站，在 HCU 之后 18 个月内流量从每月 800 万跌到 100 万以下。创始人的反思是：他曾是"SEO 流量上瘾者"，让数亿访客从手里溜走，现在转向建立直接关系、信任和多元流量来源的业务。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Nick Drewe 是全球优惠券平台 Wethrift 的创始人兼 CEO，该平台于 2018 年上线。他在竞争激烈的搜索环境中，通过 SEO、product-led growth 以及为用户提供可靠优惠的系统将业务做大。他常驻澳大利亚 Gold Coast。据 Wethrift 官网，平台已为超过 100,000 家网店的购物者提供优惠（补充来源）。他的演讲将分享获得又失去 8,000 万访问量的经验教训。</p>
+<details><summary>官网英文原文 + 补充资料</summary><div class="bio-en"><blockquote>
+<p>Nick Drewe is the Founder and CEO of Wethrift, a global coupon platform launched in 2018. He has scaled the business in a highly competitive search landscape through a combination of SEO, product-led growth, and building systems that deliver reliable savings to users. Nick is based on the Gold Coast, Australia.</p>
+</blockquote><ul>
+<li>Wethrift 官网称："We've been helping shoppers save at more than 100,000 online stores since 2018."；公司由 Space Cadet Corp Pty Ltd 持有，总部在 Melbourne，另在美国加州 Covina 设有办公室。(补充来源: https://www.wethrift.com/about)</li>
+</ul></div></details>
+<div class="bio-links"><a href="https://www.linkedin.com/in/nickdrewe/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://shenzhenseoconference.com/speakers/nick-drewe" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>免费流量会让人上瘾</strong>：SEO 有效时，加倍投入 SEO（更多页面、更多链接）总是看起来最合理，很难说服自己去做更慢、更贵、更复杂的渠道。直到流量消失，才发现业务对它依赖有多深。</li>
+<li><strong>SEO split testing 曾经非常管用</strong>：10 万多个商店页面用同一个模板，分组测试标题、文案、结构、图片、schema 等。大多数测试没效果，大约 10 个里出 1 个赢家，然后全站推广。一次 1% 到 5% 的小胜利，连续复利近两年，让他一度"觉得自己破解了 SEO"。</li>
+<li><strong>Google 回答的是"问题"，不是"关键词"</strong>：用纯文本直接写出"本店当前最佳优惠码是…"，流量立即 +20%。同页出现两个互相矛盾的"最佳"，流量立即 −30%。说明 Google 理解语义并惩罚内容矛盾。</li>
+<li><strong>HCU 之后反馈回路断裂</strong>：2023 年 11 月是转折点。没有人工处罚，也没有明显技术问题，一些相似竞品仍在增长，另一些则消失。数据噪音太大，测试方法失效，网站"像被慢慢下毒"。</li>
+<li><strong>"停止战斗"带来距离感</strong>：他裁掉大部分团队，公司进入 "lifestyle mode"。几乎同时流量停止下跌（他不认为是裁员修好了 SEO）。距离感让他从"怎样让 Google 再爱我"转向更难的问题：这些流量到底给业务留下了什么？</li>
+<li><strong>从反向工程算法，到反向工程用户</strong>：仍然做实验，但问题变成：用户为什么会信任优惠码网站？什么让他们沮丧？能否改变他们的行为？</li>
+<li><strong>新的成功标准</strong>：用户离开网站之后发生了什么？是否赢得了信任？是否给了他们回来的理由？这次访问是否创造了价值？信任、忠诚度和多元流量来源不会被下一次算法更新立刻拿走，而且恰好也是 Google 想要排名的那种业务。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li>Wethrift：覆盖 10 万多家网店，收入来自 affiliate 佣金。</li>
+<li>峰值每月 800 万访客，现在不到 100 万，每年少了 8,000 多万访客。18 个月内从 8M 依次降到 6M、4M、2M、1M，收入同步下降。</li>
+<li>发展历程：前两年缓慢增长，疫情期间暴涨两年多，之后第一次下跌，靠 split testing 恢复，2023 年 11 月达到历史峰值，随后 HCU 冲击。</li>
+<li>测试：明文展示最佳优惠码 +20%（业内首家）；页面内容矛盾 −30%；常规赢家 +1% 到 5%。</li>
+<li>新打法：透明展示每个优惠码的来源、发现时间和有效历史，无可用码时如实告知；开发 app 和浏览器扩展；在 YouTube、Instagram、TikTok 发短视频，一店一码一视频，部分视频连续数月每周都有数百次播放。</li>
+<li>目标：建立一个"即使搜索引擎不存在也能活下去"的业务。他坦言目前还没有替代 SEO 的魔法，大部分实验仍然失败，流量也没有恢复。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;For a few years I was an SEO traffic addict.&quot;</blockquote><figcaption>有好几年，我是个 SEO 流量上瘾者。</figcaption></figure><figure class="quote"><blockquote>&quot;We still collecting the data, but the feedback loop was broken.&quot;</blockquote><figcaption>数据还在收集，但反馈回路已经断了。</figcaption></figure><figure class="quote"><blockquote>&quot;Chasing more SEO traffic was easier than building a real audience.&quot;</blockquote><figcaption>追逐更多 SEO 流量，比建立真正的受众容易太多。</figcaption></figure><figure class="quote"><blockquote>&quot;The next algorithm update can&#x27;t immediately take away trust, loyalty, diverse traffic sources.&quot;</blockquote><figcaption>下一次算法更新无法立刻拿走信任、忠诚和多元的流量来源。</figcaption></figure><figure class="quote"><blockquote>&quot;The best way to win at SEO is to stop making SEO the entire job.&quot;</blockquote><figcaption>赢得 SEO 的最好方法，是不要把 SEO 当成全部工作。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><ol>
+<li><strong>给客户的"单一渠道风险"预警</strong>：很多制造业客户的询盘几乎全靠 Google 自然流量。可以用 Wethrift 的故事做一页"风险对比"，在陪跑或续约沟通中推动客户建立 LinkedIn、YouTube 产品视频、邮件老客户复购等第二渠道，这同时也是 MML 扩展服务的机会。</li>
+<li><strong>对内：慢慢来自己也不能只靠 SEO 代运营</strong>：代运营收入和客户流量高度相关，一次核心更新就可能导致成批客户流失。陪跑、GEO、询盘背调等与流量不直接挂钩的服务，正是分散风险的方向，值得有意识地提高占比。</li>
+<li><strong>"明文给答案"用在 B2B 站</strong>：Wethrift 公开优惠码带来 +20%。对应到制造业站点，就是把 MOQ、交期、价格区间、认证等买家最想问的问题直接写在页面上，而不是一律写成 "contact us"。可以选一组产品页做 A/B 对比。</li>
+<li><strong>用模板页做 split testing</strong>：客户有大量同模板的产品页时，可以学 Wethrift 分组测试标题、schema、FAQ 等，把 SEO 结论从"经验"变成"数据"，这也是向客户证明专业性的好素材。同时要提醒客户，更新之后测试可能失效。</li>
+<li><strong>KPI 增加"回访与直接询盘"</strong>：在报告中跟踪 direct/品牌访问、老买家复购询盘，衡量的是"用户是否主动回来"，而不只是新流量。</li>
+</ol></aside>
+<p class="nophoto">本场没有拍到 PPT 照片。</p>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>全程约 18.5 分钟，内容完整，结尾有主持人收尾。无 Q&amp;A（主持人询问后现场无人提问）。</li>
+<li>ASR 错误："Nutrit.Com/Weefruit" 应为 Wethrift，"Nick Drew" 应为 Nick Drewe，"client did install" 推测为 "the climb stalled"，"helpful content update reaches" 指 Google HCU，"messier traffic" 推测为 "search traffic"。</li>
+<li>11:00 之后是长段落，未分段，但语义清楚。</li>
+</ul></details>
+</section><div class="day-divider" id="day-9-18">Day 5 · 9 月 18 日 · VIP 日</div><section class="talk" id="white">
+<div class="meta"><span>9/18 · 3:05–3:25 PM</span><span class="type">VIP Keynote</span><span class="src">有录音</span><a class="rec" href="https://mmldigital.feishu.cn/minutes/obcn5u44e7m8932i933e88yp" target="_blank" rel="noopener">飞书妙记录音 ↗</a></div>
+<h2>What Makes Buyers in Any Country Say Yes</h2>
+<div class="who"><strong>Nick White</strong> · Castle Trade Agency</div>
+<div class="lead"><p>买家说"yes"的临界点只取决于三件事：价值、信任、降低风险。先讲为相似客户做到的结果，先挖痛点再报价，少讲自己、多讲对方。买家感兴趣时会主动追着你，你需要反复追的买家，其实是还没看到价值。</p></div>
+<div class="bio"><div class="bio-label">讲者背景</div><p>Nick White 拥有 30 年 B2B 销售经验，著有《Questions are the Answers》和《Why Salespeople Fail》两本销售书籍。2016 年他创立 Castle Trade Agency LLC，作为中国企业的 manufacturer rep，帮助供应商赢得此前无法触达的目标客户。他向中国销售团队传授其销售体系，并自 2024 年起在中国每季度举办公开销售培训。他曾涉足零售、航空航天、汽车制造、HVAC、建材和服务类销售，其以价值为导向、以提问为核心的方法论适用于各行业的 B2B 销售。</p>
+<details><summary>官网英文原文</summary><div class="bio-en"><blockquote>
+<p>Nick White has been in B2B Sales for 30 years. He is the author of the book "Questions are the Answers…how elite sales people lead buyers to self-discover" and also "Why Salespeople Fail…the top 10 mistakes foreign salespeople make"</p>
+<p>When he learned a selling system that got amazing results and removed the pressure from selling, he started teaching it to salespeople around the world.</p>
+<p>In 2016, Nick started Castle Trade Agency LLC as a manufacturer rep for Chinese companies and immediately saw success contacting and winning the target customers who had previously been ignoring the supplier.</p>
+<p>Nick started teaching the Chinese sales teams the selling system and then in 2024, started public sales training seminars quarterly in China.</p>
+<p>Over the course of 30 years, Nick has worked in multiple industries such as retail, aerospace, automobile manufacturing, HVAC, building materials and service-based sales, reaching success with the biggest fortune 500 companies and small companies alike proving that these sales success principles he teaches, works regardless of the industry or product/service.</p>
+<p>His value-focused, questions-based sales training provides very tactical solutions that salespeople can use to solve the common problems they face in B2B Selling. It's a non-traditional approach to sales which gets better than traditional results.</p>
+</blockquote></div></details>
+<div class="bio-links"><a href="https://shenzhenseoconference.com/speakers/nick-white" target="_blank" rel="noopener">官网介绍页</a></div></div>
+<div class="body"><h3>核心观点</h3><ol>
+<li><strong>Tipping point = 收益 &gt; 风险</strong>：对从没合作过的买家来说，和你做生意本身就有风险，因为不知道你能否兑现承诺。只有收益明显大于风险，对方才会行动。</li>
+<li><strong>介绍阶段只讲"为相似客户做到的结果"，不讲怎么做到</strong>：第一次接触的目标不是拿单，而是进入下一步，通常是一场线上 discovery 会议。买家不关心你的公司，只关心你如何帮助过和他类似的公司（"show me you know me"）。他在美国为中国企业做的事，99% 都是这种线上会议。</li>
+<li><strong>心态从 "I'm here to sell" 转为 "I'm here to help"</strong>：买家有第六感，能分辨你是来卖东西还是来帮忙。只在确实能为对方增加价值时才合作，这样也卸下了销售自己的压力。</li>
+<li><strong>"被 ghost"只有一个原因：没看到价值</strong>：30 年、几千笔交易的结论是，买家没有动作，说明没有兴趣，而没有兴趣是因为没看到价值。真正感兴趣的买家会反过来追你。</li>
+<li><strong>"都是价格问题"是 B2B 销售的头号谎言</strong>：当价格高于感知价值时，对方才会嫌贵。销售之所以陷入打折，是因为只顾介绍自己，从没挖出对方的痛点。</li>
+<li><strong>先价值后价格</strong>：销售流程为资格筛选（ICP）→ 互相提问 → 展示价值 → 确认对方看重的点 → 报价。价格给得越早，价格压力越大。先报价的话，需要销售去解释价格合理（"Bob，报价看了吗？"）；先讲价值的话，是客户自己说服自己接受价格。买家说"先报个价"时，应回应"还不确定我们是否合适，先开个短会"。买家永远有时间听好主意，但没时间看 60 页公司介绍。</li>
+<li><strong>Pitch 要讲对方，不讲自己</strong>：他以前所在的营销团队每年从三家 agency 中选一家，从来没选过 PPT 最漂亮的那家，而是选了最能解决问题、帮他们实现目标的那家。SEO agency 爱讲排名、外链、关键词和团队，客户关心的却是营收、客户数、获客成本太高、竞争对手在超越自己。</li>
+<li><strong>人逃离痛苦比追求快乐更快，最大的竞争对手是"维持现状"</strong>：挖痛点可以问三类问题：过去遇到过什么问题、现在的痛点是什么、未来想避免什么。只有维持现状的痛苦大于改变的痛苦时，人才会行动。健身房的例子：介绍新器材、24 小时营业，远不如"6 周专属教练帮你减脂增肌"有效。</li>
+<li><strong>信息太多会杀死交易，好的 offer 让人不好意思说不</strong>：一股脑倾倒信息，换来的只是"我考虑一下"。less is more。好 offer 等于高价值加低风险。B2B 销售就是帮客户搭桥、牵着他走到对岸。</li>
+</ol><h3>关键数据与案例</h3><ul>
+<li>30 年 B2B 销售经验，与 Fortune 100 企业做过生意，与数千名买家面谈过。</li>
+<li>在美国代理中国企业，这类工作 99% 通过线上会议进行；在中国做讲座和企业内训，此行在中国已待了 4 周。</li>
+<li>宾州营销团队每年的 agency 招标案例（见观点 7）；健身房对比案例（见观点 8）。</li>
+<li>标准介绍话术："Our customers never buy from us for price. We're never the low-cost supplier. Our customers buy from us because we help them solve problems common in the industry, such as pain 1, 2, 3, or achieve benefit 1, 2, 3." 如果对方说 yes，就顺势追问痛点；如果对方说 no，说明不是你的 ICP。</li>
+</ul><h3>金句</h3><div class="quotes"><figure class="quote"><blockquote>&quot;If they&#x27;re interested, you don&#x27;t have to chase them. They will chase you.&quot;</blockquote><figcaption>真感兴趣的买家不用你追，他们会来追你。</figcaption></figure><figure class="quote"><blockquote>&quot;The sooner you give price in the sales process, the more price pressure you get.&quot;</blockquote><figcaption>报价越早，价格压力越大。</figcaption></figure><figure class="quote"><blockquote>&quot;Buyers don&#x27;t care how much you know. They want to know how much you care.&quot;</blockquote><figcaption>买家不在乎你懂多少，只在乎你多在乎他。</figcaption></figure><figure class="quote"><blockquote>&quot;People move away from pain faster than they move towards pleasure.&quot;</blockquote><figcaption>人逃离痛苦，比追求快乐更快。</figcaption></figure><figure class="quote"><blockquote>&quot;Companies don&#x27;t hire you because you have a great presentation.&quot;</blockquote><figcaption>企业不会因为你的 PPT 做得好而雇你。</figcaption></figure></div></div>
+<aside class="takeaway"><div class="tk-label">对慢慢来的启发</div><p><strong>A. 慢慢来自己怎么卖（代运营、陪跑、GEO）</strong>
+1. <strong>改写开场介绍和提案</strong>：现在的提案很可能以"10 年经验、团队规模、技术能力、排名截图"开头。建议按 Nick 的模板重写第一页："我们的客户不是因为便宜选择慢慢来，而是因为我们帮机械、五金、建材等出口工厂解决了三个问题：Google 询盘少且质量差；依赖 B2B 平台和展会，获客成本越来越高；网站做了但不知道 AI 时代怎么办。" 每个痛点配一个同行业案例，写明询盘数或成交额，公司介绍放到最后。
+2. <strong>不在第一次沟通时报 12k/月 陪跑价格</strong>：客户在微信上问"多少钱"时，统一回应"先约 30 分钟诊断会，看看你们网站和询盘情况，确认适不适合"。诊断会用三类问题挖痛点（过去做 SEO 踩过什么坑、现在询盘和平台费用的痛点、未来担心被 AI 或竞品超越），在对方确认最看重的点之后再报价。建议跟踪"首次报价时间"与成交率的关系。
+3. <strong>把"客户被 ghost"当作价值信号，而不是跟进频率问题</strong>：销售不要写"请问方案看了吗"式的跟进，而是每次跟进附带一个针对对方网站的具体发现（例如某个核心词竞品排第几、ChatGPT 里搜不到你）。这就是 Nick 说的 "a good idea"。
+4. <strong>降低风险的 offer 设计</strong>：新客户可以设置低门槛的第一步，例如付费诊断且费用可抵扣首月、首季度阶段性目标、陪跑前 1 个月不满意可退出等，让对方"不好意思说不"。同时明确 ICP（行业、年营收、是否有外贸业务员），不是 ICP 的直接放弃。
+5. <strong>续约沟通也讲客户关心的指标</strong>：月报和季度复盘的第一页，放询盘数量和质量、获客成本对比、与竞品的差距，而不是外链数和关键词数。</p>
+<p><strong>B. 慢慢来的客户怎么卖给海外买家（可以做进陪跑课程或询盘跟进服务）</strong>
+6. <strong>询盘首回模板重做</strong>：很多工厂业务员收到询盘第一封就发 PI、价格表和 30 页 catalog。按 Nick 的理论，这正是价格压力和被 ghost 的根源。可以帮客户设计"首回三段式"：先写我们为同类买家（同国家或同渠道）做到的结果，再问 2 到 3 个痛点问题（现有供应商交期、质量、认证），最后邀请 15 分钟视频会议。报价放在第二或第三轮。
+7. <strong>把"为相似客户做到的结果"写进网站</strong>：按买家类型（进口商、品牌商、工程承包商）和国家整理案例页。这同时满足 Nick 的 "show me you know me"，也满足 Josh 和 Eli 所说的 AI 需要的具体第一方事实，可以作为 SEO、GEO 和销售共用的资产。
+8. <strong>与询盘背调 skill 结合</strong>：背调报告中可以增加一栏"该买家可能的痛点和建议开场问题"，让业务员带着问题而不是报价去回复，这是 MML 交付物的差异化点。</p></aside>
+<div class="gallery-head"><h3>现场 PPT 照片</h3><span class="count">24 张 · 点击放大，键盘 ← → 翻页</span></div><div class="gallery"><button class="ph" data-src="ppt/IMG_3717.webp" data-cap="Nick White · IMG_3717 · 09:18 15:23" aria-label="放大 PPT 照片 IMG_3717"><img loading="lazy" src="ppt/thumb/IMG_3717.webp" alt="Nick White PPT 照片 IMG_3717"><span>15:23</span></button><button class="ph" data-src="ppt/IMG_3718.webp" data-cap="Nick White · IMG_3718 · 09:18 15:24" aria-label="放大 PPT 照片 IMG_3718"><img loading="lazy" src="ppt/thumb/IMG_3718.webp" alt="Nick White PPT 照片 IMG_3718"><span>15:24</span></button><button class="ph" data-src="ppt/IMG_3719.webp" data-cap="Nick White · IMG_3719 · 09:18 15:26" aria-label="放大 PPT 照片 IMG_3719"><img loading="lazy" src="ppt/thumb/IMG_3719.webp" alt="Nick White PPT 照片 IMG_3719"><span>15:26</span></button><button class="ph" data-src="ppt/IMG_3720.webp" data-cap="Nick White · IMG_3720 · 09:18 15:26" aria-label="放大 PPT 照片 IMG_3720"><img loading="lazy" src="ppt/thumb/IMG_3720.webp" alt="Nick White PPT 照片 IMG_3720"><span>15:26</span></button><button class="ph" data-src="ppt/IMG_3721.webp" data-cap="Nick White · IMG_3721 · 09:18 15:27" aria-label="放大 PPT 照片 IMG_3721"><img loading="lazy" src="ppt/thumb/IMG_3721.webp" alt="Nick White PPT 照片 IMG_3721"><span>15:27</span></button><button class="ph" data-src="ppt/IMG_3722.webp" data-cap="Nick White · IMG_3722 · 09:18 15:28" aria-label="放大 PPT 照片 IMG_3722"><img loading="lazy" src="ppt/thumb/IMG_3722.webp" alt="Nick White PPT 照片 IMG_3722"><span>15:28</span></button><button class="ph" data-src="ppt/IMG_3724.webp" data-cap="Nick White · IMG_3724 · 09:18 15:30" aria-label="放大 PPT 照片 IMG_3724"><img loading="lazy" src="ppt/thumb/IMG_3724.webp" alt="Nick White PPT 照片 IMG_3724"><span>15:30</span></button><button class="ph" data-src="ppt/IMG_3725.webp" data-cap="Nick White · IMG_3725 · 09:18 15:32" aria-label="放大 PPT 照片 IMG_3725"><img loading="lazy" src="ppt/thumb/IMG_3725.webp" alt="Nick White PPT 照片 IMG_3725"><span>15:32</span></button><button class="ph" data-src="ppt/IMG_3726.webp" data-cap="Nick White · IMG_3726 · 09:18 15:32" aria-label="放大 PPT 照片 IMG_3726"><img loading="lazy" src="ppt/thumb/IMG_3726.webp" alt="Nick White PPT 照片 IMG_3726"><span>15:32</span></button><button class="ph" data-src="ppt/IMG_3727.webp" data-cap="Nick White · IMG_3727 · 09:18 15:34" aria-label="放大 PPT 照片 IMG_3727"><img loading="lazy" src="ppt/thumb/IMG_3727.webp" alt="Nick White PPT 照片 IMG_3727"><span>15:34</span></button><button class="ph" data-src="ppt/IMG_3728.webp" data-cap="Nick White · IMG_3728 · 09:18 15:34" aria-label="放大 PPT 照片 IMG_3728"><img loading="lazy" src="ppt/thumb/IMG_3728.webp" alt="Nick White PPT 照片 IMG_3728"><span>15:34</span></button><button class="ph" data-src="ppt/IMG_3731.webp" data-cap="Nick White · IMG_3731 · 09:18 15:36" aria-label="放大 PPT 照片 IMG_3731"><img loading="lazy" src="ppt/thumb/IMG_3731.webp" alt="Nick White PPT 照片 IMG_3731"><span>15:36</span></button><button class="ph" data-src="ppt/IMG_3732.webp" data-cap="Nick White · IMG_3732 · 09:18 15:37" aria-label="放大 PPT 照片 IMG_3732"><img loading="lazy" src="ppt/thumb/IMG_3732.webp" alt="Nick White PPT 照片 IMG_3732"><span>15:37</span></button><button class="ph" data-src="ppt/IMG_3733.webp" data-cap="Nick White · IMG_3733 · 09:18 15:37" aria-label="放大 PPT 照片 IMG_3733"><img loading="lazy" src="ppt/thumb/IMG_3733.webp" alt="Nick White PPT 照片 IMG_3733"><span>15:37</span></button><button class="ph" data-src="ppt/IMG_3735.webp" data-cap="Nick White · IMG_3735 · 09:18 15:37" aria-label="放大 PPT 照片 IMG_3735"><img loading="lazy" src="ppt/thumb/IMG_3735.webp" alt="Nick White PPT 照片 IMG_3735"><span>15:37</span></button><button class="ph" data-src="ppt/IMG_3736.webp" data-cap="Nick White · IMG_3736 · 09:18 15:38" aria-label="放大 PPT 照片 IMG_3736"><img loading="lazy" src="ppt/thumb/IMG_3736.webp" alt="Nick White PPT 照片 IMG_3736"><span>15:38</span></button><button class="ph" data-src="ppt/IMG_3737.webp" data-cap="Nick White · IMG_3737 · 09:18 15:38" aria-label="放大 PPT 照片 IMG_3737"><img loading="lazy" src="ppt/thumb/IMG_3737.webp" alt="Nick White PPT 照片 IMG_3737"><span>15:38</span></button><button class="ph" data-src="ppt/IMG_3738.webp" data-cap="Nick White · IMG_3738 · 09:18 15:38" aria-label="放大 PPT 照片 IMG_3738"><img loading="lazy" src="ppt/thumb/IMG_3738.webp" alt="Nick White PPT 照片 IMG_3738"><span>15:38</span></button><button class="ph" data-src="ppt/IMG_3739.webp" data-cap="Nick White · IMG_3739 · 09:18 15:39" aria-label="放大 PPT 照片 IMG_3739"><img loading="lazy" src="ppt/thumb/IMG_3739.webp" alt="Nick White PPT 照片 IMG_3739"><span>15:39</span></button><button class="ph" data-src="ppt/IMG_3741.webp" data-cap="Nick White · IMG_3741 · 09:18 15:39" aria-label="放大 PPT 照片 IMG_3741"><img loading="lazy" src="ppt/thumb/IMG_3741.webp" alt="Nick White PPT 照片 IMG_3741"><span>15:39</span></button><button class="ph" data-src="ppt/IMG_3742.webp" data-cap="Nick White · IMG_3742 · 09:18 15:40" aria-label="放大 PPT 照片 IMG_3742"><img loading="lazy" src="ppt/thumb/IMG_3742.webp" alt="Nick White PPT 照片 IMG_3742"><span>15:40</span></button><button class="ph" data-src="ppt/IMG_3743.webp" data-cap="Nick White · IMG_3743 · 09:18 15:40" aria-label="放大 PPT 照片 IMG_3743"><img loading="lazy" src="ppt/thumb/IMG_3743.webp" alt="Nick White PPT 照片 IMG_3743"><span>15:40</span></button><button class="ph" data-src="ppt/IMG_3744.webp" data-cap="Nick White · IMG_3744 · 09:18 15:41" aria-label="放大 PPT 照片 IMG_3744"><img loading="lazy" src="ppt/thumb/IMG_3744.webp" alt="Nick White PPT 照片 IMG_3744"><span>15:41</span></button><button class="ph" data-src="ppt/IMG_3745.webp" data-cap="Nick White · IMG_3745 · 09:18 15:41" aria-label="放大 PPT 照片 IMG_3745"><img loading="lazy" src="ppt/thumb/IMG_3745.webp" alt="Nick White PPT 照片 IMG_3745"><span>15:41</span></button></div>
+<details class="notes"><summary>转写备注（录音质量 / 待确认信息）</summary><ul>
+<li>全程约 22.5 分钟，演讲完整。开头有主持人介绍（"Ash/JP"应为主办方人员），结尾是 speed networking 的说明。无 Q&amp;A（讲者需赶飞机）。</li>
+<li>ASR 质量较好，只有少量错误，例如 "b to B" 应为 B2B，"247" 应为 24/7，"Emily's gonna help me" 语义不清。</li>
+<li>结尾提到他在青岛合作学校的 Kiwi Wong、助理 Emily 会参加晚宴交流，他本人有在中国的系列讲座（可作为后续联系渠道）。</li>
+</ul></details>
+</section>
+<footer>整理：Claude · 素材：Tom 现场录音转写 10 份、PPT 照片 107 张、shenzhenseoconference.com 官网 agenda 与 speaker 页（2026-09-20 抓取）</footer>
+</main></div>
+<dialog id="lb" aria-label="PPT 照片"><img id="lb-img" alt=""><div class="lb-bar"><button id="lb-prev" aria-label="上一张">←</button><span id="lb-cap"></span><button id="lb-next" aria-label="下一张">→</button><button id="lb-close" aria-label="关闭">✕</button></div></dialog>
+<script>(function(){
+var dlg=document.getElementById('lb'),img=document.getElementById('lb-img'),cap=document.getElementById('lb-cap');
+var list=[],idx=0;
+function show(i){idx=(i+list.length)%list.length;var b=list[idx];img.src=b.dataset.src;img.alt=b.dataset.cap;cap.textContent=b.dataset.cap+'  ('+(idx+1)+' / '+list.length+')';}
+document.addEventListener('click',function(e){var b=e.target.closest('.ph');if(!b)return;var scope=b.closest('.gallery')||b.parentNode;list=[].slice.call(scope.querySelectorAll('.ph'));show(list.indexOf(b));if(dlg.showModal)dlg.showModal();});
+document.getElementById('lb-prev').onclick=function(){show(idx-1)};
+document.getElementById('lb-next').onclick=function(){show(idx+1)};
+document.getElementById('lb-close').onclick=function(){dlg.close()};
+dlg.addEventListener('click',function(e){if(e.target===dlg||e.target===img)dlg.close();});
+document.addEventListener('keydown',function(e){if(!dlg.open)return;if(e.key==='ArrowLeft')show(idx-1);if(e.key==='ArrowRight')show(idx+1);});
+var links={};document.querySelectorAll('.toc li a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a;});
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){for(var k in links)links[k].classList.remove('active');var a=links[en.target.id];if(a)a.classList.add('active');}});},{rootMargin:'-20% 0px -70% 0px'});document.querySelectorAll('.talk').forEach(function(s){io.observe(s);});}
+})();
+</script></body></html>
