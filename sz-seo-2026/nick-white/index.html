@@ -1,0 +1,347 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow,noarchive"><title>客户说 Yes 的临界点</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#F4F5F1;--surface:#FFFFFF;--ink:#18202B;--muted:#5B6472;--rule:#DADDD6;--accent:#2445C7;--accent-soft:#E6EBFB;--amber:#8F540A;--amber-soft:#FBF1DF;--warn:#B4452B;--warn-soft:#FBEAE5;--ok:#1F6B4A;--ok-soft:#E4F1EA;
+--serif:"Noto Serif SC","Songti SC",serif;--sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11141A;--surface:#181D25;--ink:#E6E8EC;--muted:#9AA3B2;--rule:#2A303B;--accent:#8EA4FF;--accent-soft:#1D2540;--amber:#E3A850;--amber-soft:#2A2114;--warn:#F08A6E;--warn-soft:#2E1A15;--ok:#7BC9A2;--ok-soft:#14261E;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#11141A;--surface:#181D25;--ink:#E6E8EC;--muted:#9AA3B2;--rule:#2A303B;--accent:#8EA4FF;--accent-soft:#1D2540;--amber:#E3A850;--amber-soft:#2A2114;--warn:#F08A6E;--warn-soft:#2E1A15;--ok:#7BC9A2;--ok-soft:#14261E;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font:16px/1.85 var(--sans);margin:0}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:780px;margin:0 auto;padding-inline:20px;padding-block:32px 64px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--accent)}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(32px,6vw,48px);line-height:1.2;margin:10px 0 14px;text-wrap:balance}
+.dek{color:var(--muted);margin:0 0 20px}
+.formula{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px;padding:18px 16px;background:var(--surface);border:1px solid var(--rule);border-radius:12px;font-family:var(--serif);font-weight:900;font-size:clamp(18px,4vw,26px);margin:0 0 8px}
+.formula .b{color:var(--ok)}.formula .r{color:var(--warn)}.formula .op{color:var(--muted);font-family:var(--sans);font-weight:500}
+.formula-note{text-align:center;color:var(--muted);font-size:13.5px;margin:0 0 28px}
+.howto{background:var(--accent-soft);border-radius:12px;padding:16px 18px;margin-bottom:32px}
+.howto h2{font-family:var(--serif);font-size:17px;margin:0 0 8px}
+.howto ol{margin:0;padding-left:1.3em}
+.howto li{margin-bottom:4px}
+.toc{border:1px solid var(--rule);border-radius:12px;padding:14px 18px;margin-bottom:40px;background:var(--surface)}
+.toc-label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.toc ol{margin:8px 0 0;padding-left:1.3em}
+.toc li{margin-bottom:3px}
+h2.ch{font-family:var(--serif);font-weight:900;font-size:clamp(22px,4vw,28px);line-height:1.4;margin:0 0 4px;text-wrap:balance}
+.ch-num{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.08em}
+section.ch{padding-block:36px;border-top:1px solid var(--rule)}
+.ch-lead{color:var(--muted);margin:0 0 20px}
+figure.slide{margin:0 0 20px}
+figure.slide img{width:100%;border-radius:8px;border:1px solid var(--rule);display:block;cursor:zoom-in;background:var(--rule)}
+figure.slide figcaption{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:6px}
+.slide-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:20px}
+.slide-row figure.slide{margin:0}
+p{margin:0 0 14px}
+.quote{margin:18px 0;padding:14px 16px;background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:8px}
+.quote .en{font-family:var(--serif);font-size:15.5px;line-height:1.6;margin:0 0 4px}
+.quote .zh{color:var(--muted);font-size:14.5px;margin:0}
+.mml{margin:20px 0;padding:16px 18px;background:var(--amber-soft);border-radius:10px}
+.mml h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin:0 0 8px;font-weight:500}
+.mml p:last-child,.mml ul:last-child{margin-bottom:0}
+.mml ul{margin:0;padding-left:1.3em}
+.mml li{margin-bottom:6px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:18px 0}
+.box{padding:14px 16px;border-radius:10px;font-size:14.5px}
+.box h4{margin:0 0 8px;font-size:14.5px;font-family:var(--sans)}
+.box ul{margin:0;padding-left:1.2em}
+.box li{margin-bottom:4px}
+.bad{background:var(--warn-soft);color:var(--ink)}
+.bad h4{color:var(--warn)}
+.good{background:var(--ok-soft);color:var(--ink)}
+.good h4{color:var(--ok)}
+.script{margin:20px 0;padding:18px;background:var(--surface);border:1px dashed var(--accent);border-radius:10px}
+.script .label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.script p{margin:0 0 10px}
+.script .fill{background:var(--accent-soft);padding:0 4px;border-radius:3px}
+.checklist{list-style:none;margin:0;padding:0}
+.checklist li{padding:10px 0 10px 30px;border-bottom:1px solid var(--rule);position:relative}
+.checklist li:last-child{border-bottom:0}
+.checklist li::before{content:"□";position:absolute;left:4px;top:8px;font-size:18px;color:var(--accent)}
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--rule);font-size:13px;color:var(--muted)}
+dialog#lb{padding:0;border:0;background:transparent;width:100vw;height:100vh;max-width:100vw;max-height:100vh}
+dialog#lb::backdrop{background:rgba(8,10,14,.92)}
+#lb img{position:absolute;inset:0;margin:auto;max-width:96vw;max-height:92vh;object-fit:contain}
+@media (max-width:520px){.wrap{padding-inline:16px}}
+</style>
+</head><body><div class="wrap">
+<div class="eyebrow">内部培训材料 · 深圳 SEO 大会 2026 VIP Keynote · Nick White</div>
+<h1>客户说 Yes 的临界点</h1>
+<p class="dek">Nick White，Castle Trade Agency 创始人，30 年 B2B 销售经验，在美国代理中国企业，也常年在中国做销售培训。这 23 分钟他只讲一件事：买家决定"做还是不做"的那个临界点，到底由什么决定。下面按他的 PPT 顺序，把每一页配上中文讲解，并换成我们自己的场景——把 SEO 代运营和陪跑卖给工厂老板。</p>
+
+<div class="formula"><span class="b">价值</span><span class="op">+</span><span class="b">信任</span><span class="op">&gt;</span><span class="r">风险</span><span class="op">＝</span><span>客户才会动</span></div>
+<p class="formula-note">这是全场的结论。下面六章都在解释这个公式的每一项怎么做。</p>
+
+<div class="howto">
+<h2>这份材料怎么用</h2>
+<ol>
+<li>通读一遍，大约 15 分钟，重点看每章末尾橙色的"换成我们的场景"。</li>
+<li>拿最后一章的话术模板，改成你自己客户的版本，下一次开发信和线上会议就用。</li>
+<li>每次提案前，用文末的自检清单过一遍。</li>
+</ol>
+</div>
+
+<nav class="toc">
+<div class="toc-label">目录</div>
+<ol>
+<li><a href="#c1">客户不回你，不是因为忙，是因为没看到价值</a></li>
+<li><a href="#c2">把"我是来卖的"换成"我是来帮你的"</a></li>
+<li><a href="#c3">价格压力，几乎都是自己太早报价造成的</a></li>
+<li><a href="#c4">像买家一样思考：他关心的和你讲的不是一回事</a></li>
+<li><a href="#c5">痛比爽更能推动决策，最大的对手是"不做改变"</a></li>
+<li><a href="#c6">怎么讲：先讲影响，再讲自己；少讲一点</a></li>
+<li><a href="#c7">可以直接抄的话术 + 提案自检清单</a></li>
+</ol>
+</nav>
+
+<section class="ch" id="c1">
+<div class="ch-num">第 1 章</div>
+<h2 class="ch">客户不回你，不是因为忙，是因为没看到价值</h2>
+<p class="ch-lead">开场他先抛出一个所有销售都遇到过的问题：为什么有些客户很快说不，有些客户要追很多次？</p>
+
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3717.webp" alt="Problem – Target Customers Don't Engage 幻灯片"><figcaption>IMG_3717 · Problem – Target Customers Don't Engage</figcaption></figure>
+
+<p>他说，介绍阶段（Introduction Stage）要讲的是<strong>你为跟他类似的客户做到过什么结果</strong>，但<strong>不要讲你是怎么做到的</strong>。别一上来就把所有信息倒给对方。PPT 上那个红色印章写着 "SHOW ME U KNOW ME"——让我看到你懂我。</p>
+<p>更关键的是目标设定：介绍公司这一步，<strong>目标不是拿单，而是拿到下一步</strong>。下一步通常是一个线上会议，在会上做 discovery，搞清楚对方公司的情况、什么对他重要、他的决策依据是什么。他说自己在美国代理中国企业，99% 的工作就是跟目标买家开这种线上会。</p>
+
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3719.webp" alt="INTERESTED buyers they will chase you 幻灯片"><figcaption>IMG_3719 · 感兴趣的买家会反过来追你</figcaption></figure>
+
+<p>这页左右对比：左边是没有 pipeline、没有对话、没有结果、没有增长的人；右边是 pipeline 满、对话有质量、结果稳定的人。他的判断很直接：<strong>感兴趣的买家你不用追，他们会追你。</strong>如果你发现自己在反复追一个客户，说明他没看到足够的价值。</p>
+
+<div class="slide-row">
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3720.webp" alt="You Pitch – They Seem Interested – Disappear 幻灯片"><figcaption>IMG_3720</figcaption></figure>
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3721.webp" alt="价格与价值的两支温度计 幻灯片"><figcaption>IMG_3721 · 价格 vs 价值</figcaption></figure>
+</div>
+
+<p>你讲完方案，对方当场看起来挺感兴趣，回去就消失了——这是所有人都经历过的。他给的解释是一条链：<strong>没有动作 = 没有兴趣；没有兴趣 = 没有价值。</strong>30 年、上千个案子，他说这一点百分之百成立。</p>
+<p>右边那张温度计就是买家心里的天平：<strong>价格高过价值，人不买；价值高过价格，人很快就动。</strong></p>
+
+<div class="quote"><p class="en">"If they're interested, you don't have to chase them. They will chase you."</p><p class="zh">如果他真的感兴趣，你不用追他，他会来追你。</p></div>
+
+<div class="mml">
+<h3>换成我们的场景</h3>
+<ul>
+<li>开发信和第一次接触，别写"我们是慢慢来，成立十年，团队四十多人，做谷歌 SEO 代运营"。改成"我们帮跟您同类的出口工厂，把谷歌上的询盘从每月 X 条做到 Y 条"——先给结果，别给方法。</li>
+<li>第一封信的目标不是让老板签合同，是拿到一个 30 分钟的线上会。信里的行动召唤应该是"能不能约个时间聊 30 分钟"，不是"报价单已附上"。</li>
+<li>客户一直不回、需要反复催的单子，别再加大催的力度，回头检查：我们有没有讲清楚对他这个行业、这个规模的工厂意味着什么。</li>
+</ul>
+</div>
+</section>
+
+<section class="ch" id="c2">
+<div class="ch-num">第 2 章</div>
+<h2 class="ch">把"我是来卖的"换成"我是来帮你的"</h2>
+
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3718.webp" alt="I am here to sell vs I am here to help 幻灯片"><figcaption>IMG_3718 · 信任高，客户买；信任低，你就在追客户</figcaption></figure>
+
+<p>左边那根温度计是信任：<strong>信任高，客户买（CUSTOMERS BUY）；信任低，你在追客户（CHASING CUSTOMERS）。</strong>右边是两种心态，他打了叉的是"I am here to sell"，打勾的是"I am here to help"。</p>
+<p>他的理由很实在：如果你带着"我必须说点聪明话、说点技巧把他拿下"的心态进会议，压力全压在自己身上；如果你带着"只有在我们能帮到你、能带来价值的前提下，我才想跟你做生意"的心态进去，整个对话的性质就变了。而且买家有第六感，能分辨你是来卖的还是来帮的。</p>
+
+<div class="quote"><p class="en">"Change your mentality from 'I'm here to sell' to 'I'm here to help.'"</p><p class="zh">把心态从"我是来卖的"换成"我是来帮你的"。</p></div>
+
+<div class="mml">
+<h3>换成我们的场景</h3>
+<ul>
+<li>这一点对陪跑业务尤其重要：陪跑本身卖的就是"我陪你把这件事做成"，如果开口还是"我们的服务包含什么什么"，客户感受到的还是在卖。</li>
+<li>一个可操作的自检：会议结束后回看，如果整场都是我们在讲自己，那就是"来卖的"；如果一半以上时间是客户在讲他的情况，那才是"来帮的"。</li>
+</ul>
+</div>
+</section>
+
+<section class="ch" id="c3">
+<div class="ch-num">第 3 章</div>
+<h2 class="ch">价格压力，几乎都是自己太早报价造成的</h2>
+<p class="ch-lead">这一段是全场最实用的部分。</p>
+
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3722.webp" alt="Buyers Don't Care About Price 报纸风格幻灯片"><figcaption>IMG_3722 · B2B 销售里的第一个谎言：一切都是价格</figcaption></figure>
+
+<p>他把"客户只看价格"称为 B2B 销售里的<strong>第一个谎言</strong>。因为天天听客户说"你太贵了、能不能便宜点"，我们就信了。PPT 下面写着要停掉两件事：<strong>想靠信息量打动买家</strong>、<strong>想靠打折赢客户</strong>。</p>
+<p>真正的原因是：买家没看到足够的价值。看到价值的客户，愿意为价值付钱，愿意为解决痛点付钱。我们之所以陷入打折模式，是因为整场都在讲自己公司，压根没去找客户的痛。</p>
+
+<div class="slide-row">
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3724.webp" alt="销售漏斗：Qualify Interview Present Value Confirm Price Close"><figcaption>IMG_3724 · 报价应该在哪一步</figcaption></figure>
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3725.webp" alt="How to Avoid Price Pressure 幻灯片"><figcaption>IMG_3725 · 谁来为价格做辩护</figcaption></figure>
+</div>
+
+<p>他的漏斗顺序是：<strong>Qualify（筛选是否符合 ICP）→ Interview（互相提问了解）→ Present Value（呈现价值）→ Confirm（确认对他重要的点）→ Price（报价）→ Close</strong>。图上那个美元符号箭头指着中间，意思是很多人把报价插在了"呈现价值"之前。</p>
+<p>结论一句话：<strong>在销售流程里越早给价格，你承受的价格压力越大。</strong></p>
+<p>右边这页解释了为什么：<strong>先报价，是销售员要为价格辩护</strong>——你会一遍遍跟进"您看了报价吗？价格能接受吗？"；<strong>先讲价值，是客户自己为价格辩护</strong>——客户心里会说"Nick 是贵一点，但我能拿到这个结果、解决这个问题，值。"</p>
+
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3726.webp" alt="BUYERS WILL ALWAYS FIND TIME FOR A GOOD IDEA 幻灯片"><figcaption>IMG_3726 · 买家永远有时间听一个好想法</figcaption></figure>
+
+<p>常见的反驳是"客户很忙，哪有时间开会，我直接把价格发过去算了"。他不接受这个理由：<strong>买家永远有时间听一个好想法。</strong>你说"我研究过贵公司，我们服务过类似的企业，我有几个想法想跟您聊聊，也想多了解您的情况"——他会挤出时间。你说"我想开个会给您过一遍我们公司的 60 页 PPT，大概一个半小时"——他当然没时间。</p>
+
+<div class="script">
+<div class="label">客户一上来就问价，可以这样回</div>
+<p>"先别急。我还不确定我们适不适合合作。能不能先聊 20 分钟，我跟您讲讲我们怎么帮<span class="fill">跟您类似的工厂</span>解决问题，也了解一下您现在遇到的情况和想达到的目标。之后我们再谈价格。"</p>
+</div>
+
+<div class="mml">
+<h3>换成我们的场景</h3>
+<ul>
+<li>陪跑 1.2 万/月这个数字，本身不贵也不便宜，取决于客户前面有没有听到"我们要一起解决什么"。在没聊过客户现状之前报这个数，几乎一定会被拿去跟别家比单价。</li>
+<li>把"报价"正式定成流程里的第 5 步。第一次会议不报价，第二次会议先确认"我们理解得对不对、这几件事对您是不是最重要"，确认完再谈钱。</li>
+<li>客户催报价时不要自动进入打折模式。先问一句"您现在最头疼的是询盘数量，还是询盘质量，还是转化？"——这句话就是在把对话拉回价值。</li>
+</ul>
+</div>
+</section>
+
+<section class="ch" id="c4">
+<div class="ch-num">第 4 章</div>
+<h2 class="ch">像买家一样思考：他关心的和你讲的不是一回事</h2>
+
+<div class="slide-row">
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3727.webp" alt="People Don't Want to Be Sold. They want to be Helped 幻灯片"><figcaption>IMG_3727</figcaption></figure>
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3728.webp" alt="Most SEO Agencies Think the Pitch Creates the Sale 幻灯片"><figcaption>IMG_3728</figcaption></figure>
+</div>
+
+<p>第一页的规则：<strong>人不想被推销，人想被帮助。</strong>大多数提案讲的都是自己，不是客户。他让大家想一想：你现在这套提案 PPT，通篇讲的是谁？下面那句是全场被引用最多的一句：<strong>买家不在乎你懂多少，他想知道你有多在乎。</strong>你真的了解他的生意吗？你为类似客户做过这件事吗？有没有案例可以给他看，把信任往上抬？</p>
+<p>第二页他专门点了 SEO agency：很多 agency 跟工厂一样，以为成交靠的是提案做得漂亮。他讲了自己的亲身经历——早年他在宾夕法尼亚一家公司的市场部，每年招标选营销代理，每年筛到三家来比稿。<strong>他们从来没有把合同给"PPT 做得最好"的那家</strong>，给的是那家解决了他们问题、帮他们达成目标的公司。</p>
+
+<div class="slide-row">
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3731.webp" alt="Think like the Customer 对比幻灯片"><figcaption>IMG_3731</figcaption></figure>
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3732.webp" alt="People buy for THEIR reasons not YOUR reasons 幻灯片"><figcaption>IMG_3732</figcaption></figure>
+</div>
+
+<p>这两页是整场对我们最直接的一页——他现场直接拿 SEO agency 举例，左右两列摆在一起：</p>
+
+<div class="two">
+<div class="box bad"><h4>我们在想什么（Your Thinking）</h4><ul><li>排名 Rankings</li><li>外链 Backlinks</li><li>域名权重 Domain Authority</li><li>SEO 技术 / 工具</li><li>关键词方法论</li><li>AI 工具和策略</li></ul></div>
+<div class="box good"><h4>客户在想什么（Customer Thinking）</h4><ul><li>我需要更多有效的销售线索</li><li>我们的获客成本太高</li><li>竞争对手正在赢我们</li><li>我需要更多营收</li></ul></div>
+</div>
+
+<p>他当场问台下：这套还管用吗？自己回答：不管用了。给的规则是——<strong>人是为他自己的理由买单，不是为你的理由。</strong></p>
+
+<div class="quote"><p class="en">"Companies don't hire you because you have a great presentation."</p><p class="zh">企业不会因为你的 PPT 做得好而雇你。</p></div>
+
+<div class="mml">
+<h3>换成我们的场景</h3>
+<ul>
+<li>把提案里的技术页往后挪：关键词方法论、外链资源、团队配置、我们用哪些 AI 工具——这些都不是开场，是客户已经产生兴趣后用来支撑信心的材料。</li>
+<li>开场那几页换成客户的语言：询盘数量、询盘质量、单条询盘成本、旺季前能不能起量、竞争对手在谷歌上比我们靠前。</li>
+<li>提案里的案例，尽量选跟对方同行业、同规模的工厂，而不是我们做得最漂亮的那个案例。"Show me you know me" 的关键是"像我"，不是"厉害"。</li>
+</ul>
+</div>
+</section>
+
+<section class="ch" id="c5">
+<div class="ch-num">第 5 章</div>
+<h2 class="ch">痛比爽更能推动决策，最大的对手是"不做改变"</h2>
+
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3733.webp" alt="People Move Away From Pain Faster Than They Move Towards Pleasure 幻灯片"><figcaption>IMG_3733 · 痛推人走，爽只是拉人</figcaption></figure>
+
+<p><strong>人逃离痛苦的速度，比追求快乐更快。</strong>我们大多数人都在卖"爽"——做了 SEO 你会有更多流量、更多询盘；而不是在卖"痛"。他给了找痛的三个问题：<strong>过去遇到过什么问题？现在正在痛什么？未来想避免什么问题？</strong></p>
+
+<div class="slide-row">
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3735.webp" alt="Your Biggest Competitor May Not Be Another SEO Agency 幻灯片"><figcaption>IMG_3735</figcaption></figure>
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3736.webp" alt="CHANGE IS PAINFUL 幻灯片"><figcaption>IMG_3736</figcaption></figure>
+</div>
+
+<p>这页值得贴在工位上：<strong>你最大的竞争对手可能不是另一家 SEO agency，而是客户维持现状、什么都不做。</strong>图上三条路——你、另一家 agency、什么都不做。你的任务是让"往前走"比"什么都不做"更有吸引力。</p>
+<p>为什么难？因为<strong>改变本身是痛的</strong>，人天生抗拒改变。只有当"维持现状的痛"大于"改变的痛"时，人才会动。所以销售真正的工作不是把方案讲得更好听，而是把"继续这样下去的代价"讲清楚。</p>
+
+<div class="mml">
+<h3>换成我们的场景</h3>
+<ul>
+<li>工厂老板"不做改变"的具体形态是：继续投广告、继续跑展会、继续靠阿里国际站、把网站放着不管。我们要对比的不是别家 agency 的报价，而是"再这样过一年"的代价。</li>
+<li>挖痛的三个问题可以直接变成会议提纲：以前做过 SEO 或建站吗？结果怎么样？现在询盘卡在哪一步？明年最怕出现什么情况？</li>
+<li>续约谈判同理：客户要砍预算时，真正的对手也是"先停一年看看"。把停掉之后会发生什么讲清楚，比解释我们做了多少工作有用。</li>
+</ul>
+</div>
+</section>
+
+<section class="ch" id="c6">
+<div class="ch-num">第 6 章</div>
+<h2 class="ch">怎么讲：先讲影响，再讲自己；少讲一点</h2>
+
+<div class="slide-row">
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3737.webp" alt="Facts vs Impact 健身房例子幻灯片"><figcaption>IMG_3737 · Facts vs Impact</figcaption></figure>
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3738.webp" alt="About You vs 案例 低转化高转化 幻灯片"><figcaption>IMG_3738</figcaption></figure>
+</div>
+
+<p>他用健身房举例。第一种说法：我们新开的健身房，装修很新、器械是最新款、24 小时营业——这是 Facts，讲的是我们自己，低转化。第二种说法：你加入后，我们配一个教练带你 6 周，你会减脂、增肌、变强壮、看起来更好、精力更足——这是 Impact，讲的是你，高转化。</p>
+<p>他的建议顺序是：<strong>先讲影响，再讲公司</strong>。开场用同类客户的案例，等对方有兴趣了，再讲你的团队里谁有建站经验、谁以前在哪家公司、你们用了什么 AI 工具。</p>
+
+<div class="slide-row">
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3739.webp" alt="Talk About the Results 话术模板幻灯片"><figcaption>IMG_3739</figcaption></figure>
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3741.webp" alt="Talk About the Results 话术模板 如果 YES 如果 NO"><figcaption>IMG_3741</figcaption></figure>
+</div>
+
+<p>这两页是他给的完整开场话术，可以直接照抄（中文版在下一章）。结构是：<strong>先声明我们从来不是最便宜的那一家 → 客户选我们是因为我们解决了这几个痛 / 帮他们拿到了这几个结果 → 我不确定这些对您是不是问题。</strong></p>
+<p>他特别讲了后半句的作用：如果对方说"是，能多讲讲吗"，你就成功让买家开始讲自己的痛；如果对方说"不是"，说明他根本不是你的 ICP，这些事对他不重要——你省下了时间。</p>
+
+<div class="slide-row">
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3742.webp" alt="From Where They Are To Where They Want To Be 桥的比喻幻灯片"><figcaption>IMG_3742 · 你的工作是搭那座桥</figcaption></figure>
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3743.webp" alt="TOO MUCH INFORMATION KILLS MOMENTUM 幻灯片"><figcaption>IMG_3743</figcaption></figure>
+</div>
+
+<p>他对 B2B 销售的定义：不是耍嘴皮子，也不是把人不需要、不想要、买不起的东西塞给他，而是<strong>帮一个想要某个结果的人，从他现在所在的这一岸，走到那一岸</strong>。桥的两边写着：增强信心、建立信任、降低风险。中间那条深渊叫 RISK——不确定、不信任、怕改变、过去被坑过、结果未知。有些人如果没有销售拉一把，就会一直留在原地。</p>
+<p>另一页是提案最常见的死法：<strong>信息太多会杀死势头。</strong>你把数据一股脑倒给客户，想打动他，结果他脑子一团浆糊，只能回你一句"我再想想、我回头给你答复"。他的建议是——<strong>不要给他更多信息，要给他一个更清楚的、说 yes 的理由。</strong></p>
+
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3744.webp" alt="What Makes an Attractive Offer 高价值低风险幻灯片"><figcaption>IMG_3744 · 高价值 + 低风险</figcaption></figure>
+
+<p>有吸引力的报价方案 = <strong>高价值 + 低风险</strong>。高价值回答的是"这对我有什么好处"；低风险回答的是"万一不行怎么办"——清晰的范围和交付物、透明的流程和汇报、较小的启动承诺（比如先做试点）、现实的时间表和预期、同类客户的成功记录、灵活的退出条件。他说当你的方案做到这两点，客户会觉得拒绝你才是傻，而且会反过来追你。</p>
+
+<figure class="slide"><img loading="lazy" src="ppt/IMG_3745.webp" alt="THE TIPPING POINT 幻灯片"><figcaption>IMG_3745 · 全场结论</figcaption></figure>
+
+<p>收尾这页把四个要素摆齐：<strong>痛制造紧迫感，价值制造渴望，信任制造信心，风险制造犹豫。</strong>当 <strong>价值 + 信任 &gt; 风险</strong>，客户就会动。他最后一句是：你的工作不是说服别人买，而是挖出足够的痛、展示足够的价值、建立足够的信任、消除足够的风险，让"往前走"变成他自己的决定。</p>
+
+<div class="quote"><p class="en">"People buy when it makes sense for them."</p><p class="zh">当这件事对客户自己说得通的时候，他就会买。</p></div>
+</section>
+
+<section class="ch" id="c7">
+<div class="ch-num">第 7 章</div>
+<h2 class="ch">可以直接抄的话术 + 提案自检清单</h2>
+<p class="ch-lead">下面是把他的模板换成我们业务后的版本。括号里的内容按客户行业替换，别照着念，用自己的话说。</p>
+
+<div class="script">
+<div class="label">开场 / 开发信：先讲结果，不讲方法</div>
+<p>"我们的客户从来不是因为我们便宜才选我们，我们也从来不是最便宜的那一家。他们选我们，是因为我们帮<span class="fill">（同行业、同规模的工厂）</span>解决了几个行业里常见的问题，比如：<span class="fill">网站在谷歌上搜不到、询盘全靠平台和展会、来的询盘大多是贸易商和同行、旺季前起不来量</span>；或者帮他们拿到了这样的结果：<span class="fill">六个月内谷歌自然询盘从每月 X 条到 Y 条、来自目标市场的采购商占比提升、获客成本下降</span>。</p>
+<p>我不确定这几件事对您来说是不是问题。"</p>
+<p style="color:var(--muted);font-size:14px;margin-bottom:0">对方说"是，能多说说吗？"→ 你赢了，接下来让他讲。<br>对方说"不是"→ 他不是我们的 ICP，别浪费时间。</p>
+</div>
+
+<div class="script">
+<div class="label">客户一上来就要报价</div>
+<p>"先别急，我还不确定我们适不适合合作。能不能先约 20 分钟，我讲讲我们怎么帮<span class="fill">（类似的工厂）</span>做，也了解一下您现在的情况和想达到的目标，之后再谈价格会更准确。"</p>
+</div>
+
+<div class="script">
+<div class="label">约线上会议（给一个想法，而不是要一小时讲 PPT）</div>
+<p>"我看了贵公司的网站，我们服务过几家<span class="fill">（同行业）</span>的企业，我有几个具体的想法想跟您聊。能不能占用您 30 分钟？"</p>
+</div>
+
+<div class="script">
+<div class="label">会议里挖痛的三个问题</div>
+<p>1. 之前在<span class="fill">（建站 / 谷歌推广 / SEO）</span>上做过什么？结果怎么样？<br>2. 现在最卡的是哪一步——是搜不到、没询盘、还是询盘质量不行？<br>3. 明年最不希望看到的情况是什么？</p>
+</div>
+
+<h3 style="font-family:var(--serif);font-size:19px;margin:32px 0 8px">提案发出去之前，过一遍这 8 条</h3>
+<ul class="checklist">
+<li>前三页讲的是客户的结果，还是我们公司的介绍？</li>
+<li>案例选的是跟他同行业、同规模的客户吗？</li>
+<li>有没有在讲价值之前就出现了价格？</li>
+<li>客户的痛，是他自己说出来的，还是我们猜的？</li>
+<li>有没有写清楚"继续保持现状"会付出什么代价？</li>
+<li>风险是怎么降低的——范围、周期、汇报方式、启动承诺，客户看得明白吗？</li>
+<li>技术细节（关键词方法、外链、工具、团队）是不是都挪到了后面？</li>
+<li>整份提案能不能再删掉三分之一？信息太多会杀死势头。</li>
+</ul>
+</section>
+
+<footer>
+<p>素材来源：Nick White 于 2026 年 9 月 18 日深圳 SEO 大会 VIP 日的 keynote「What Makes Buyers in Any Country Say Yes」，现场录音转写 + 24 张 PPT 现场照片。中文讲解为我们自己整理，不是逐句翻译；括号里的业务场景是结合慢慢来业务补充的，不是他的原话。</p>
+<p>本材料仅供慢慢来内部学习使用，请勿对外转发或用于客户交付物。</p>
+</footer>
+</div>
+<dialog id="lb"><img id="lb-img" alt=""></dialog>
+<script>
+(function(){var d=document.getElementById('lb'),i=document.getElementById('lb-img');
+document.addEventListener('click',function(e){var im=e.target.closest('figure.slide img');if(im&&d.showModal){i.src=im.src;i.alt=im.alt;d.showModal();}else if(e.target===d||e.target===i){d.close();}});
+document.addEventListener('keydown',function(e){if(d.open&&e.key==='Escape')d.close();});})();
+</script>
+</body></html>
